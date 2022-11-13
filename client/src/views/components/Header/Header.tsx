@@ -3,12 +3,16 @@ import styles from './Header.module.scss';
 import '../../../style/buttons.scss';
 import arrow from '../../../assets/icons/icon-arrow-right.svg';
 import logo from '../../../assets/images/logo.png';
+import down from '../../../assets/icons/down.svg';
 import { useEffect, useRef, useState } from 'react';
 import SwitchTheme from './SwitchTheme';
+import { Menu, MenuItem } from '@mui/material';
 
 function Header() {
-  const [animation, setAnimation] = useState<boolean>(false);
+  const [animate, setAnimate] = useState<boolean>(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
     window.onscroll = () => {
@@ -17,16 +21,24 @@ function Header() {
       }
       timeout.current = setTimeout(() => {
         if (window.scrollY > 10) {
-          setAnimation(true);
+          setAnimate(true);
         } else {
-          setAnimation(false);
+          setAnimate(false);
         }
       }, 10);
     };
   }, []);
 
+  function handleOpen(event: React.MouseEvent<HTMLDivElement>) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
   return (
-    <header className={animation ? styles.headerActive : styles.header}>
+    <header className={animate ? styles.headerActive : styles.header}>
       <NavLink to="/" className={styles.title}>
         <img src={logo} alt="logo" className={styles.logo} />
         Taskero
@@ -37,9 +49,19 @@ function Header() {
             <NavLink to="/main">Create Board</NavLink>
           </li>
           <li>Edit Profile</li>
+          <li>
+            <div className={styles.select} onClick={handleOpen}>
+              <span>Language</span>
+              <img src={down} alt="down" />
+            </div>
+            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+              <MenuItem onClick={handleClose}>English</MenuItem>
+              <MenuItem onClick={handleClose}>Russian</MenuItem>
+            </Menu>
+          </li>
         </ul>
       </nav>
-      <div className={styles.buttons}>
+      <div className={styles.rightPanel}>
         <SwitchTheme />
         <button type="button" className={styles.logIn}>
           Log In

@@ -23,11 +23,23 @@
       &:hover {
         background-color: $primary-bg-color;
       }
+
+      .select {
+        @include flex(row, center, center);
+
+        gap: 5px;
+      }
+
+      img {
+        width: 15px;
+        padding-top: 2px;
+      }
     }
   }
 
-  .buttons {
+  .rightPanel {
     @include flex(row, center, center);
+
     gap: 30px;
   }
 
