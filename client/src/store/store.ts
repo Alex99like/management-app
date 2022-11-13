@@ -5,3 +5,5 @@ export const store = configureStore({
   devTools: true,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([]),
 });
+
+export type TypeRootState = ReturnType<typeof store.getState>;

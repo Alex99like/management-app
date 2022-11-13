@@ -1,0 +1,37 @@
+.container {
+  width: 250px;
+  display: flex;
+  position: absolute;
+  margin-top: 10px;
+  bottom: -45px;
+
+  .btn {
+    width: 50%;
+    background-color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 800;
+    transition: .3s;
+    
+    &:hover {
+      transform: scale(1.1);
+      color: #04aae6;
+    }
+
+    &:first-child {
+      border-bottom-left-radius: 15px;
+      border-top-left-radius: 15px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    &.active {
+      background-color: #04aae6;
+      color: #FFFFFF;
+      box-shadow: 0 0 3px #04aae6;
+      z-index: 10;
+    }
+  }
+}
