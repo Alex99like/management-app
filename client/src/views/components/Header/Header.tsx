@@ -3,25 +3,24 @@ import styles from './Header.module.scss';
 import '../../../style/buttons.scss';
 import arrow from '../../../assets/icons/icon-arrow-right.svg';
 import logo from '../../../assets/images/logo.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import SwitchTheme from './SwitchTheme';
 
 function Header() {
   const [animation, setAnimation] = useState<boolean>(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  let timeout: ReturnType<typeof setTimeout>;
-  let scroll = 0;
   useEffect(() => {
     window.onscroll = () => {
       if (timeout) {
-        clearTimeout(timeout);
+        clearTimeout(timeout.current);
       }
-      timeout = setTimeout(() => {
+      timeout.current = setTimeout(() => {
         if (window.scrollY > 10) {
           setAnimation(true);
         } else {
           setAnimation(false);
         }
-        scroll = window.scrollY;
       }, 10);
     };
   }, []);
@@ -41,6 +40,7 @@ function Header() {
         </ul>
       </nav>
       <div className={styles.buttons}>
+        <SwitchTheme />
         <button type="button" className={styles.logIn}>
           Log In
         </button>

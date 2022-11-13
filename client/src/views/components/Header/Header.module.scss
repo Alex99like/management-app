@@ -8,50 +8,60 @@
 
   @include flex(row, space-between, center);
 
-  padding: 15px 30px;
-  transition: box-shadow 0.5s;
+  transition: all 0.5s;
+
+  .navList {
+    @include flex(row, space-between, center);
+
+    gap: 30px;
+
+    li {
+      padding: 5px;
+      border-radius: 24px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $primary-bg-color;
+      }
+    }
+  }
+
+  .buttons {
+    @include flex(row, center, center);
+    gap: 30px;
+  }
+
+  .arrow {
+    filter: brightness(0) saturate(100%) invert(99%) saturate(7500%) hue-rotate(241deg) brightness(101%) contrast(102%);
+  }
+
+  .logIn {
+    background-color: transparent;
+    color: $contrast-color;
+  }
+
+  .title {
+    @include flex(row, space-between, center);
+
+    gap: 5px;
+    font-size: 30px;
+    font-family: Sriracha, cursive;
+  }
+
+  .logo {
+    width: 35px;
+  }
 }
 
 .header {
   @extend %header;
+
+  padding: 15px 30px;
 }
 
 .headerActive {
   @extend %header;
 
   box-shadow: 0 5px 10px -10px $contrast-color;
-}
-
-.navList {
-  @include flex(row, space-between, center);
-
-  gap: 30px;
-}
-
-.buttons {
-  display: flex;
-  gap: 30px;
-}
-
-.arrow {
-  filter: brightness(0) saturate(100%) invert(99%) saturate(7500%) hue-rotate(241deg) brightness(101%) contrast(102%);
-}
-
-.logIn {
-  background-color: transparent;
-  color: $contrast-color;
-}
-
-.title {
-  @include flex(row, space-between, center);
-
-  gap: 5px;
-  font-size: 30px;
-  font-weight: 700;
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-}
-
-.logo {
-  width: 35px;
+  padding: 5px 30px;
 }
