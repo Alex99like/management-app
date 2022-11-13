@@ -3,8 +3,10 @@
 
 %header {
   background-color: $secondary-bg-color;
+  font-weight: 600;
   position: sticky;
   top: 0;
+  z-index: 1300;
 
   @include flex(row, space-between, center);
 
@@ -15,6 +17,10 @@
 
     gap: 30px;
 
+    @media (max-width: 870px) {
+      display: none;
+    }
+
     li {
       padding: 5px;
       border-radius: 24px;
@@ -23,17 +29,6 @@
       &:hover {
         background-color: $primary-bg-color;
       }
-
-      .select {
-        @include flex(row, center, center);
-
-        gap: 5px;
-      }
-
-      img {
-        width: 15px;
-        padding-top: 2px;
-      }
     }
   }
 
@@ -41,23 +36,53 @@
     @include flex(row, center, center);
 
     gap: 30px;
-  }
 
-  .arrow {
-    filter: brightness(0) saturate(100%) invert(99%) saturate(7500%) hue-rotate(241deg) brightness(101%) contrast(102%);
-  }
+    @media (max-width: 870px) {
+      width: 100px;
+      justify-content: flex-start;
+    }
 
-  .logIn {
-    background-color: transparent;
-    color: $contrast-color;
+    .burger {
+      position: absolute;
+      right: 30px;
+      cursor: pointer;
+      padding: 5px;
+      box-sizing: content-box;
+      border-radius: 24px;
+      transition: all 0.3s;
+      display: none;
+
+      &:hover {
+        background-color: $primary-bg-color;
+      }
+
+      @media (max-width: 870px) {
+        display: block;
+      }
+    }
   }
 
   .title {
-    @include flex(row, space-between, center);
+    @include flex(row, flex-start, center);
 
     gap: 5px;
+    width: 265px;
     font-size: 30px;
     font-family: Sriracha, cursive;
+    font-weight: 500;
+
+    @media (max-width: 1000px) {
+      width: 150px;
+    }
+  }
+
+  .buttons {
+    @include flex(row, center, center);
+    gap: 30px;
+  
+    @media (max-width: 870px) {
+      display: none;
+    }
   }
 
   .logo {
@@ -76,4 +101,43 @@
 
   box-shadow: 0 5px 10px -10px $contrast-color;
   padding: 5px 30px;
+}
+
+.drawer {
+  display: none;
+
+  @media (max-width: 870px) {
+    display: block;
+  }
+
+  .buttonGroup {
+    margin: 10px;
+    @include flex(row, center, center);
+  }
+
+  .buttons {
+    @include flex(row, center, center);
+    gap: 30px;
+    margin: 10px;
+  } 
+}
+
+.logIn {
+  background-color: transparent;
+  color: $contrast-color;
+}
+
+.arrow {
+  filter: brightness(0) saturate(100%) invert(99%) saturate(7500%) hue-rotate(241deg) brightness(101%) contrast(102%);
+}
+
+.select {
+  @include flex(row, center, center);
+
+  gap: 5px;
+}
+
+img {
+  width: 15px;
+  padding-top: 2px;
 }
