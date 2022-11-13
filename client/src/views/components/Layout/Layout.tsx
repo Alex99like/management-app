@@ -1,11 +1,13 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from '../Footer/Footer';
+import { FormAuth } from '../Form/Form';
 import Header from '../Header/Header';
 
 export const Layout = (): JSX.Element => {
   return (
     <>
+      <FormAuth />
       <Header />
       <main>
         <Outlet />
