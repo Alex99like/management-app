@@ -11,6 +11,14 @@
     font-size: 24px;
     font-weight: 800;
     transition: .3s;
+
+    &:disabled {
+      background-color: #cacaca73 !important;
+      transform: scale(1) !important;
+      box-shadow: none;
+      color: #FFFFFF;
+      cursor: no-drop;
+    }
     
     &:hover {
       transform: scale(1.1);

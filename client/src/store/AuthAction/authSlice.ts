@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { ILoginRes, IRegisterRes } from './../../views/components/Form/form.interface';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { login, register } from './authAction';
 
 interface IUser {
   token?: string;
@@ -20,5 +22,24 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
-  extraReducers: {},
+  extraReducers: {
+    [login.pending.type]: (state, { payload }: PayloadAction<ILoginRes>) => {
+      state.isLoading = true;
+    },
+    [login.fulfilled.type]: (state, { payload }: PayloadAction<ILoginRes>) => {
+      state.isLoading = false;
+    },
+    [login.rejected.type]: (state, { payload }: PayloadAction<ILoginRes>) => {
+      state.isLoading = false;
+    },
+    [register.pending.type]: (state, { payload }: PayloadAction<IRegisterRes>) => {
+      state.isLoading = true;
+    },
+    [register.fulfilled.type]: (state, { payload }: PayloadAction<IRegisterRes>) => {
+      state.isLoading = false;
+    },
+    [register.rejected.type]: (state, { payload }: PayloadAction<IRegisterRes>) => {
+      state.isLoading = false;
+    },
+  },
 });

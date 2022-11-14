@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { toastr } from 'react-redux-toastr';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from './Elements/Button/Button';
 import { Field } from './Elements/Field/Field';
@@ -7,6 +8,10 @@ import { IRegister } from './form.interface';
 import styles from './Form.module.scss';
 import { nameValid } from './validate';
 import cn from 'classnames';
+import { Close } from './Elements/Close/Close';
+import { useSwitcher } from './useSwitcher';
+import { useAuth } from './useAuth';
+import { useActions } from '../../../hooks/useAction';
 
 export const FormAuth = () => {
   const {
@@ -18,31 +23,30 @@ export const FormAuth = () => {
   } = useForm<IRegister>();
 
   const [switcher, setSwitcher] = useState<'login' | 'register'>('register');
-  const [active, setActive] = useState(false);
+  const { switcherDown, switcherUp } = useSwitcher(switcher);
 
-  useEffect(() => {
-    setActive(true);
-    setTimeout(() => {
-      setActive(false);
-    }, 300);
-  }, [switcher]);
+  const { isLoading } = useAuth();
+  const { login: loginAction, register: registerAction } = useActions();
 
   const onReset = () => {
     reset();
   };
 
   const onSubmit: SubmitHandler<IRegister> = (data) => {
-    console.log(data);
+    if (switcher === 'register') registerAction(data);
+    else loginAction(data);
   };
 
   return (
     <div className={styles.background}>
       <form
         className={cn(styles.form, {
-          [styles.switch]: active,
+          [styles.switcherUp]: switcherUp,
+          [styles.switcherDown]: switcherDown,
         })}
         onSubmit={handleSubmit(onSubmit)}
       >
+        <Close />
         {switcher === 'register' && (
           <Field
             {...register('name', {
@@ -86,10 +90,10 @@ export const FormAuth = () => {
           error={errors.password}
         />
         <div className={styles['container-btn']}>
-          <Button type={'submit'} className={styles.btn}>
+          <Button disabled={isLoading} type={'submit'} className={styles.btn}>
             Submit
           </Button>
-          <Button onClick={onReset} type={'reset'} className={styles.btn}>
+          <Button disabled={isLoading} onClick={onReset} type={'reset'} className={styles.btn}>
             Reset
           </Button>
         </div>
