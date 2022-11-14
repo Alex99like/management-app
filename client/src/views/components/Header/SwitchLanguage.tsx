@@ -5,13 +5,16 @@ import { useState } from 'react';
 
 function SwitchLanguage() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [animate, setAnimate] = useState<boolean>(false);
   const open = Boolean(anchorEl);
 
   function handleOpen(event: React.MouseEvent<HTMLDivElement>) {
+    setAnimate(true);
     setAnchorEl(event.currentTarget);
   }
 
   function handleClose() {
+    setAnimate(false);
     setAnchorEl(null);
   }
 
@@ -19,7 +22,7 @@ function SwitchLanguage() {
     <div>
       <div className={styles.select} onClick={handleOpen}>
         <span>Language</span>
-        <img src={down} alt="down" />
+        <img src={down} alt="down" className={animate ? styles.downRotate : styles.down} />
       </div>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={handleClose} sx={{ fontFamily: 'inherit' }}>
