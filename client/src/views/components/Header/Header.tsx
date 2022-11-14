@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import '../../../style/buttons.scss';
 import arrow from '../../../assets/icons/icon-arrow-right.svg';
@@ -7,15 +7,12 @@ import down from '../../../assets/icons/down.svg';
 import { useEffect, useRef, useState } from 'react';
 import SwitchTheme from './SwitchTheme';
 import { Menu, MenuItem } from '@mui/material';
-import { useActions } from '../../../hooks/useAction';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  const { callModal } = useActions();
 
   useEffect(() => {
     window.onscroll = () => {
@@ -66,13 +63,13 @@ function Header() {
       </nav>
       <div className={styles.rightPanel}>
         <SwitchTheme />
-        <button type="button" className={styles.logIn} onClick={() => callModal()}>
+        <Link to={'login'} type="button" className={styles.logIn}>
           Log In
-        </button>
-        <button type="button" className="button" onClick={() => callModal()}>
+        </Link>
+        <Link to={'register'} type="button" className="button">
           Sign In
           <img src={arrow} alt="arrow" className={styles.arrow} />
-        </button>
+        </Link>
       </div>
     </header>
   );

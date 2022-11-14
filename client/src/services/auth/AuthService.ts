@@ -1,9 +1,9 @@
-import { ILoginRes, IRegisterRes } from './../../views/components/Form/form.interface';
+import { IUser } from './../../types/user.type';
 import { axiosClassic } from '../../api/axios';
 
 export const AuthService = {
   async register(login: string, name: string, password: string) {
-    const response = await axiosClassic.post<IRegisterRes>(`/signup`, {
+    const response = await axiosClassic.post<IUser>(`/signup`, {
       name,
       login,
       password,
@@ -13,7 +13,7 @@ export const AuthService = {
   },
 
   async login(login: string, password: string) {
-    const response = await axiosClassic.post<ILoginRes>(`/signin`, {
+    const response = await axiosClassic.post<IUser>(`/signin`, {
       login,
       password,
     });

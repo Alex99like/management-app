@@ -7,12 +7,12 @@ import { IRegister } from './form.interface';
 import styles from './Form.module.scss';
 import { nameValid } from './validate';
 import cn from 'classnames';
-import { Close } from './Elements/Close/Close';
 import { useSwitcher } from './useSwitcher';
 import { useAuth } from './useAuth';
 import { useActions } from '../../../hooks/useAction';
+import { useNavigate } from 'react-router-dom';
 
-export const FormAuth = () => {
+export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   const {
     register,
     formState: { errors },
@@ -21,23 +21,32 @@ export const FormAuth = () => {
     getValues,
   } = useForm<IRegister>();
 
-  const [switcher, setSwitcher] = useState<'login' | 'register'>('register');
+  const [switcher, setSwitcher] = useState<'login' | 'register'>(path);
   const { switcherDown, switcherUp } = useSwitcher(switcher);
   const [active, setActive] = useState(false);
-
   const { isLoading } = useAuth();
+
+  const navigate = useNavigate();
+
+  const onLogin = () => {
+    navigate('/login');
+    setSwitcher('login');
+  };
+
+  const onRegister = () => {
+    navigate('/register');
+    setSwitcher('register');
+  };
+
+  useEffect(() => {
+    setSwitcher(path);
+  }, [path]);
 
   const { login: loginAction, register: registerAction, callModal } = useActions();
 
   useEffect(() => {
     setActive(true);
   }, []);
-
-  useEffect(() => {
-    if (!isLoading) {
-      callModal();
-    }
-  }, [isLoading]);
 
   const onReset = () => {
     reset();
@@ -64,7 +73,6 @@ export const FormAuth = () => {
         onSubmit={handleSubmit(onSubmit)}
         onClick={(e) => e.stopPropagation()}
       >
-        <Close />
         {switcher === 'register' && (
           <Field
             {...register('name', {
@@ -115,7 +123,13 @@ export const FormAuth = () => {
             Reset
           </Button>
         </div>
-        <SwitcherForm onDisabled={isLoading} switcher={switcher} setSwitcher={setSwitcher} />
+        <SwitcherForm
+          onLogin={onLogin}
+          onRegister={onRegister}
+          onDisabled={isLoading}
+          switcher={path}
+          setSwitcher={setSwitcher}
+        />
       </form>
     </div>
   );
