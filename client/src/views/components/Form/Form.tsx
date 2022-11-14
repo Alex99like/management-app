@@ -33,6 +33,12 @@ export const FormAuth = () => {
     setActive(true);
   }, []);
 
+  useEffect(() => {
+    if (!isLoading) {
+      callModal();
+    }
+  }, [isLoading]);
+
   const onReset = () => {
     reset();
   };
