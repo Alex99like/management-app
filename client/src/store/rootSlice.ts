@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+interface IInitialState {
+  modalForm: boolean;
+}
+
+const initialState: IInitialState = {
   modalForm: false,
 };
 
@@ -13,5 +17,3 @@ export const rootSlice = createSlice({
     },
   },
 });
-
-export const { callModal } = rootSlice.actions;
