@@ -1,6 +1,102 @@
 @import "../../../style/variables";
+@import "../../../style/abstracts";
 
-.container {
-  height: 1200px;
-  background-color: $primary-bg-color;
+.wrapper {
+  background: $primary-bg-color;
+
+  .section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 35px 30px;
+  }
+
+  h3 {
+    font-weight: 400;
+    font-size: 30px;
+    color: $pale-text-color;
+  }
+
+  h2 {
+    font-size: 45px;
+    line-height: 60px;
+  }
+
+  h1 {
+    font-size: 60px;
+    line-height: 60px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  .content {
+    @include flex(row, space-around, center);
+
+    gap: 30px;
+
+    .image {
+      width: 500px;
+    }
+
+    .info {
+      width: 500px;
+      height: 365px;
+      font-size: 20px;
+
+      @include flex(column, center, center);
+
+      gap: 30px;
+
+      p {
+        color: $pale-text-color;
+      }
+
+      .listItem {
+        @include flex(row, flex-start, center);
+
+        gap: 10px;
+        margin: 5px 0;
+      }
+    }
+  }
+
+  .cards {
+    @include flex(row, center, center);
+
+    gap: 30px;
+    padding: 30px;
+
+    .card {
+      width: 300px;
+      height: 420px;
+
+      @include flex(column, space-between, stretch);
+
+      .cardImage {
+        width: 300px;
+      }
+
+      p {
+        color: $pale-text-color;
+      }
+
+      .link {
+        color: $contrast-color;
+
+        @include flex(row, flex-start, center);
+
+        gap: 5px;
+
+        img {
+          transition: all 0.5s;
+          filter: brightness(0) saturate(100%) invert(47%) sepia(14%) saturate(2873%) hue-rotate(168deg) brightness(87%) contrast(105%);
+        }
+
+        &:hover img {
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
 }

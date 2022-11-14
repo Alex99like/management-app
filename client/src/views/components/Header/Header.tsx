@@ -48,7 +48,12 @@ function Header() {
       <div className={styles.rightPanel}>
         <SwitchTheme />
         <MenuRoundedIcon className={styles.burger} onClick={() => setMenuOpen((prev) => !prev)} />
-        <Button title="Authorize" />
+        <div className={styles.buttons}>
+          <button type="button" className={styles.signIn}>
+            Sign In
+          </button>
+          <Button title="Sign Up" />
+        </div>
       </div>
       <DrawerLayout menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
     </header>
