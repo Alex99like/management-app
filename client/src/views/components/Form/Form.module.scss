@@ -8,6 +8,12 @@
   align-items: center;
   flex-direction: column;
   background-color: #cacaca73;
+  opacity: 0;
+  transition: 1s;
+
+  &.active {
+    opacity: 1;
+  }
 
   .form {
     background-color: #FFFFFF;
@@ -17,7 +23,12 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    transition: .4s;
+    transform: scale(0.01) translate(-500px, -500px);
+    transition: .3s;
+
+    &.active {
+      transform: scale(1);
+    }
 
     &.switcherUp {
       transform: scale(0.001) translateY(-500px);

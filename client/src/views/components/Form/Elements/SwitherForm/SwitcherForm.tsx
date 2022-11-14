@@ -6,12 +6,14 @@ import cn from 'classnames';
 interface ISwither {
   setSwitcher: Dispatch<SetStateAction<'register' | 'login'>>;
   switcher: 'register' | 'login';
+  onDisabled: boolean;
 }
 
-export const SwitcherForm = ({ setSwitcher, switcher }: ISwither) => {
+export const SwitcherForm = ({ setSwitcher, switcher, onDisabled }: ISwither) => {
   return (
     <div className={styles.container}>
       <Button
+        disabled={onDisabled}
         type="button"
         onClick={() => setSwitcher('login')}
         className={cn(styles.btn, {
@@ -21,6 +23,7 @@ export const SwitcherForm = ({ setSwitcher, switcher }: ISwither) => {
         Login
       </Button>
       <Button
+        disabled={onDisabled}
         type="button"
         onClick={() => setSwitcher('register')}
         className={cn(styles.btn, {

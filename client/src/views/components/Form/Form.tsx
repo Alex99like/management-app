@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { toastr } from 'react-redux-toastr';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from './Elements/Button/Button';
 import { Field } from './Elements/Field/Field';
@@ -24,9 +23,15 @@ export const FormAuth = () => {
 
   const [switcher, setSwitcher] = useState<'login' | 'register'>('register');
   const { switcherDown, switcherUp } = useSwitcher(switcher);
+  const [active, setActive] = useState(false);
 
   const { isLoading } = useAuth();
-  const { login: loginAction, register: registerAction } = useActions();
+
+  const { login: loginAction, register: registerAction, callModal } = useActions();
+
+  useEffect(() => {
+    setActive(true);
+  }, []);
 
   const onReset = () => {
     reset();
@@ -38,13 +43,20 @@ export const FormAuth = () => {
   };
 
   return (
-    <div className={styles.background}>
+    <div
+      onClick={() => callModal()}
+      className={cn(styles.background, {
+        [styles.active]: active,
+      })}
+    >
       <form
         className={cn(styles.form, {
           [styles.switcherUp]: switcherUp,
           [styles.switcherDown]: switcherDown,
+          [styles.active]: active,
         })}
         onSubmit={handleSubmit(onSubmit)}
+        onClick={(e) => e.stopPropagation()}
       >
         <Close />
         {switcher === 'register' && (
@@ -97,7 +109,7 @@ export const FormAuth = () => {
             Reset
           </Button>
         </div>
-        <SwitcherForm switcher={switcher} setSwitcher={setSwitcher} />
+        <SwitcherForm onDisabled={isLoading} switcher={switcher} setSwitcher={setSwitcher} />
       </form>
     </div>
   );

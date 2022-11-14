@@ -7,11 +7,14 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import DrawerLayout from './DrawerLayout';
 import Button from '../Button/Button';
 import SwitchLanguage from './SwitchLanguage';
+import { useActions } from '../../../hooks/useAction';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const { callModal } = useActions();
 
   useEffect(() => {
     window.onscroll = () => {
@@ -49,7 +52,7 @@ function Header() {
         <SwitchTheme />
         <MenuRoundedIcon className={styles.burger} onClick={() => setMenuOpen((prev) => !prev)} />
         <div className={styles.buttons}>
-          <button type="button" className={styles.signIn}>
+          <button type="button" className={styles.signIn} onClick={() => callModal()}>
             Sign In
           </button>
           <Button title="Sign Up" />
