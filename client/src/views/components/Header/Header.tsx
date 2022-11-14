@@ -1,12 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
-import '../../../style/buttons.scss';
 import logo from '../../../assets/images/logo.png';
 import { useEffect, useRef, useState } from 'react';
 import SwitchTheme from './SwitchTheme';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import DrawerLayout from './DrawerLayout';
-import Buttons from './Buttons';
+import Button from '../Button/Button';
 import SwitchLanguage from './SwitchLanguage';
 
 function Header() {
@@ -49,7 +48,7 @@ function Header() {
       <div className={styles.rightPanel}>
         <SwitchTheme />
         <MenuRoundedIcon className={styles.burger} onClick={() => setMenuOpen((prev) => !prev)} />
-        <Buttons />
+        <Button title="Authorize" />
       </div>
       <DrawerLayout menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
     </header>

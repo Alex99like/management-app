@@ -29,6 +29,23 @@
       &:hover {
         background-color: $primary-bg-color;
       }
+
+      %down {
+        width: 15px;
+        margin-top: 3px;
+        transition: all 0.3s;
+      }
+
+      .down {
+        @extend %down;
+      }
+
+      .downRotate {
+        @extend %down;
+
+        transform: rotate(180deg);
+        margin-top: 0;
+      }
     }
   }
 
@@ -60,29 +77,21 @@
         display: block;
       }
     }
+
+    button {
+      @media (max-width: 870px) {
+        display: none;
+      }
+    }
   }
 
   .title {
     @include flex(row, flex-start, center);
 
     gap: 5px;
-    width: 265px;
     font-size: 30px;
     font-family: Sriracha, cursive;
     font-weight: 500;
-
-    @media (max-width: 1000px) {
-      width: 150px;
-    }
-  }
-
-  .buttons {
-    @include flex(row, center, center);
-    gap: 30px;
-  
-    @media (max-width: 870px) {
-      display: none;
-    }
   }
 
   .logo {
@@ -112,32 +121,26 @@
 
   .buttonGroup {
     margin: 10px;
+
     @include flex(row, center, center);
+
+    button {
+      margin: 0;
+    }
   }
 
-  .buttons {
-    @include flex(row, center, center);
-    gap: 30px;
-    margin: 10px;
-  } 
-}
+  img {
+    width: 15px;
+    padding-top: 2px;
+  }
 
-.logIn {
-  background-color: transparent;
-  color: $contrast-color;
-}
-
-.arrow {
-  filter: brightness(0) saturate(100%) invert(99%) saturate(7500%) hue-rotate(241deg) brightness(101%) contrast(102%);
+  button {
+    margin: 10px auto;
+  }
 }
 
 .select {
   @include flex(row, center, center);
 
   gap: 5px;
-}
-
-img {
-  width: 15px;
-  padding-top: 2px;
 }
