@@ -8,6 +8,7 @@ import womenImg from '../../../assets/images/women.png';
 import womenWithLaptopImg from '../../../assets/images/women-with-laptop.png';
 import { NavLink } from 'react-router-dom';
 import Card from './Card';
+import Button from '../../components/Button/Button';
 
 function WelcomePage() {
   const list = [
@@ -54,8 +55,7 @@ function WelcomePage() {
               ))}
             </ul>
             <NavLink to="/main" className="button">
-              Get Started
-              <img src={arrow} alt="arrow" className="arrow" />
+              <Button title="Get Started" />
             </NavLink>
           </div>
           <img src={designProcessImg} alt="image" className={styles.image} />
