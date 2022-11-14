@@ -1,3 +1,4 @@
+import { toastError } from './../../utils/toastrError';
 import {
   IRegister,
   IRegisterRes,
@@ -16,6 +17,7 @@ export const register = createAsyncThunk<IRegisterRes, IRegister>(
       toastr.success('Registration', 'Completed successfully');
       return response.data;
     } catch (error) {
+      toastError(error);
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -29,6 +31,7 @@ export const login = createAsyncThunk<ILoginRes, ILogin>(
       toastr.success('Login', 'Completed successfully');
       return response.data;
     } catch (error) {
+      toastError(error);
       return thunkApi.rejectWithValue(error);
     }
   }
