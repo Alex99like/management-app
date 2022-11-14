@@ -4,15 +4,11 @@ export interface IRegister {
   password: string;
 }
 
-export interface IRegisterRes extends Omit<IRegister, 'password'> {
-  id: string;
-}
+// export interface IRegisterRes extends Omit<IRegister, 'password'> {
+//   id: string;
+// }
 
-export interface ILogin {
-  login: string;
-  password: string;
-}
-
-export interface ILoginRes {
-  token: string;
-}
+// export interface ILogReg {
+//   login: string;
+//   password: string;
+// }

@@ -7,15 +7,17 @@ interface ISwither {
   setSwitcher: Dispatch<SetStateAction<'register' | 'login'>>;
   switcher: 'register' | 'login';
   onDisabled: boolean;
+  onLogin: () => void;
+  onRegister: () => void;
 }
 
-export const SwitcherForm = ({ setSwitcher, switcher, onDisabled }: ISwither) => {
+export const SwitcherForm = ({ switcher, onDisabled, onLogin, onRegister }: ISwither) => {
   return (
     <div className={styles.container}>
       <Button
         disabled={onDisabled}
         type="button"
-        onClick={() => setSwitcher('login')}
+        onClick={onLogin}
         className={cn(styles.btn, {
           [styles.active]: switcher === 'login',
         })}
@@ -25,7 +27,7 @@ export const SwitcherForm = ({ setSwitcher, switcher, onDisabled }: ISwither) =>
       <Button
         disabled={onDisabled}
         type="button"
-        onClick={() => setSwitcher('register')}
+        onClick={onRegister}
         className={cn(styles.btn, {
           [styles.active]: switcher === 'register',
         })}

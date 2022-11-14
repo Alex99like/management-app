@@ -1,22 +1,18 @@
+import { IUser } from './../../types/user.type';
 import { toastError } from './../../utils/toastrError';
-import {
-  IRegister,
-  IRegisterRes,
-  ILogin,
-  ILoginRes,
-} from './../../views/components/Form/form.interface';
+import { IRegister } from './../../views/components/Form/form.interface';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthService } from '../../services/auth/AuthService';
 import { toastr } from 'react-redux-toastr';
-import { useActions } from '../../hooks/useAction';
+import Cookies from 'cookies-js';
 
-export const register = createAsyncThunk<IRegisterRes, IRegister>(
+export const register = createAsyncThunk<IUser, IRegister>(
   'auth/register',
   async ({ login, password, name }, thunkApi) => {
     try {
       const response = await AuthService.register(login, name, password);
       toastr.success('Registration', 'Completed successfully');
-      //callModal();
+      Cookies.set('user-v-21', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       toastError(error);
@@ -25,14 +21,13 @@ export const register = createAsyncThunk<IRegisterRes, IRegister>(
   }
 );
 
-export const login = createAsyncThunk<ILoginRes, ILogin>(
-  'auth/register',
+export const login = createAsyncThunk<IUser, IRegister>(
+  'auth/login',
   async ({ login, password }, thunkApi) => {
-    // const { callModal } = useActions();
     try {
       const response = await AuthService.login(login, password);
+      Cookies.set('user-v-21', JSON.stringify(response.data));
       toastr.success('Login', 'Completed successfully');
-      //callModal();
       return response.data;
     } catch (error) {
       toastError(error);

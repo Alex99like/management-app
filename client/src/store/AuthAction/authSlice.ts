@@ -1,12 +1,7 @@
-import { ILoginRes, IRegisterRes } from './../../views/components/Form/form.interface';
+import { IUser } from './../../types/user.type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { login, register } from './authAction';
-
-interface IUser {
-  token?: string;
-  id?: string;
-  name?: string;
-}
+import Cookies from 'cookies-js';
 
 interface IInitialState {
   user: IUser | null;
@@ -14,7 +9,7 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  user: null,
+  user: Cookies.get('user-v-21') ? JSON.parse(Cookies.get('user-v-21')) : null,
   isLoading: false,
 };
 
@@ -22,24 +17,27 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
-  extraReducers: {
-    [login.pending.type]: (state, { payload }: PayloadAction<ILoginRes>) => {
-      state.isLoading = true;
-    },
-    [login.fulfilled.type]: (state, { payload }: PayloadAction<ILoginRes>) => {
-      state.isLoading = false;
-    },
-    [login.rejected.type]: (state, { payload }: PayloadAction<ILoginRes>) => {
-      state.isLoading = false;
-    },
-    [register.pending.type]: (state, { payload }: PayloadAction<IRegisterRes>) => {
-      state.isLoading = true;
-    },
-    [register.fulfilled.type]: (state, { payload }: PayloadAction<IRegisterRes>) => {
-      state.isLoading = false;
-    },
-    [register.rejected.type]: (state, { payload }: PayloadAction<IRegisterRes>) => {
-      state.isLoading = false;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, { payload }: PayloadAction<IUser>) => {
+        state.isLoading = false;
+        state.user = payload;
+      })
+      .addCase(login.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, { payload }: PayloadAction<IUser>) => {
+        state.isLoading = false;
+        state.user = payload;
+      })
+      .addCase(register.rejected, (state) => {
+        state.isLoading = false;
+      });
   },
 });
