@@ -19,8 +19,12 @@
     gap: 15px;
     transition: .4s;
 
-    &.switch {
-      transform: scale(0.001) translateY(-800px);
+    &.switcherUp {
+      transform: scale(0.001) translateY(-500px);
+    }
+
+    &.switcherDown {
+      transform: scale(0.001) translateY(800px);
     }
 
     .container-btn {
@@ -38,6 +42,14 @@
         font-weight: 700;
         color: #04aae6;
         transition: .6s;
+
+        &:disabled {
+          background-color: #cacaca73 !important;
+          transform: scale(1) !important;
+          box-shadow: none;
+          color: #FFFFFF;
+          cursor: no-drop;
+        }
 
         &:hover {
           background-color: #04aae6;

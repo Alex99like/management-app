@@ -1,0 +1,44 @@
+.container {
+  position: absolute;
+  background-color: #FFFFFF;
+  width: 40px;
+  height: 40px;
+  padding: 3px;
+  right: -25px;
+  top: -22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .7s;
+
+  &:hover {
+    box-shadow: 0 0 4px #04aae6;
+  }
+
+  &:hover > span {
+    background-color: #04aae6;
+  }
+
+  .span {
+    display: block;
+    position: absolute;
+    width: 30px;
+    border-radius: 20px;
+    background-color: #9c9a9a;
+    height: 5px;
+    z-index: 10;
+    
+
+    &:first-child {
+      transition: .3s;
+      transform: rotate(45deg);
+    }
+
+    &:last-child {
+      transition: .6s;
+      transform: rotate(-45deg);
+    }
+  }
+}
