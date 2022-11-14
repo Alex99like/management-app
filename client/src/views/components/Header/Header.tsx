@@ -1,54 +1,56 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
-import '../../../style/buttons.scss';
-import arrow from '../../../assets/icons/icon-arrow-right.svg';
 import logo from '../../../assets/images/logo.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import SwitchTheme from './SwitchTheme';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import DrawerLayout from './DrawerLayout';
+import Button from '../Button/Button';
+import SwitchLanguage from './SwitchLanguage';
 
 function Header() {
-  const [animation, setAnimation] = useState<boolean>(false);
+  const [animate, setAnimate] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  let timeout: ReturnType<typeof setTimeout>;
-  let scroll = 0;
   useEffect(() => {
     window.onscroll = () => {
       if (timeout) {
-        clearTimeout(timeout);
+        clearTimeout(timeout.current);
       }
-      timeout = setTimeout(() => {
+      timeout.current = setTimeout(() => {
         if (window.scrollY > 10) {
-          setAnimation(true);
+          setAnimate(true);
         } else {
-          setAnimation(false);
+          setAnimate(false);
         }
-        scroll = window.scrollY;
       }, 10);
     };
   }, []);
 
   return (
-    <header className={animation ? styles.headerActive : styles.header}>
-      <NavLink to="/" className={styles.title}>
+    <header className={animate ? styles.headerActive : styles.header}>
+      <NavLink to="/" className={styles.title} onClick={() => setMenuOpen(false)}>
         <img src={logo} alt="logo" className={styles.logo} />
         Taskero
       </NavLink>
       <nav>
         <ul className={styles.navList}>
           <li>
-            <NavLink to="/main">Create Board</NavLink>
+            <NavLink to="/main">Boards</NavLink>
           </li>
           <li>Edit Profile</li>
+          <li>
+            <SwitchLanguage />
+          </li>
         </ul>
       </nav>
-      <div className={styles.buttons}>
-        <button type="button" className={styles.logIn}>
-          Log In
-        </button>
-        <button type="button" className="button">
-          Sign In
-          <img src={arrow} alt="arrow" className={styles.arrow} />
-        </button>
+      <div className={styles.rightPanel}>
+        <SwitchTheme />
+        <MenuRoundedIcon className={styles.burger} onClick={() => setMenuOpen((prev) => !prev)} />
+        <Button title="Authorize" />
       </div>
+      <DrawerLayout menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
     </header>
   );
 }

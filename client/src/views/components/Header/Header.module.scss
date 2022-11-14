@@ -3,55 +3,144 @@
 
 %header {
   background-color: $secondary-bg-color;
+  font-weight: 600;
   position: sticky;
   top: 0;
+  z-index: 1300;
 
   @include flex(row, space-between, center);
 
-  padding: 15px 30px;
-  transition: box-shadow 0.5s;
+  transition: all 0.5s;
+
+  .navList {
+    @include flex(row, space-between, center);
+
+    gap: 30px;
+
+    @media (max-width: 870px) {
+      display: none;
+    }
+
+    li {
+      padding: 5px;
+      border-radius: 24px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $primary-bg-color;
+      }
+
+      %down {
+        width: 15px;
+        margin-top: 3px;
+        transition: all 0.3s;
+      }
+
+      .down {
+        @extend %down;
+      }
+
+      .downRotate {
+        @extend %down;
+
+        transform: rotate(180deg);
+        margin-top: 0;
+      }
+    }
+  }
+
+  .rightPanel {
+    @include flex(row, center, center);
+
+    gap: 30px;
+
+    @media (max-width: 870px) {
+      width: 100px;
+      justify-content: flex-start;
+    }
+
+    .burger {
+      position: absolute;
+      right: 30px;
+      cursor: pointer;
+      padding: 5px;
+      box-sizing: content-box;
+      border-radius: 24px;
+      transition: all 0.3s;
+      display: none;
+
+      &:hover {
+        background-color: $primary-bg-color;
+      }
+
+      @media (max-width: 870px) {
+        display: block;
+      }
+    }
+
+    button {
+      @media (max-width: 870px) {
+        display: none;
+      }
+    }
+  }
+
+  .title {
+    @include flex(row, flex-start, center);
+
+    gap: 5px;
+    font-size: 30px;
+    font-family: Sriracha, cursive;
+    font-weight: 500;
+  }
+
+  .logo {
+    width: 35px;
+  }
 }
 
 .header {
   @extend %header;
+
+  padding: 15px 30px;
 }
 
 .headerActive {
   @extend %header;
 
   box-shadow: 0 5px 10px -10px $contrast-color;
+  padding: 5px 30px;
 }
 
-.navList {
-  @include flex(row, space-between, center);
+.drawer {
+  display: none;
 
-  gap: 30px;
+  @media (max-width: 870px) {
+    display: block;
+  }
+
+  .buttonGroup {
+    margin: 10px;
+
+    @include flex(row, center, center);
+
+    button {
+      margin: 0;
+    }
+  }
+
+  img {
+    width: 15px;
+    padding-top: 2px;
+  }
+
+  button {
+    margin: 10px auto;
+  }
 }
 
-.buttons {
-  display: flex;
-  gap: 30px;
-}
-
-.arrow {
-  filter: brightness(0) saturate(100%) invert(99%) saturate(7500%) hue-rotate(241deg) brightness(101%) contrast(102%);
-}
-
-.logIn {
-  background-color: transparent;
-  color: $contrast-color;
-}
-
-.title {
-  @include flex(row, space-between, center);
+.select {
+  @include flex(row, center, center);
 
   gap: 5px;
-  font-size: 30px;
-  font-weight: 700;
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-}
-
-.logo {
-  width: 35px;
 }
