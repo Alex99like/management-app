@@ -2,7 +2,6 @@ import styles from './WelcomePage.module.scss';
 import circleImg from '../../../assets/icons/circle.svg';
 import manImg from '../../../assets/images/man-developing-website.png';
 import designProcessImg from '../../../assets/images/design-process.png';
-import arrow from '../../../assets/icons/icon-arrow-right.svg';
 import conceptImg from '../../../assets/images/concept-of-data-analysis.png';
 import womenImg from '../../../assets/images/women.png';
 import womenWithLaptopImg from '../../../assets/images/women-with-laptop.png';

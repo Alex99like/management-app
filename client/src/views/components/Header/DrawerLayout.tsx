@@ -35,7 +35,12 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({ menuOpen, closeMenu }) 
           <MenuItem icon={<AccountCircleIcon color="primary" />} caption="Edit Profile" />
         </List>
         <Divider />
-        <AuthButton title="Authorize" />
+        <div className={styles.buttons}>
+          <button type="button" className={styles.signIn}>
+            Sign In
+          </button>
+          <AuthButton title="Sign Up" />
+        </div>
         <Divider />
         <ButtonGroup variant="text" className={styles.buttonGroup}>
           <Button>English</Button>
