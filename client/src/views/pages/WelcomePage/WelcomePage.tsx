@@ -8,6 +8,7 @@ import womenWithLaptopImg from '../../../assets/images/women-with-laptop.png';
 import { NavLink } from 'react-router-dom';
 import Card from './Card';
 import Button from '../../components/Button/Button';
+import { useAuth } from '../../components/Form/useAuth';
 
 function WelcomePage() {
   const list = [
@@ -32,6 +33,8 @@ function WelcomePage() {
 
   const images = [manImg, womenWithLaptopImg, womenImg];
 
+  const { user } = useAuth();
+
   return (
     <div className={styles.wrapper}>
       <section className={styles.section}>
@@ -54,7 +57,11 @@ function WelcomePage() {
               ))}
             </ul>
             <NavLink to="/main" className="button">
-              <Button title="Get Started" link="/main" />
+              {user ? (
+                <Button title="Get Started" link="/main" />
+              ) : (
+                <Button title="Get Started" link="/register" />
+              )}
             </NavLink>
           </div>
           <img src={designProcessImg} alt="image" className={styles.image} />
