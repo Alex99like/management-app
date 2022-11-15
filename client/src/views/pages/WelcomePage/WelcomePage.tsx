@@ -9,6 +9,9 @@ import { NavLink } from 'react-router-dom';
 import Card from './Card';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../../hooks/useAuth';
+import { Divider } from '@mui/material';
+import Team from './Team';
+import { useTranslation } from 'react-i18next';
 
 function WelcomePage() {
   const list = [

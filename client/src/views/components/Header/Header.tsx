@@ -8,6 +8,7 @@ import DrawerLayout from './DrawerLayout';
 import SwitchLanguage from './SwitchLanguage';
 import Buttons from './Buttons';
 import { useAuth } from '../../../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
