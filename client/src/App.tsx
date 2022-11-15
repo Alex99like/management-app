@@ -1,10 +1,6 @@
-import { RouterProvider, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
 import { privateRouter, publicRouter } from './config/routes';
-import { RootProvider } from './providers/RootProvider';
-import Cookies from 'cookies-js';
-import { useAuth } from './views/components/Form/useAuth';
-import { useEffect } from 'react';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
   const { user } = useAuth();
