@@ -35,7 +35,7 @@ function WelcomePage() {
           <div className={styles.info}>
             <p>{t('welcomePage.info')}</p>
             <ul>
-              {(t('welcomePage.list', { returnObjects: true }) as string[]).map((item) => (
+              {t<string, string[]>('welcomePage.list', { returnObjects: true }).map((item) => (
                 <li key={item.slice(0, 10)} className={styles.listItem}>
                   <img src={circleImg} alt="circle" />
                   {item}
@@ -61,10 +61,12 @@ function WelcomePage() {
           {images.map((img, i) => (
             <Card
               img={img}
-              title={(t('welcomePage.titles', { returnObjects: true }) as string[])[i]}
-              description={(t('welcomePage.descriptions', { returnObjects: true }) as string[])[i]}
+              title={t<string, string[]>('welcomePage.titles', { returnObjects: true })[i]}
+              description={
+                t<string, string[]>('welcomePage.descriptions', { returnObjects: true })[i]
+              }
               link={links[i]}
-              key={(t('welcomePage.titles', { returnObjects: true }) as string[])[i]}
+              key={t<string, string[]>('welcomePage.titles', { returnObjects: true })[i]}
             />
           ))}
         </div>
