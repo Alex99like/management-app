@@ -54,7 +54,7 @@ function WelcomePage() {
               ))}
             </ul>
             <NavLink to="/main" className="button">
-              <Button title="Get Started" />
+              <Button title="Get Started" link="/main" />
             </NavLink>
           </div>
           <img src={designProcessImg} alt="image" className={styles.image} />

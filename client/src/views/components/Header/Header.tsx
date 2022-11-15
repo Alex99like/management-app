@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import logo from '../../../assets/images/logo.png';
 import { useEffect, useRef, useState } from 'react';
@@ -7,6 +7,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import DrawerLayout from './DrawerLayout';
 import Button from '../Button/Button';
 import SwitchLanguage from './SwitchLanguage';
+import { useAuth } from '../Form/useAuth';
 import { useActions } from '../../../hooks/useAction';
 
 function Header() {
@@ -14,7 +15,9 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  const { callModal } = useActions();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { logout } = useActions();
 
   useEffect(() => {
     window.onscroll = () => {
@@ -51,12 +54,18 @@ function Header() {
       <div className={styles.rightPanel}>
         <SwitchTheme />
         <MenuRoundedIcon className={styles.burger} onClick={() => setMenuOpen((prev) => !prev)} />
-        <div className={styles.buttons}>
-          <button type="button" className={styles.signIn} onClick={() => callModal()}>
-            Sign In
-          </button>
-          <Button title="Sign Up" />
-        </div>
+        {!user ? (
+          <>
+            <div className={styles.buttons}>
+              <NavLink to="/login" className={styles.signIn}>
+                Sign In
+              </NavLink>
+              <Button title="Sign Up" link="/register"/>
+            </div>
+          </>
+        ) : (
+          <button onClick={() => logout({ navigate })}>Logout</button>
+        )}
       </div>
       <DrawerLayout menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
     </header>

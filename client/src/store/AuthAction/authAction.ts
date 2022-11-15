@@ -5,7 +5,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthService } from '../../services/auth/AuthService';
 import { toastr } from 'react-redux-toastr';
 import Cookies from 'cookies-js';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { NavigateFunction } from 'react-router-dom';
 
 export const register = createAsyncThunk<IUser, IRegister & { navigate: NavigateFunction }>(
   'auth/register',
@@ -39,9 +39,11 @@ export const login = createAsyncThunk<IUser, IRegister & { navigate: NavigateFun
   }
 );
 
-export const logout = createAsyncThunk('auth/logout', () => {
-  const navigate = useNavigate();
-  navigate('/');
-  AuthService.logout();
-  toastr.success('Logout', 'You have logged out of your account');
-});
+export const logout = createAsyncThunk<void, { navigate: NavigateFunction }>(
+  'auth/logout',
+  async ({ navigate }) => {
+    navigate('/');
+    AuthService.logout();
+    toastr.warning('Logout', 'You have logged out of your account');
+  }
+);
