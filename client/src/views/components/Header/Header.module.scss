@@ -1,12 +1,14 @@
 @import "../../../style/abstracts";
 @import "../../../style/variables";
 
+$tablet: 950px;
+
 %buttons {
   @include flex(row, center, center);
 
-  gap: 30px;
+  gap: 20px;
 
-  .signIn {
+  .primary {
     background-color: transparent;
     color: $contrast-color;
   }
@@ -28,7 +30,7 @@
 
     gap: 30px;
 
-    @media (max-width: 870px) {
+    @media (max-width: $tablet) {
       display: none;
     }
 
@@ -63,9 +65,9 @@
   .rightPanel {
     @include flex(row, center, center);
 
-    gap: 30px;
+    gap: 20px;
 
-    @media (max-width: 870px) {
+    @media (max-width: $tablet) {
       width: 100px;
       justify-content: flex-start;
     }
@@ -84,7 +86,7 @@
         background-color: $primary-bg-color;
       }
 
-      @media (max-width: 870px) {
+      @media (max-width: $tablet) {
         display: block;
       }
     }
@@ -92,7 +94,7 @@
     .buttons {
       @extend %buttons;
 
-      @media (max-width: 870px) {
+      @media (max-width: $tablet) {
         display: none;
       }
     }
@@ -107,13 +109,14 @@
     font-weight: 500;
     width: 280px;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
       width: 150px;
     }
   }
 
   .logo {
     width: 35px;
+    filter: brightness(0) saturate(100%) invert(34%) sepia(66%) saturate(1753%) hue-rotate(191deg) brightness(90%) contrast(88%);
   }
 }
 
@@ -133,7 +136,7 @@
 .drawer {
   display: none;
 
-  @media (max-width: 870px) {
+  @media (max-width: $tablet) {
     display: block;
   }
 
@@ -150,6 +153,7 @@
 
   .buttons {
     @extend %buttons;
+
     margin: 10px auto;
   }
 }

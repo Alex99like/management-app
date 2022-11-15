@@ -1,17 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
-import logo from '../../../assets/images/logo.png';
+import logo from '../../../assets/icons/circle.svg';
 import { useEffect, useRef, useState } from 'react';
 import SwitchTheme from './SwitchTheme';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import DrawerLayout from './DrawerLayout';
-import Button from '../Button/Button';
 import SwitchLanguage from './SwitchLanguage';
+import Buttons from './Buttons';
+import { useAuth } from '../Form/useAuth';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     window.onscroll = () => {
@@ -34,26 +37,21 @@ function Header() {
         <img src={logo} alt="logo" className={styles.logo} />
         Taskero
       </NavLink>
-      <nav>
-        <ul className={styles.navList}>
-          <li>
-            <NavLink to="/main">Boards</NavLink>
-          </li>
-          <li>Edit Profile</li>
-          <li>
-            <SwitchLanguage />
-          </li>
-        </ul>
-      </nav>
+      {user && (
+        <nav>
+          <ul className={styles.navList}>
+            <li>Create Board</li>
+            <li>Edit Profile</li>
+            <li>
+              <SwitchLanguage />
+            </li>
+          </ul>
+        </nav>
+      )}
       <div className={styles.rightPanel}>
         <SwitchTheme />
         <MenuRoundedIcon className={styles.burger} onClick={() => setMenuOpen((prev) => !prev)} />
-        <div className={styles.buttons}>
-          <button type="button" className={styles.signIn}>
-            Sign In
-          </button>
-          <Button title="Sign Up" />
-        </div>
+        <Buttons />
       </div>
       <DrawerLayout menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
     </header>
