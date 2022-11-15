@@ -6,7 +6,7 @@
 
   gap: 30px;
 
-  .signIn {
+  .logIn {
     background-color: transparent;
     color: $contrast-color;
   }
@@ -114,6 +114,7 @@
 
   .logo {
     width: 35px;
+    filter: brightness(0) saturate(100%) invert(34%) sepia(66%) saturate(1753%) hue-rotate(191deg) brightness(90%) contrast(88%);
   }
 }
 
@@ -150,6 +151,7 @@
 
   .buttons {
     @extend %buttons;
+
     margin: 10px auto;
   }
 }

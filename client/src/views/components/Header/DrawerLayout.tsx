@@ -28,7 +28,7 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({ menuOpen, closeMenu }) 
         </List>
         <List>
           <Link style={linkStyle} to="/main">
-            <MenuItem icon={<DashboardIcon color="primary" />} caption="Boards" />
+            <MenuItem icon={<DashboardIcon color="primary" />} caption="Create Board" />
           </Link>
         </List>
         <List>
@@ -36,10 +36,8 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({ menuOpen, closeMenu }) 
         </List>
         <Divider />
         <div className={styles.buttons}>
-          <button type="button" className={styles.signIn}>
-            Sign In
-          </button>
-          <AuthButton title="Sign Up" />
+          <button className={styles.logIn}>Log In</button>
+          <AuthButton title="Sign In" link="/register" />
         </div>
         <Divider />
         <ButtonGroup variant="text" className={styles.buttonGroup}>

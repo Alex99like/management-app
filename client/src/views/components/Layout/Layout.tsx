@@ -9,15 +9,15 @@ export const Layout = (): JSX.Element => {
     <>
       <Header />
       <main>
-      <ReduxToastrLib
-        newestOnTop={false}
-        preventDuplicates
-        progressBar
-        closeOnToastrClick
-        timeOut={4000}
-        transitionIn="bounceIn"
-        transitionOut="fadeOut"
-      />
+        <ReduxToastrLib
+          newestOnTop={false}
+          preventDuplicates
+          progressBar
+          closeOnToastrClick
+          timeOut={4000}
+          transitionIn="bounceIn"
+          transitionOut="fadeOut"
+        />
         <Outlet />
       </main>
       <Footer />

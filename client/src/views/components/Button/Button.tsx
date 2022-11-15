@@ -2,7 +2,7 @@ import styles from './Button.module.scss';
 import arrow from '../../../assets/icons/icon-arrow-right.svg';
 import { NavLink } from 'react-router-dom';
 
-function Button(props: { title: string, link: string }) {
+function Button(props: { title: string; link: string }) {
   const { title, link } = props;
 
   return (
