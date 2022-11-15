@@ -8,7 +8,6 @@ import ReduxToastrLib from 'react-redux-toastr';
 export const Layout = (): JSX.Element => {
   return (
     <>
-      <Header />
       <ReduxToastrLib
         newestOnTop={false}
         preventDuplicates
@@ -18,6 +17,7 @@ export const Layout = (): JSX.Element => {
         transitionIn="bounceIn"
         transitionOut="fadeOut"
       />
+      <Header />
       <main className={styles.main}>
         <Outlet />
       </main>
