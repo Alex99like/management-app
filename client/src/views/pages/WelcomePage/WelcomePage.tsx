@@ -5,10 +5,11 @@ import designProcessImg from '../../../assets/images/design-process.png';
 import conceptImg from '../../../assets/images/concept-of-data-analysis.png';
 import womenImg from '../../../assets/images/women.png';
 import womenWithLaptopImg from '../../../assets/images/women-with-laptop.png';
-import { NavLink } from 'react-router-dom';
 import Card from './Card';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../components/Form/useAuth';
+import { Divider } from '@mui/material';
+import Team from './Team';
 
 function WelcomePage() {
   const list = [
@@ -37,7 +38,7 @@ function WelcomePage() {
 
   return (
     <div className={styles.wrapper}>
-      <section className={styles.section}>
+      <section className={styles.aboutProjectSection}>
         <div>
           <h3>Visualize Your Workflows, Get More Done</h3>
           <h1>Kanban Board: Your Fast Track to Process Optimization.</h1>
@@ -56,18 +57,17 @@ function WelcomePage() {
                 </li>
               ))}
             </ul>
-            <NavLink to="/main" className="button">
-              {user ? (
-                <Button title="Get Started" link="/main" />
-              ) : (
-                <Button title="Get Started" link="/register" />
-              )}
-            </NavLink>
+            {user ? (
+              <Button title="Get Started" link="/main" />
+            ) : (
+              <Button title="Get Started" link="/register" />
+            )}
           </div>
           <img src={designProcessImg} alt="image" className={styles.image} />
         </div>
       </section>
-      <section className={styles.section}>
+      <Divider />
+      <section className={styles.aboutCourseSection}>
         <div>
           <h3>Want to find out more?</h3>
           <h2>The Rolling Scopes.</h2>
@@ -84,6 +84,16 @@ function WelcomePage() {
           ))}
         </div>
       </section>
+      <Divider />
+      <div className={styles.aboutTeamWrapper}>
+        <section className={styles.aboutTeamSection}>
+          <div>
+            <h3>Here are the developers who created this app</h3>
+            <h2>Our Team.</h2>
+          </div>
+          <Team />
+        </section>
+      </div>
     </div>
   );
 }
