@@ -5,11 +5,13 @@ import buttonStyle from '../Button/Button.module.scss';
 import arrow from '../../../assets/icons/icon-arrow-right.svg';
 import { useAuth } from '../Form/useAuth';
 import { useActions } from '../../../hooks/useAction';
+import { useTranslation } from 'react-i18next';
 
 function Buttons() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { logout } = useActions();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.buttons}>
@@ -23,10 +25,10 @@ function Buttons() {
       ) : (
         <>
           <NavLink to="/main" className={styles.primary}>
-            Go To Main Page
+            {t('header.main')}
           </NavLink>
           <button className={buttonStyle.button} onClick={() => logout({ navigate })}>
-            Log Out
+            {t('header.logOut')}
             <img src={arrow} alt="arrow" className={buttonStyle.arrow} />
           </button>
         </>
