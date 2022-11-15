@@ -1,5 +1,6 @@
 import { IUser } from './../../types/user.type';
 import { axiosClassic } from '../../api/axios';
+import Cookies from 'cookies-js';
 
 export const AuthService = {
   async register(login: string, name: string, password: string) {
@@ -19,5 +20,9 @@ export const AuthService = {
     });
 
     return response;
+  },
+
+  async logout() {
+    Cookies.expire('user-v-21');
   },
 };

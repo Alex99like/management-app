@@ -11,6 +11,8 @@ import { useSwitcher } from './useSwitcher';
 import { useAuth } from './useAuth';
 import { useActions } from '../../../hooks/useAction';
 import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
+import Loader from '../../../assets/animation/form-louder.json';
 
 export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   const {
@@ -53,8 +55,8 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   };
 
   const onSubmit: SubmitHandler<IRegister> = (data) => {
-    if (switcher === 'register') registerAction(data);
-    else loginAction(data);
+    if (switcher === 'register') registerAction({ ...data, navigate });
+    else loginAction({ ...data, navigate });
   };
 
   return (
@@ -64,6 +66,12 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
         [styles.active]: active,
       })}
     >
+      {isLoading && (
+        <Lottie
+          className={cn(styles.loader, { [styles.active]: isLoading })}
+          animationData={Loader}
+        />
+      )}
       <form
         className={cn(styles.form, {
           [styles.switcherUp]: switcherUp,

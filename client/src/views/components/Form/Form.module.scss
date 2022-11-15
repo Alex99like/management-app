@@ -7,9 +7,28 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #cacaca73;
+  background-image: url(../../../assets/images/background-form.jpg);
+  background-size: cover;
   opacity: 0;
   transition: 1s;
+
+  .loader {
+    transition: .7s;
+    position: absolute;
+    z-index: 100;
+    transform: scale(0.7);
+    animation: slide 1s;
+  }
+
+  @keyframes slide {
+    from {
+      transform: scale(0.01);
+    }
+  
+    to {
+      transform: scale(0.7);
+    }
+  }
 
   &.active {
     opacity: 1;
@@ -31,11 +50,11 @@
     }
 
     &.switcherUp {
-      transform: scale(0.001) translateY(-500px);
+      transform: scale(0.001) translateX(1200px);
     }
 
     &.switcherDown {
-      transform: scale(0.001) translateY(800px);
+      transform: scale(0.001) translateX(-1200px);
     }
 
     .container-btn {

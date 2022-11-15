@@ -1,6 +1,6 @@
 import { IUser } from './../../types/user.type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { login, register } from './authAction';
+import { login, logout, register } from './authAction';
 import Cookies from 'cookies-js';
 
 interface IInitialState {
@@ -38,6 +38,10 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoading = false;
+        state.user = null;
       });
   },
 });
