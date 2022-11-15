@@ -24,7 +24,6 @@ function WelcomePage() {
     'Everyone can study at RS School, regardless of age, professional employment, or place of residence. However, you should have sufficient base knowledge before the program begins.',
     'School’s documentation - https://docs.rs.school. You can find all materials on the YouTube channel. Discord chat for the students.',
   ];
-
   const links = [
     'https://wearecommunity.io/events/react-rs-school-2020',
     'https://rs.school/react/',
@@ -33,57 +32,67 @@ function WelcomePage() {
 
   const images = [manImg, womenWithLaptopImg, womenImg];
 
+  const { t } = useTranslation();
+
   const { user } = useAuth();
 
   return (
     <div className={styles.wrapper}>
-      <section className={styles.section}>
+      <section className={styles.aboutProjectSection}>
         <div>
-          <h3>Visualize Your Workflows, Get More Done</h3>
-          <h1>Kanban Board: Your Fast Track to Process Optimization.</h1>
+          <h3>{t('welcomePage.subtitle')}</h3>
+          <h1>{t('welcomePage.title')}</h1>
         </div>
         <div className={styles.content}>
           <div className={styles.info}>
-            <p>
-              Unlock the power of Kanban! Use Taskero’s Kanban boards to visualize workflows, boost
-              team productivity and support agile project management.
-            </p>
+            <p>{t('welcomePage.info')}</p>
             <ul>
-              {list.map((item) => (
+              {t<string, string[]>('welcomePage.list', { returnObjects: true }).map((item) => (
                 <li key={item.slice(0, 10)} className={styles.listItem}>
                   <img src={circleImg} alt="circle" />
                   {item}
                 </li>
               ))}
             </ul>
-            <NavLink to="/main" className="button">
-              {user ? (
-                <Button title="Get Started" link="/main" />
-              ) : (
-                <Button title="Get Started" link="/register" />
-              )}
-            </NavLink>
+            {user ? (
+              <Button title={t('welcomePage.getStarted')} link="/main" />
+            ) : (
+              <Button title={t('welcomePage.getStarted')} link="/register" />
+            )}
           </div>
           <img src={designProcessImg} alt="image" className={styles.image} />
         </div>
       </section>
-      <section className={styles.section}>
+      <Divider />
+      <section className={styles.aboutCourseSection}>
         <div>
-          <h3>Want to find out more?</h3>
-          <h2>The Rolling Scopes.</h2>
+          <h3>{t('welcomePage.rssSubTitle')}</h3>
+          <h2>{t('welcomePage.rssTitle')}</h2>
         </div>
         <div className={styles.cards}>
           {images.map((img, i) => (
             <Card
               img={img}
-              title={titles[i]}
-              description={descriptions[i]}
+              title={t<string, string[]>('welcomePage.titles', { returnObjects: true })[i]}
+              description={
+                t<string, string[]>('welcomePage.descriptions', { returnObjects: true })[i]
+              }
               link={links[i]}
-              key={titles[i]}
+              key={t<string, string[]>('welcomePage.titles', { returnObjects: true })[i]}
             />
           ))}
         </div>
       </section>
+      <Divider />
+      <div className={styles.aboutTeamWrapper}>
+        <section className={styles.aboutTeamSection}>
+          <div>
+            <h3>Here are the developers who created this app</h3>
+            <h2>Our Team.</h2>
+          </div>
+          <Team />
+        </section>
+      </div>
     </div>
   );
 }

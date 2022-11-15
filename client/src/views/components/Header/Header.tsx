@@ -13,6 +13,7 @@ function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const { t } = useTranslation();
 
   const { user } = useAuth();
 
@@ -40,8 +41,8 @@ function Header() {
       {user && (
         <nav>
           <ul className={styles.navList}>
-            <li>Create Board</li>
-            <li>Edit Profile</li>
+            <li>{t('header.board')}</li>
+            <li>{t('header.profile')}</li>
             <li>
               <SwitchLanguage />
             </li>
