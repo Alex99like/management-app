@@ -4,17 +4,15 @@ import { IRegister } from './../../views/components/Form/form.interface';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthService } from '../../services/auth/AuthService';
 import { toastr } from 'react-redux-toastr';
-import Cookies from 'cookies-js';
-import { NavigateFunction } from 'react-router-dom';
+import { REHYDRATE, getStoredState } from 'reduxjs-toolkit-persist';
+import storage from 'reduxjs-toolkit-persist/lib/storage';
 
-export const register = createAsyncThunk<IUser, IRegister & { navigate: NavigateFunction }>(
+export const register = createAsyncThunk<IUser, IRegister>(
   'auth/register',
-  async ({ login, password, name, navigate }, thunkApi) => {
+  async ({ login, password, name }, thunkApi) => {
     try {
       const response = await AuthService.register(login, name, password);
       toastr.success('Registration', 'Completed successfully');
-      navigate('/');
-      Cookies.set('user-v-21', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       toastError(error);
@@ -23,13 +21,11 @@ export const register = createAsyncThunk<IUser, IRegister & { navigate: Navigate
   }
 );
 
-export const login = createAsyncThunk<IUser, IRegister & { navigate: NavigateFunction }>(
+export const login = createAsyncThunk<IUser, IRegister>(
   'auth/login',
-  async ({ login, password, navigate }, thunkApi) => {
+  async ({ login, password }, thunkApi) => {
     try {
       const response = await AuthService.login(login, password);
-      navigate('/');
-      Cookies.set('user-v-21', JSON.stringify(response.data));
       toastr.success('Login', 'Completed successfully');
       return response.data;
     } catch (error) {
@@ -39,11 +35,16 @@ export const login = createAsyncThunk<IUser, IRegister & { navigate: NavigateFun
   }
 );
 
-export const logout = createAsyncThunk<void, { navigate: NavigateFunction }>(
-  'auth/logout',
-  async ({ navigate }) => {
-    navigate('/');
-    AuthService.logout();
-    toastr.warning('Logout', 'You have logged out of your account');
-  }
-);
+export const logout = createAsyncThunk<void>('auth/logout', async () => {
+  AuthService.logout();
+  toastr.warning('Logout', 'You have logged out of your account');
+});
+
+export const getUserLS = createAsyncThunk(REHYDRATE, async () => {
+  const user = (await getStoredState({ key: 'user', storage })) as {
+    user: IUser;
+    routes: 'private' | 'public';
+  };
+
+  return user;
+});

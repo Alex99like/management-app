@@ -1,6 +1,7 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
+
 %section {
   max-width: 1280px;
   margin: 0 auto;
@@ -73,6 +74,7 @@
       @include flex(column, center, center);
 
       gap: 20px;
+
 
       p {
         color: $pale-text-color;

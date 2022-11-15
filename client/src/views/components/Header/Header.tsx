@@ -7,8 +7,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import DrawerLayout from './DrawerLayout';
 import SwitchLanguage from './SwitchLanguage';
 import Buttons from './Buttons';
-import { useAuth } from '../Form/useAuth';
-import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../../hooks/useAuth';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);

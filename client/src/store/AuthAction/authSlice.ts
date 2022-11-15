@@ -1,16 +1,17 @@
 import { IUser } from './../../types/user.type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { login, logout, register } from './authAction';
-import Cookies from 'cookies-js';
+import { getUserLS, login, logout, register } from './authAction';
 
 interface IInitialState {
   user: IUser | null;
   isLoading: boolean;
+  routes: 'private' | 'public';
 }
 
 const initialState: IInitialState = {
-  user: Cookies.get('user-v-21') ? JSON.parse(Cookies.get('user-v-21')) : null,
+  user: null,
   isLoading: false,
+  routes: 'private',
 };
 
 export const authSlice = createSlice({
@@ -25,6 +26,7 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, { payload }: PayloadAction<IUser>) => {
         state.isLoading = false;
         state.user = payload;
+        state.routes = 'public';
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;
@@ -35,6 +37,7 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, { payload }: PayloadAction<IUser>) => {
         state.isLoading = false;
         state.user = payload;
+        state.routes = 'public';
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
@@ -42,6 +45,11 @@ export const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.user = null;
+        state.routes = 'private';
+      })
+      .addCase(getUserLS.fulfilled, (state, { payload }) => {
+        state.user = payload.user = payload.user;
+        state.routes = payload.routes;
       });
   },
 });

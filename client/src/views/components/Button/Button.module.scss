@@ -13,6 +13,10 @@
   box-shadow: 0 10px 20px -10px $contrast-color;
   transition: box-shadow 0.5s;
 
+  &:hover {
+    box-shadow: 0 10px 30px -10px $contrast-color;
+  }
+
   .arrow {
     transition: all 0.5s;
     filter: brightness(0) saturate(100%) invert(99%) saturate(7500%) hue-rotate(241deg) brightness(101%) contrast(102%);
@@ -21,8 +25,7 @@
   &:hover {
     box-shadow: 0 10px 30px -10px $contrast-color;
 
-    & .arrow {
-      transform: translateX(5px);
-    }
+  &:hover .arrow {
+    transform: translateX(5px);
   }
 }

@@ -8,7 +8,7 @@ import styles from './Form.module.scss';
 import { nameValid } from './validate';
 import cn from 'classnames';
 import { useSwitcher } from './useSwitcher';
-import { useAuth } from './useAuth';
+import { useAuth } from '../../../hooks/useAuth';
 import { useActions } from '../../../hooks/useAction';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
@@ -55,8 +55,8 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   };
 
   const onSubmit: SubmitHandler<IRegister> = (data) => {
-    if (switcher === 'register') registerAction({ ...data, navigate });
-    else loginAction({ ...data, navigate });
+    if (switcher === 'register') registerAction(data);
+    else loginAction(data);
   };
 
   return (

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import MenuItem from './MenuItem';
 import Buttons from './Buttons';
-import { useAuth } from '../Form/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
 
 type DrawerLayoutPropsType = {
   menuOpen: boolean;
