@@ -21,10 +21,15 @@ function Buttons() {
           <Button title="Sign Up" link="/register" />
         </>
       ) : (
-        <button className={buttonStyle.button} onClick={() => logout({ navigate })}>
-          Log Out
-          <img src={arrow} alt="arrow" className={buttonStyle.arrow} />
-        </button>
+        <>
+          <NavLink to="/main" className={styles.primary}>
+            Go To Main Page
+          </NavLink>
+          <button className={buttonStyle.button} onClick={() => logout({ navigate })}>
+            Log Out
+            <img src={arrow} alt="arrow" className={buttonStyle.arrow} />
+          </button>
+        </>
       )}
     </div>
   );

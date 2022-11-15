@@ -40,9 +40,7 @@ function Header() {
       {user && (
         <nav>
           <ul className={styles.navList}>
-            <li>
-              <NavLink to="/main">Create Board</NavLink>
-            </li>
+            <li>Create Board</li>
             <li>Edit Profile</li>
             <li>
               <SwitchLanguage />
