@@ -17,7 +17,7 @@ function Buttons() {
     <div className={styles.buttons}>
       {!user ? (
         <>
-          <NavLink to="/login" className={styles.logIn}>
+          <NavLink to="/login" className={styles.primary}>
             Log In
           </NavLink>
           <Button title="Sign Up" link="/register" />

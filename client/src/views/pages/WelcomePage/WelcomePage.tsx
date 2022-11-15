@@ -5,11 +5,12 @@ import designProcessImg from '../../../assets/images/design-process.png';
 import conceptImg from '../../../assets/images/concept-of-data-analysis.png';
 import womenImg from '../../../assets/images/women.png';
 import womenWithLaptopImg from '../../../assets/images/women-with-laptop.png';
-import { NavLink } from 'react-router-dom';
 import Card from './Card';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../components/Form/useAuth';
 import { useTranslation } from 'react-i18next';
+import { Divider } from '@mui/material';
+import Team from './Team';
 
 function WelcomePage() {
   const links = [
@@ -25,7 +26,7 @@ function WelcomePage() {
 
   return (
     <div className={styles.wrapper}>
-      <section className={styles.section}>
+      <section className={styles.aboutProjectSection}>
         <div>
           <h3>{t('welcomePage.subtitle')}</h3>
           <h1>{t('welcomePage.title')}</h1>
@@ -41,18 +42,17 @@ function WelcomePage() {
                 </li>
               ))}
             </ul>
-            <NavLink to="/main" className="button">
-              {user ? (
-                <Button title={t('welcomePage.getStarted')} link="/main" />
-              ) : (
-                <Button title={t('welcomePage.getStarted')} link="/register" />
-              )}
-            </NavLink>
+            {user ? (
+              <Button title={t('welcomePage.getStarted')} link="/main" />
+            ) : (
+              <Button title={t('welcomePage.getStarted')} link="/register" />
+            )}
           </div>
           <img src={designProcessImg} alt="image" className={styles.image} />
         </div>
       </section>
-      <section className={styles.section}>
+      <Divider />
+      <section className={styles.aboutCourseSection}>
         <div>
           <h3>{t('welcomePage.rssSubTitle')}</h3>
           <h2>{t('welcomePage.rssTitle')}</h2>
@@ -69,6 +69,16 @@ function WelcomePage() {
           ))}
         </div>
       </section>
+      <Divider />
+      <div className={styles.aboutTeamWrapper}>
+        <section className={styles.aboutTeamSection}>
+          <div>
+            <h3>Here are the developers who created this app</h3>
+            <h2>Our Team.</h2>
+          </div>
+          <Team />
+        </section>
+      </div>
     </div>
   );
 }
