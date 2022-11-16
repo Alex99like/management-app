@@ -25,8 +25,8 @@
   &:hover {
     box-shadow: 0 10px 30px -10px $contrast-color;
 
-  &:hover .arrow {
-    transform: translateX(5px);
+    &:hover .arrow {
+      transform: translateX(5px);
+    }
   }
-}
 }
