@@ -1,7 +1,6 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
-
 %section {
   max-width: 1280px;
   margin: 0 auto;
@@ -189,7 +188,7 @@
 
         gap: 30px;
         width: 1120px;
-        margin: 10px auto;
+        margin: 10px auto 0;
         padding: 30px;
 
         @media (max-width: 1180px) {
