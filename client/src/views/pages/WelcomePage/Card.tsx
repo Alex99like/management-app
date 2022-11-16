@@ -11,7 +11,7 @@ function Card(props: { img: string; title: string; description: string; link: st
       <img src={img} alt="image" className={styles.cardImage} />
       <h4>{title}</h4>
       <p>{description}</p>
-      <a href={link} className={styles.link}>
+      <a href={link} className={styles.link} target="_blank" rel="noreferrer">
         {t('welcomePage.learnMore')}
         <img src={arrow} alt="arrow" />
       </a>

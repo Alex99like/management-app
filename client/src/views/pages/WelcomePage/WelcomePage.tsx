@@ -8,7 +8,7 @@ import Card from './Card';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../../hooks/useAuth';
 import { Divider } from '@mui/material';
-import Team from './Team';
+import TeamMember from './TeamMember';
 import { useTranslation } from 'react-i18next';
 
 function WelcomePage() {
@@ -17,6 +17,8 @@ function WelcomePage() {
     'https://rs.school/react/',
     'https://www.youtube.com/c/RollingScopesSchool',
   ];
+
+  const team = ['Aleksander Aleksievich', 'Anna Musikhina', 'Maryia Huchkova'];
 
   const images = [manImg, womenWithLaptopImg, womenImg];
 
@@ -78,7 +80,11 @@ function WelcomePage() {
             <h3>Here are the developers who created this app</h3>
             <h2>Our Team.</h2>
           </div>
-          <Team />
+          <div className={styles.team}>
+            {team.map((name, index) => (
+              <TeamMember name={name} index={index} key={name} />
+            ))}
+          </div>
         </section>
       </div>
     </div>
