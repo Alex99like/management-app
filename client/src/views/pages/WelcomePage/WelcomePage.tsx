@@ -9,21 +9,11 @@ import { NavLink } from 'react-router-dom';
 import Card from './Card';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../../hooks/useAuth';
+import { Divider } from '@mui/material';
+import Team from './Team';
+import { useTranslation } from 'react-i18next';
 
 function WelcomePage() {
-  const list = [
-    'Keep your team focused with clear Kanban boards.',
-    'Centralize requirements, visualize project progress.',
-    'Communicate directly on tasks. Fewer meetings and mails.',
-  ];
-
-  const titles = ['Free-of-charge learning', 'Open to everyone', 'Learning materials'];
-
-  const descriptions = [
-    'The RS School is working by the principle of "Pay it forward." Members of our community share their knowledge and check students’ tasks for free.',
-    'Everyone can study at RS School, regardless of age, professional employment, or place of residence. However, you should have sufficient base knowledge before the program begins.',
-    'School’s documentation - https://docs.rs.school. You can find all materials on the YouTube channel. Discord chat for the students.',
-  ];
   const links = [
     'https://wearecommunity.io/events/react-rs-school-2020',
     'https://rs.school/react/',
