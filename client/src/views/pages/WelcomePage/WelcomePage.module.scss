@@ -74,7 +74,6 @@
 
       gap: 20px;
 
-
       p {
         color: $pale-text-color;
       }
@@ -207,6 +206,21 @@
         .teamMember {
           gap: 30px;
 
+          .name {
+            @include flex(row, center, center);
+
+            gap: 10px;
+
+            h4 {
+              @media (max-width: 475px) {
+                width: 130px;
+                text-align: center;
+                line-height: 30px;
+                margin-bottom: 7px;
+              }
+            }
+          }
+
           &:nth-child(1),
           &:nth-child(3) {
             @include flex(row, flex-start, center);
@@ -214,6 +228,10 @@
 
           &:nth-child(2) {
             @include flex(row-reverse, flex-start, center);
+
+            & .name {
+              @include flex(row-reverse, center, center);
+            }
           }
 
           @media (max-width: 950px) {
@@ -257,21 +275,6 @@
 
         .heading {
           @include flex(column, center, center);
-
-          .name {
-            @include flex(row, center, center);
-
-            gap: 10px;
-
-            h4 {
-              @media (max-width: 475px) {
-                width: 130px;
-                text-align: center;
-                line-height: 30px;
-                margin-bottom: 7px;
-              }
-            }
-          }
 
           .github {
             width: 30px;

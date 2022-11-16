@@ -3,6 +3,7 @@
 
 .footer {
   @include flex(row, center, center);
+
   gap: 50px;
   background-color: $secondary-bg-color;
   margin: 15px 20px;
@@ -10,11 +11,13 @@
 
   @media (max-width: 600px) {
     @include flex(column, center, center);
+
     gap: 10px;
   }
 
   .links {
     @include flex(row, center, center);
+
     gap: 20px;
 
     @media (max-width: 600px) {
