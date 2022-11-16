@@ -2,13 +2,13 @@ import { IUser } from './../../types/user.type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getUserLS, login, logout, register } from './authAction';
 
-interface IInitialState {
+export interface IInitialStateAuth {
   user: IUser | null;
   isLoading: boolean;
   routes: 'private' | 'public';
 }
 
-const initialState: IInitialState = {
+const initialState: IInitialStateAuth = {
   user: null,
   isLoading: false,
   routes: 'private',
