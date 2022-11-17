@@ -1,7 +1,12 @@
+import { useGetUsersQuery } from '../../../services/Api.service';
 import Board from '../../components/Board/Board';
 import styles from './MainPage.module.scss';
 
 function MainPage() {
+  const { data } = useGetUsersQuery();
+
+  console.log(data);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>

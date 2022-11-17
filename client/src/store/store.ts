@@ -1,3 +1,4 @@
+import { rtkQueryErrorLogger } from './../utils/rtkQueryErrorLogger';
 import { rootSlice } from './rootSlice';
 import { authSlice } from './AuthAction/authSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -14,6 +15,7 @@ import {
   REHYDRATE,
 } from 'reduxjs-toolkit-persist';
 import storage from 'reduxjs-toolkit-persist/lib/storage';
+import { api } from '../services/Api.service';
 
 const authPersistConfig = {
   key: 'user',
@@ -22,6 +24,7 @@ const authPersistConfig = {
 };
 
 const reducers = combineReducers({
+  [api.reducerPath]: api.reducer,
   auth: persistReducer(authPersistConfig, authSlice.reducer),
   root: rootSlice.reducer,
   toastr: toastrReducer,
@@ -29,14 +32,14 @@ const reducers = combineReducers({
 
 export const store = configureStore({
   reducer: reducers,
-  devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        /* ignore persistance actions */
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    })
+      .concat(rtkQueryErrorLogger)
+      .concat(api.middleware),
 });
 
 export const persister = persistStore(store);
