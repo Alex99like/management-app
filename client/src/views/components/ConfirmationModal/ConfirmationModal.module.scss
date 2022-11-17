@@ -1,0 +1,61 @@
+@import "../../../style/abstracts";
+@import "../../../style/variables";
+
+.confirmationModal {
+  .box {
+    width: 280px;
+    height: 140px;
+    background-color: $secondary-bg-color;
+    border-radius: 24px;
+    padding: 10px;
+    margin: calc(50vh - 70px) auto 0;
+    transform: scale(0.01) translate(-500px, -500px);
+    transition: all 0.3s;
+
+    &.active {
+      transform: scale(1);
+    }
+
+    &.switcherUp {
+      transform: scale(0.001) translateX(800px);
+    }
+
+    &.switcherDown {
+      transform: scale(0.001) translateX(-800px);
+    }
+
+    .message {
+      text-align: center;
+
+      h4 {
+        font-size: 22px;
+      }
+
+      p {
+        color: #ff000096;
+      }
+    }
+
+    .buttons {
+      @include flex(row, center, center);
+
+      gap: 10px;
+      margin: 15px;
+    }
+
+    .button {
+      background-color: $contrast-color;
+      color: $light-text-color;
+      border: 2px solid $contrast-color;
+      padding: 5px;
+      width: 100px;
+      border-radius: 24px;
+      box-shadow: 0 10px 20px -10px $contrast-color;
+      transition: box-shadow 0.5s;
+
+      &:hover {
+        box-shadow: 0 10px 30px -10px $contrast-color;
+      }
+    }
+  }
+}
