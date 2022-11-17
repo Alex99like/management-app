@@ -4,14 +4,23 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import ReduxToastrLib from 'react-redux-toastr';
 import { useAuth } from '../../../hooks/useAuth';
+import { useActions } from '../../../hooks/useAction';
 
 export const Layout = (): JSX.Element => {
   const navigate = useNavigate();
-  const { routes } = useAuth();
+  const { routes, isAuth } = useAuth();
+  const { toggleRoutes } = useActions();
 
   useEffect(() => {
-    if (routes === 'public') navigate('/main');
-    if (routes === 'private') navigate('/');
+    if (routes === 'public' && isAuth) {
+      navigate('/main');
+      toggleRoutes(false);
+    }
+    if (routes === 'private' && isAuth) {
+      navigate('/');
+      toggleRoutes(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routes]);
 
   return (

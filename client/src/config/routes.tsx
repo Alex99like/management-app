@@ -10,7 +10,6 @@ export const publicRouter = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <NotFound />,
     children: [
       {
         path: '/',
@@ -19,10 +18,15 @@ export const publicRouter = createBrowserRouter([
       {
         path: 'main',
         element: <MainPage />,
+        index: true,
       },
       {
         path: 'board',
         element: <BoardPage />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },
@@ -32,11 +36,11 @@ export const privateRouter = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <NotFound />,
     children: [
       {
         path: '/',
         element: <WelcomePage />,
+        index: true,
       },
       {
         path: 'login',
@@ -45,6 +49,10 @@ export const privateRouter = createBrowserRouter([
       {
         path: 'register',
         element: <FormAuth path={'register'} />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },

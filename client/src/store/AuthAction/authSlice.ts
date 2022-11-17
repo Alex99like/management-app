@@ -6,18 +6,24 @@ export interface IInitialStateAuth {
   user: IUser | null;
   isLoading: boolean;
   routes: 'private' | 'public';
+  isAuth: boolean;
 }
 
 const initialState: IInitialStateAuth = {
   user: null,
   isLoading: false,
   routes: 'private',
+  isAuth: false,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    toggleRoutes(state, { payload }: PayloadAction<boolean>) {
+      state.isAuth = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -30,6 +36,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;
+        state.isAuth = false;
       })
       .addCase(register.pending, (state) => {
         state.isLoading = true;
@@ -41,6 +48,7 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
+        state.isAuth = false;
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
