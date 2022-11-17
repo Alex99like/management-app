@@ -44,7 +44,7 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
     setSwitcher(path);
   }, [path]);
 
-  const { login: loginAction, register: registerAction, callModal } = useActions();
+  const { login: loginAction, register: registerAction, toggleRoutes } = useActions();
 
   useEffect(() => {
     setActive(true);
@@ -55,13 +55,13 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   };
 
   const onSubmit: SubmitHandler<IRegister> = (data) => {
+    toggleRoutes(true);
     if (switcher === 'register') registerAction(data);
     else loginAction(data);
   };
 
   return (
     <div
-      onClick={() => callModal()}
       className={cn(styles.background, {
         [styles.active]: active,
       })}

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 function Buttons() {
   const { user } = useAuth();
-  const { logout } = useActions();
+  const { logout, toggleRoutes } = useActions();
   const { t } = useTranslation();
 
   return (
@@ -26,7 +26,13 @@ function Buttons() {
           <NavLink to="/main" className={styles.primary}>
             {t('header.main')}
           </NavLink>
-          <button className={buttonStyle.button} onClick={() => logout()}>
+          <button
+            className={buttonStyle.button}
+            onClick={() => {
+              toggleRoutes(true);
+              logout();
+            }}
+          >
             {t('header.logOut')}
             <img src={arrow} alt="arrow" className={buttonStyle.arrow} />
           </button>
