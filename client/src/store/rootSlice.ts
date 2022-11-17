@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface IInitialState {
+export interface IInitialStateRoot {
   modalForm: boolean;
+  lang: 'en' | 'ru';
 }
 
-const initialState: IInitialState = {
+const initialState: IInitialStateRoot = {
   modalForm: false,
+  lang: 'en',
 };
 
 export const rootSlice = createSlice({
@@ -14,6 +16,9 @@ export const rootSlice = createSlice({
   reducers: {
     callModal: (state) => {
       state.modalForm = !state.modalForm;
+    },
+    changeLang: (state, { payload }) => {
+      state.lang = payload;
     },
   },
 });
