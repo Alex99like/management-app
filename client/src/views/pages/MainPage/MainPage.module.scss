@@ -1,0 +1,41 @@
+@import "../../../style/variables";
+@import "../../../style/abstracts";
+
+
+.wrapper {
+  background: $primary-bg-color;
+
+  .main {
+    width: 1220px;
+    min-height: calc(100vh - 145px);
+    margin: 0 auto;
+
+    @media (max-width: 1280px) {
+      width: 970px;
+    }
+
+    @media (max-width: 1030px) {
+      width: 720px;
+    }
+
+    @media (max-width: 780px) {
+      width: 470px;
+    }
+
+    @media (max-width: 530px) {
+      width: 220px;
+    }
+
+    h3 {
+      font-size: 30px;
+      padding-top: 20px;
+    }
+
+    .boards {
+      @include flex(row, flex-start, flex-start);
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 20px 0;
+    }
+  }
+}
