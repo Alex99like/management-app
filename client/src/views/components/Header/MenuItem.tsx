@@ -6,7 +6,7 @@ function MenuItem(props: { icon: unknown; caption: string }) {
 
   return (
     <ListItem key={caption}>
-      <ListItemButton>
+      <ListItemButton sx={{ borderRadius: '24px' }}>
         <ListItemIcon>{icon as ReactNode}</ListItemIcon>
         {caption}
       </ListItemButton>

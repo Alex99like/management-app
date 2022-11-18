@@ -3,6 +3,21 @@
 
 $tablet: 950px;
 
+%listItem {
+  padding: 5px;
+  text-align: center;
+  border-radius: 24px;
+  transition: background-color 0.5s;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+
+  @media (max-width: 1050px) {
+    width: min-content;
+  }
+}
+
 %buttons {
   @include flex(row, center, center);
 
@@ -11,12 +26,13 @@ $tablet: 950px;
   .primary {
     background-color: transparent;
     color: $contrast-color;
+
+    @extend %listItem;
   }
 }
 
 %header {
-  background-color: $secondary-bg-color;
-  font-weight: 600;
+  padding: 0 30px;
   position: sticky;
   top: 0;
   z-index: 1300;
@@ -35,13 +51,7 @@ $tablet: 950px;
     }
 
     li {
-      padding: 5px;
-      border-radius: 24px;
-      transition: background-color 0.5s;
-
-      &:hover {
-        background-color: $hover-color;
-      }
+      @extend %listItem;
 
       %down {
         width: 15px;
@@ -105,12 +115,12 @@ $tablet: 950px;
 
     gap: 5px;
     font-size: 30px;
-    font-family: Sriracha, cursive;
-    font-weight: 500;
+    font-family: Raleway, sans-serif;
+    font-weight: 600;
     width: 280px;
 
-    @media (max-width: 1100px) {
-      width: 150px;
+    @media (max-width: 1210px) {
+      width: 155px;
     }
   }
 
@@ -123,14 +133,16 @@ $tablet: 950px;
 .header {
   @extend %header;
 
-  padding: 15px 30px;
+  height: 80px;
+  background-color: $secondary-bg-color;
 }
 
 .headerActive {
   @extend %header;
 
+  height: 70px;
   box-shadow: 0 5px 10px -10px $contrast-color;
-  padding: 5px 30px;
+  background-color: #eeebff;
 }
 
 .drawer {
@@ -144,6 +156,17 @@ $tablet: 950px;
     margin: 10px;
 
     @include flex(row, center, center);
+
+    & > * {
+      text-transform: capitalize;
+      font-family: inherit;
+      font-size: inherit;
+      border-radius: 24px;
+
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
   }
 
   img {
@@ -155,6 +178,11 @@ $tablet: 950px;
     @extend %buttons;
 
     margin: 10px auto;
+
+    .primary {
+      padding: 10px;
+      width: auto;
+    }
   }
 }
 

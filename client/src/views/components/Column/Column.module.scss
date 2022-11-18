@@ -21,7 +21,7 @@
 
     .title {
       width: 240px;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 400;
       white-space: nowrap;
       overflow: hidden;
@@ -45,15 +45,5 @@
 
   &::-webkit-scrollbar {
     width: 0;
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $hover-color;
-    box-shadow: inset 1px 1px 10px $hover-color;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: $hover-color;
   }
 }

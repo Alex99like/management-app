@@ -7,6 +7,7 @@ import styles from './Header.module.scss';
 import MenuItem from './MenuItem';
 import Buttons from './Buttons';
 import { useAuth } from '../../../hooks/useAuth';
+import i18n from '../../../utils/i18next';
 
 type DrawerLayoutPropsType = {
   menuOpen: boolean;
@@ -20,6 +21,10 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({ menuOpen, closeMenu }) 
   };
 
   const { user } = useAuth();
+
+  function handleClick(key: string) {
+    i18n.changeLanguage(key);
+  }
 
   return (
     <Drawer anchor="top" open={menuOpen} onClose={closeMenu} className={styles.drawer}>
@@ -43,8 +48,8 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({ menuOpen, closeMenu }) 
             <Buttons />
             <Divider />
             <ButtonGroup variant="text" className={styles.buttonGroup}>
-              <Button>English</Button>
-              <Button>Russian</Button>
+              <Button onClick={() => handleClick('en')}>English</Button>
+              <Button onClick={() => handleClick('ru')}>Russian</Button>
             </ButtonGroup>
           </>
         ) : (

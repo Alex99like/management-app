@@ -7,7 +7,7 @@ const translationEn = {
       en: 'English',
       ru: 'Russian',
     },
-    main: 'Go To Main Page',
+    main: 'Main Page',
     logOut: 'Log Out',
   },
   welcomePage: {

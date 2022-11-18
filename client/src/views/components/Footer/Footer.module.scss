@@ -7,7 +7,6 @@
   gap: 50px;
   background-color: $secondary-bg-color;
   margin: 15px 20px;
-  font-weight: 600;
 
   @media (max-width: 600px) {
     @include flex(column, center, center);
