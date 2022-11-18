@@ -7,7 +7,7 @@ const translationRu = {
       en: 'Английский',
       ru: 'Русский',
     },
-    main: 'На Главную Страницу',
+    main: 'Главная Страница',
     logOut: 'Выйти',
   },
   welcomePage: {
