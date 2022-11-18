@@ -84,6 +84,7 @@ function WelcomePage() {
             ))}
           </div>
         </section>
+        <Divider />
       </div>
     </div>
   );

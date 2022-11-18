@@ -26,13 +26,13 @@ $tablet: 950px;
   .primary {
     background-color: transparent;
     color: $contrast-color;
+
     @extend %listItem;
   }
 }
 
 %header {
   padding: 0 30px;
-  font-weight: 600;
   position: sticky;
   top: 0;
   z-index: 1300;
@@ -115,12 +115,12 @@ $tablet: 950px;
 
     gap: 5px;
     font-size: 30px;
-    font-family: Sriracha, cursive;
-    font-weight: 500;
+    font-family: Raleway, sans-serif;
+    font-weight: 600;
     width: 280px;
 
     @media (max-width: 1210px) {
-      width: 150px;
+      width: 155px;
     }
   }
 
@@ -132,12 +132,14 @@ $tablet: 950px;
 
 .header {
   @extend %header;
-  height: 83px;
+
+  height: 80px;
   background-color: $secondary-bg-color;
 }
 
 .headerActive {
   @extend %header;
+
   height: 70px;
   box-shadow: 0 5px 10px -10px $contrast-color;
   background-color: #eeebff;

@@ -5,24 +5,20 @@
   background: $primary-bg-color;
 
   .main {
-    width: 1220px;
+    width: 1210px;
     min-height: calc(100vh - 145px);
     margin: 0 auto;
 
     @media (max-width: 1280px) {
-      width: 970px;
+      width: 900px;
     }
 
-    @media (max-width: 1030px) {
-      width: 720px;
+    @media (max-width: 950px) {
+      width: 590px;
     }
 
-    @media (max-width: 780px) {
-      width: 470px;
-    }
-
-    @media (max-width: 530px) {
-      width: 220px;
+    @media (max-width: 650px) {
+      width: 280px;
     }
 
     h3 {
