@@ -15,7 +15,27 @@ export const boardApi = api.injectEndpoints({
       }),
       invalidatesTags: () => [{ type: 'Boards' }],
     }),
+    updateBoard: builder.mutation<IBoard, { board: Omit<IBoard, 'id'>; boardId: string }>({
+      query: ({ board, boardId }) => ({
+        url: `boards/${boardId}`,
+        method: 'PUT',
+        body: board,
+      }),
+      invalidatesTags: () => [{ type: 'Boards' }],
+    }),
+    deleteBoard: builder.mutation<void, { boardId: string }>({
+      query: ({ boardId }) => ({
+        url: `boards/${boardId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: () => [{ type: 'Boards' }],
+    }),
   }),
 });
 
-export const { useGetBoardsQuery, useCreateBoardMutation } = boardApi;
+export const {
+  useGetBoardsQuery,
+  useCreateBoardMutation,
+  useUpdateBoardMutation,
+  useDeleteBoardMutation,
+} = boardApi;

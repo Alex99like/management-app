@@ -7,7 +7,7 @@ export const columnApi = api.injectEndpoints({
       query: ({ boardId }) => `boards/${boardId}/columns`,
       providesTags: () => [{ type: 'Columns' }],
     }),
-    createBoard: builder.mutation<IColumn, { column: IColumnReq; boardId: string }>({
+    createColumn: builder.mutation<IColumn, { column: IColumnReq; boardId: string }>({
       query: ({ boardId, column }) => ({
         url: `boards/${boardId}/columns`,
         method: 'POST',
@@ -15,7 +15,30 @@ export const columnApi = api.injectEndpoints({
       }),
       invalidatesTags: () => [{ type: 'Columns' }],
     }),
+    updateColumn: builder.mutation<
+      IColumn,
+      { column: Omit<IColumn, 'id'>; boardId: string; columnsId: string }
+    >({
+      query: ({ boardId, columnsId, column }) => ({
+        url: `boards/${boardId}/columns/${columnsId}`,
+        method: 'PUT',
+        body: column,
+      }),
+      invalidatesTags: () => [{ type: 'Columns' }],
+    }),
+    deleteColumn: builder.mutation<void, { boardId: string; columnsId: string }>({
+      query: ({ columnsId, boardId }) => ({
+        url: `boards/${boardId}/columns/${columnsId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: () => [{ type: 'Columns' }],
+    }),
   }),
 });
 
-export const { useLazyGetColumnsQuery } = columnApi;
+export const {
+  useUpdateColumnMutation,
+  useCreateColumnMutation,
+  useGetColumnsQuery,
+  useDeleteColumnMutation,
+} = columnApi;
