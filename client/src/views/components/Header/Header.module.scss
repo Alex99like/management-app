@@ -15,7 +15,7 @@ $tablet: 950px;
 }
 
 %header {
-  background-color: $secondary-bg-color;
+  padding: 0 30px;
   font-weight: 600;
   position: sticky;
   top: 0;
@@ -122,15 +122,15 @@ $tablet: 950px;
 
 .header {
   @extend %header;
-
-  padding: 15px 30px;
+  height: 83px;
+  background-color: $secondary-bg-color;
 }
 
 .headerActive {
   @extend %header;
-
+  height: 70px;
   box-shadow: 0 5px 10px -10px $contrast-color;
-  padding: 5px 30px;
+  background-color: #eeebff;
 }
 
 .drawer {

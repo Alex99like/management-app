@@ -12,29 +12,35 @@ import { useTranslation } from 'react-i18next';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
+  const headerRef = useRef<HTMLElement | null>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const { t } = useTranslation();
 
   const { user } = useAuth();
 
+  function handleScroll(elTopOffset: number) {
+    if (window.pageYOffset > elTopOffset) {
+      setAnimate(true);
+    } else {
+      setAnimate(false);
+    }
+  }
+
   useEffect(() => {
-    window.onscroll = () => {
-      if (timeout) {
-        clearTimeout(timeout.current);
-      }
-      timeout.current = setTimeout(() => {
-        if (window.scrollY > 10) {
-          setAnimate(true);
-        } else {
-          setAnimate(false);
-        }
-      }, 10);
+    const header = (headerRef.current as HTMLElement).getBoundingClientRect();
+    const handleScrollEvent = () => {
+      handleScroll(header.top);
+    };
+
+    window.addEventListener('scroll', handleScrollEvent);
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollEvent);
     };
   }, []);
 
   return (
-    <header className={animate ? styles.headerActive : styles.header}>
+    <header className={animate ? styles.headerActive : styles.header} ref={headerRef}>
       <NavLink to="/" className={styles.title} onClick={() => setMenuOpen(false)}>
         <img src={logo} alt="logo" className={styles.logo} />
         Taskero
