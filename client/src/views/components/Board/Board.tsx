@@ -27,7 +27,7 @@ function Board(props: { title: string; description?: string }) {
         </div>
         <p className={styles.description}>{description ? description : 'No description'}</p>
       </div>
-      <ConfirmationModal open={openModal} setOpen={setOpenModal} />
+      <ConfirmationModal open={openModal} setOpen={setOpenModal} title="All board data" />
     </>
   );
 }

@@ -93,7 +93,7 @@ $tablet: 950px;
       display: none;
 
       &:hover {
-        background-color: $primary-bg-color;
+        background-color: $hover-color;
       }
 
       @media (max-width: $tablet) {
@@ -160,6 +160,7 @@ $tablet: 950px;
     & > * {
       text-transform: capitalize;
       font-family: inherit;
+      font-weight: inherit;
       font-size: inherit;
       border-radius: 24px;
 

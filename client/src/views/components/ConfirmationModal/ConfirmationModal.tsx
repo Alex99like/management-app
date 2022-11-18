@@ -3,8 +3,12 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from './ConfirmationModal.module.scss';
 import cn from 'classnames';
 
-function ConfirmationModal(props: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) {
-  const { open, setOpen } = props;
+function ConfirmationModal(props: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  title: string;
+}) {
+  const { open, setOpen, title } = props;
   const [active, setActive] = useState(false);
   const [switcherUp, setSwitcherUp] = useState(false);
   const [switcherDown, setSwitcherDown] = useState(false);
@@ -41,7 +45,7 @@ function ConfirmationModal(props: { open: boolean; setOpen: Dispatch<SetStateAct
       >
         <div className={styles.message}>
           <h4>Are you sure?</h4>
-          <p>All board data will be deleted.</p>
+          <p>{title} will be deleted.</p>
         </div>
         <Divider />
         <div className={styles.buttons}>
