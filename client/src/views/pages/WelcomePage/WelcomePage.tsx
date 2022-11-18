@@ -18,8 +18,6 @@ function WelcomePage() {
     'https://www.youtube.com/c/RollingScopesSchool',
   ];
 
-  const team = ['Aleksander Aleksievich', 'Anna Musikhina', 'Maryia Huchkova'];
-
   const images = [manImg, womenWithLaptopImg, womenImg];
 
   const { t } = useTranslation();
@@ -77,11 +75,11 @@ function WelcomePage() {
       <div className={styles.aboutTeamWrapper}>
         <section className={styles.aboutTeamSection}>
           <div>
-            <h3>Here are the developers who created this app</h3>
-            <h2>Our Team.</h2>
+            <h3>{t('welcomePage.teamSubTitle')}</h3>
+            <h2>{t('welcomePage.teamTitle')}</h2>
           </div>
           <div className={styles.team}>
-            {team.map((name, index) => (
+            {t<string, string[]>('welcomePage.team', { returnObjects: true }).map((name, index) => (
               <TeamMember name={name} index={index} key={name} />
             ))}
           </div>

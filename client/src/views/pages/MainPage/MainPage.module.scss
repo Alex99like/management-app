@@ -1,7 +1,6 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
-
 .wrapper {
   background: $primary-bg-color;
 
@@ -33,6 +32,7 @@
 
     .boards {
       @include flex(row, flex-start, flex-start);
+
       flex-wrap: wrap;
       gap: 30px;
       padding: 20px 0;
