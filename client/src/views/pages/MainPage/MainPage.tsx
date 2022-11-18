@@ -1,9 +1,10 @@
 import { useGetUsersQuery } from '../../../services/Api.service';
+import { useGetBoardsQuery } from '../../../services/Board.service';
 import Board from '../../components/Board/Board';
 import styles from './MainPage.module.scss';
 
 function MainPage() {
-  const { data } = useGetUsersQuery();
+  const { data } = useGetBoardsQuery();
 
   console.log(data);
 

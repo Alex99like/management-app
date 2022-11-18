@@ -5,7 +5,7 @@ import { IUser } from '../types/user.type';
 
 export const api = createApi({
   reducerPath: 'api',
-  tagTypes: ['Users'],
+  tagTypes: ['Users', 'Boards', 'Columns', 'Tasks'],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
