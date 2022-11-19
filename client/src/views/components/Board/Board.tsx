@@ -12,7 +12,7 @@ interface IBoardProps {
   };
 }
 
-function Board({ board: { title, description } }: IBoardProps) {
+function Board({ board: { title, description, id } }: IBoardProps) {
   const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function Board({ board: { title, description } }: IBoardProps) {
         </div>
         <p className={styles.description}>{description ? description : 'No description'}</p>
       </div>
-      <ConfirmationModal open={openModal} setOpen={setOpenModal} />
+      <ConfirmationModal id={id} open={openModal} setOpen={setOpenModal} />
     </>
   );
 }
