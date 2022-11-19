@@ -1,6 +1,16 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
+.loader {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 80%;
+  width: 100%;
+  transform: scale(2);
+}
+
 .wrapper {
   background: $primary-bg-color;
 
