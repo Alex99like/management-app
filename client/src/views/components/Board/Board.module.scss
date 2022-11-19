@@ -16,6 +16,10 @@
   .container {
     @include flex(row, space-between, center);
 
+    div {
+      @include flex(row, center, center);
+    }
+
     .title {
       width: 230px;
       font-size: 20px;
@@ -27,16 +31,24 @@
     }
 
     .image {
+      width: 24px;
+    }
+
+    .deleteImg {
       width: 20px;
+
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+
+    .image, 
+    .deleteImg {
       box-sizing: content-box;
       border-radius: 50%;
       padding: 3px;
       transition: all 0.5s;
       filter: saturate(100%) invert(47%) sepia(14%) saturate(2873%) hue-rotate(168deg) brightness(87%);
-
-      &:hover {
-        background-color: $hover-color;
-      }
     }
   }
 

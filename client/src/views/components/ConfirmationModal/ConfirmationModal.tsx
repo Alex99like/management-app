@@ -7,9 +7,10 @@ import { useDeleteBoardMutation } from '../../../services/Board.service';
 function ConfirmationModal(props: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  title: string;
   id: string;
 }) {
-  const { open, setOpen, id } = props;
+  const { open, setOpen, title, id } = props;
   const [active, setActive] = useState(false);
   const [switcherUp, setSwitcherUp] = useState(false);
   const [switcherDown, setSwitcherDown] = useState(false);
@@ -48,7 +49,7 @@ function ConfirmationModal(props: {
       >
         <div className={styles.message}>
           <h4>Are you sure?</h4>
-          <p>All board data will be deleted.</p>
+          <p>{title} will be deleted.</p>
         </div>
         <Divider />
         <div className={styles.buttons}>
