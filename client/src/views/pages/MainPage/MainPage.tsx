@@ -44,7 +44,7 @@ function MainPage() {
       )}
       <div className={styles.wrapper}>
         <div className={styles.main}>
-          <h3>Your Boards</h3>
+          {!isLoading && <h3>Your Boards</h3>}
           <div className={styles.boards}>
             {!isLoading && (
               <button className={styles.newBoard} onClick={() => setActiveForm(true)}>
