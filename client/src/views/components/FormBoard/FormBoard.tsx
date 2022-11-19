@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React from 'react';
 import styles from './FormBoard.module.scss';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Field } from '../Form/Elements/Field/Field';
@@ -15,11 +15,12 @@ export interface IFormBoard {
 
 interface IPropsFormBoard {
   activeModal: boolean;
-  setActiveModal: Dispatch<SetStateAction<boolean>>;
+  close: () => void;
   createBoard: (data: IBoardReq) => void;
+  board?: IFormBoard;
 }
 
-export const FormBoard = ({ activeModal, setActiveModal, createBoard }: IPropsFormBoard) => {
+export const FormBoard = ({ activeModal, close, createBoard, board }: IPropsFormBoard) => {
   const {
     register,
     getValues,
@@ -27,6 +28,10 @@ export const FormBoard = ({ activeModal, setActiveModal, createBoard }: IPropsFo
     formState: { errors, isValid },
   } = useForm<IFormBoard>({
     mode: 'onChange',
+    defaultValues: {
+      title: board?.title ? board.title : '',
+      description: board?.description ? board.description : '',
+    },
   });
 
   const onSubmit: SubmitHandler<IFormBoard> = (data) => {
@@ -34,7 +39,7 @@ export const FormBoard = ({ activeModal, setActiveModal, createBoard }: IPropsFo
   };
 
   return (
-    <Modal onClose={() => setActiveModal(false)} open={activeModal} className={styles.background}>
+    <Modal onClose={close} open={activeModal} className={styles.background}>
       <form onSubmit={handleSubmit(onSubmit)} className={cn(styles.form)}>
         <h2 className={styles.title}>Create New Board</h2>
         <Field
@@ -48,6 +53,7 @@ export const FormBoard = ({ activeModal, setActiveModal, createBoard }: IPropsFo
           getValueBoard={{ fn: getValues, name: 'title' }}
           icon={'BsFileEarmarkWordFill'}
           error={errors.title}
+          active={!!board}
           placeholder={'Title'}
         />
         <Field
@@ -61,22 +67,18 @@ export const FormBoard = ({ activeModal, setActiveModal, createBoard }: IPropsFo
           getValueBoard={{ fn: getValues, name: 'description' }}
           icon={'BsChatLeftTextFill'}
           error={errors.description}
+          active={!!board}
           placeholder={'Description'}
         />
         <div className={styles.btnContainer}>
           <Button disabled={!isValid} className={cn(styles.btn, styles.create)}>
             Create
           </Button>
-          <Button
-            type={'button'}
-            onClick={() => setActiveModal(false)}
-            className={cn(styles.btn, styles.cancel)}
-          >
+          <Button type={'button'} onClick={close} className={cn(styles.btn, styles.cancel)}>
             Cancel
           </Button>
         </div>
       </form>
-      {/* <button>as</button> */}
     </Modal>
   );
 };

@@ -9,6 +9,7 @@ export type IClose = HTMLAttributes<HTMLDivElement>;
 
 export interface IFieldProps {
   placeholder: string;
+  active?: boolean;
   icon: TypeMaterialIconNameBS;
   getValue?: { fn: UseFormGetValues<IRegister>; name: keyof IRegister };
   getValueBoard?: { fn: UseFormGetValues<IFormBoard>; name: keyof IFormBoard };
