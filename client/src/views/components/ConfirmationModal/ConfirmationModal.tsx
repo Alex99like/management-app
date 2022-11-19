@@ -2,13 +2,21 @@ import { Box, Divider, Modal } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from './ConfirmationModal.module.scss';
 import cn from 'classnames';
+import { useDeleteBoardMutation } from '../../../services/Board.service';
 
-function ConfirmationModal(props: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) {
-  const { open, setOpen } = props;
+function ConfirmationModal(props: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  title: string;
+  id: string;
+}) {
+  const { open, setOpen, title, id } = props;
   const [active, setActive] = useState(false);
   const [switcherUp, setSwitcherUp] = useState(false);
   const [switcherDown, setSwitcherDown] = useState(false);
   const handleClose = () => setOpen(false);
+
+  const [deleteBoard] = useDeleteBoardMutation();
 
   useEffect(() => {
     setSwitcherUp(true);
@@ -41,11 +49,11 @@ function ConfirmationModal(props: { open: boolean; setOpen: Dispatch<SetStateAct
       >
         <div className={styles.message}>
           <h4>Are you sure?</h4>
-          <p>All board data will be deleted.</p>
+          <p>{title} will be deleted.</p>
         </div>
         <Divider />
         <div className={styles.buttons}>
-          <button className={styles.button} onClick={handleClose}>
+          <button className={styles.button} onClick={() => deleteBoard({ boardId: id })}>
             OK
           </button>
           <button className={styles.button} onClick={handleClose}>

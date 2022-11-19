@@ -5,7 +5,7 @@ function Task(props: { task: string }) {
   return (
     <div className={styles.task}>
       <p>{props.task}</p>
-      <img className={styles.image} src={dotsImg} alt="delete" />
+      <img className={styles.image} src={dotsImg} alt="edit" />
     </div>
   );
 }

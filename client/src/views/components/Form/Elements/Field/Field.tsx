@@ -6,12 +6,18 @@ import styles from './Field.module.scss';
 import { MaterialIconAI, MaterialIconBS } from '../../../../../utils/MaterialIcon';
 
 export const Field = forwardRef<HTMLInputElement, IField>(
-  ({ placeholder, error, type = 'text', style, icon, getValue, ...rest }, ref) => {
+  ({ placeholder, error, type = 'text', style, icon, getValue, getValueBoard, ...rest }, ref) => {
     const [onFocus, setOnFocus] = useState(false);
 
     const handlerFocus = () => {
-      if (getValue.fn(getValue.name).trim().length === 0) setOnFocus(false);
-      else setOnFocus(true);
+      if (getValue) {
+        if (getValue.fn(getValue.name).trim().length === 0) setOnFocus(false);
+        else setOnFocus(true);
+      }
+      if (getValueBoard) {
+        if (getValueBoard.fn(getValueBoard.name).trim().length === 0) setOnFocus(false);
+        else setOnFocus(true);
+      }
     };
 
     return (
