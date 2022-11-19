@@ -2,17 +2,21 @@ import { Box, Divider, Modal } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from './ConfirmationModal.module.scss';
 import cn from 'classnames';
+import { useDeleteBoardMutation } from '../../../services/Board.service';
 
 function ConfirmationModal(props: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   title: string;
+  id: string;
 }) {
-  const { open, setOpen, title } = props;
+  const { open, setOpen, title, id } = props;
   const [active, setActive] = useState(false);
   const [switcherUp, setSwitcherUp] = useState(false);
   const [switcherDown, setSwitcherDown] = useState(false);
   const handleClose = () => setOpen(false);
+
+  const [deleteBoard] = useDeleteBoardMutation();
 
   useEffect(() => {
     setSwitcherUp(true);
@@ -49,7 +53,7 @@ function ConfirmationModal(props: {
         </div>
         <Divider />
         <div className={styles.buttons}>
-          <button className={styles.button} onClick={handleClose}>
+          <button className={styles.button} onClick={() => deleteBoard({ boardId: id })}>
             OK
           </button>
           <button className={styles.button} onClick={handleClose}>

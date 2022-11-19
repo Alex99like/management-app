@@ -5,8 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useState } from 'react';
 
-function Board(props: { title: string; description?: string }) {
-  const { title, description } = props;
+interface IBoardProps {
+  board: {
+    id: string;
+    title: string;
+    description?: string;
+  };
+}
+
+function Board({ board: { title, description, id } }: IBoardProps) {
   const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
