@@ -1,6 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toastr } from 'react-redux-toastr';
-import { useCreateBoardMutation, useGetBoardsQuery } from '../../../services/Board.service';
+import {
+  useCreateBoardMutation,
+  useGetBoardsQuery,
+  useUpdateBoardMutation,
+} from '../../../services/Board.service';
 import { IBoardReq } from '../../../types/board.type';
 import { MaterialIconBS } from '../../../utils/MaterialIcon';
 import Board from '../../components/Board/Board';
@@ -13,10 +17,21 @@ import { useFormBoard } from '../../components/FormBoard/useFormBoard';
 
 function MainPage() {
   const { data, isLoading } = useGetBoardsQuery();
-  const [create, { isSuccess, data: dataItem }] = useCreateBoardMutation();
-  // const [update, { isSuccess, data: dataItem }] = useUpdateBoardMutation();
-  // const [activeForm, setActiveForm] = useState(false);
-  const { activeModal, closeModal, callCreate, callUpdate, board } = useFormBoard();
+  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
+    useCreateBoardMutation();
+
+  const [update, { isSuccess: isSuccessUpdate, data: dataItemUpdate, isLoading: isLoadingUpdate }] =
+    useUpdateBoardMutation();
+
+  const { activeModal, closeModal, callCreate, callUpdate, board, type } = useFormBoard();
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoadingCreate && !isLoadingUpdate) setLoading(true);
+    if (!isLoadingCreate && isLoadingUpdate) setLoading(true);
+    if (!isLoadingCreate && !isLoadingUpdate) setLoading(false);
+  }, [isLoadingCreate, isLoadingUpdate]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -26,8 +41,17 @@ function MainPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
+  useEffect(() => {
+    if (isSuccessUpdate) {
+      toastr.success('Success!', `Board update ${dataItemUpdate ? dataItemUpdate.title : ''} !`);
+      closeModal();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataItemUpdate, isSuccessUpdate]);
+
   const handleCreateBoard = (data: IBoardReq) => {
-    create(data);
+    if (type === 'create') create(data);
+    if (type === 'update' && board) update({ board: data, boardId: board.id });
   };
 
   return (
@@ -40,10 +64,11 @@ function MainPage() {
       )}
       {activeModal && (
         <FormBoard
-          createBoard={handleCreateBoard}
+          handleBoard={handleCreateBoard}
           board={board}
           activeModal={activeModal}
           close={closeModal}
+          loading={loading}
         />
       )}
       <div className={styles.wrapper}>

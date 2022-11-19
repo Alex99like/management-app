@@ -13,10 +13,6 @@ interface IBoardProps {
     description: string;
   };
   update: (data: IFormBoard) => void;
-  // formState: {
-  //   activeForm: boolean;
-  //   setActiveForm: Dispatch<SetStateAction<boolean>>;
-  // };
 }
 
 function Board({ board: { title, description, id }, update }: IBoardProps) {
@@ -42,7 +38,7 @@ function Board({ board: { title, description, id }, update }: IBoardProps) {
               className={styles.image}
               src={dotsImg}
               alt="edit"
-              onClick={() => update({ title, description })}
+              onClick={() => update({ title, description, id })}
             />
             <img className={styles.deleteImg} src={deleteImg} alt="delete" />
           </div>
