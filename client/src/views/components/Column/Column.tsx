@@ -26,7 +26,7 @@ function Column(props: { title: string }) {
         <Task task="task4" />
       </div>
       <AddButton title="task" />
-      <ConfirmationModal open={openModal} setOpen={setOpenModal} title="Column" />
+      <ConfirmationModal id={'1'} open={openModal} setOpen={setOpenModal} title="Column" />
     </div>
   );
 }
