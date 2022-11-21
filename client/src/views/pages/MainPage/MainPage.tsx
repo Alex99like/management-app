@@ -81,7 +81,7 @@ function MainPage() {
                   <span className={styles.add}>
                     <MaterialIconBS name={'BsPlusLg'} />
                   </span>
-                  <h3 className={styles.title}>Add New Board</h3>
+                  <p className={styles.title}>Add New Board</p>
                 </div>
               </button>
             )}
