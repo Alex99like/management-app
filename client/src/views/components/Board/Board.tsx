@@ -38,7 +38,7 @@ function Board({ board: { title, description, id } }: IBoardProps) {
         </div>
         <p className={styles.description}>{description ? description : 'No description'}</p>
       </div>
-      <ConfirmationModal open={openModal} setOpen={setOpenModal} title="All board data" />
+      <ConfirmationModal id={id} open={openModal} setOpen={setOpenModal} title="All board data" />
     </>
   );
 }
