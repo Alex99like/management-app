@@ -67,11 +67,66 @@ button {
 
 .redux-toastr {
   .toastr {
+    position: absolute;
+    right: 30px;
+    border-radius: 15px;
+    width: 300px;
+    opacity: 1;
+
+    @media (max-width: 360px) {
+      width: 260px;
+    }
+
+    .rrt-left-container {
+      width: 45px;
+
+      .rrt-holder {
+        width: 45px;
+      }
+    }
+
+    .rrt-middle-container {
+      margin: 10px 20px 10px 50px;
+      padding: 10px;
+    }
+
+    .rrt-text,
+    .rrt-title {
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (max-width: 360px) {
+        width: 160px;
+      }
+    }
+
+    .close-toastr {
+      opacity: 1;
+      color: $light-text-color;
+      transition: all 0.5s;
+      margin-right: 5px;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
     &.rrt-success {
-      background-color: #4b85e7;
+      background-color: $contrast-color;
 
       .rrt-progressbar {
-        background-color: darken(#4b85e7, 15%);
+        background-color: darken($contrast-color, 15%);
+      }
+    }
+
+    &.rrt-warning,
+    &.rrt-error {
+      background-color: $red-color;
+
+      .rrt-progressbar {
+        background-color: darken($red-color, 15%);
       }
     }
   }

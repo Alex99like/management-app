@@ -35,7 +35,7 @@ function MainPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''} !`);
+      toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''}!`);
       closeModal();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +43,7 @@ function MainPage() {
 
   useEffect(() => {
     if (isSuccessUpdate) {
-      toastr.success('Success!', `Board update ${dataItemUpdate ? dataItemUpdate.title : ''} !`);
+      toastr.success('Success!', `Board update ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
       closeModal();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

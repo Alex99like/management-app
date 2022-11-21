@@ -8,6 +8,10 @@
   overflow-x: scroll;
   overflow-y: hidden;
 
+  @media (max-width: 600px) {
+    height: calc(100vh - 216px);
+  }
+
   .topPanel {
     @include flex(row, flex-start, center);
 

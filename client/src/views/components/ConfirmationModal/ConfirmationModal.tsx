@@ -21,6 +21,7 @@ function ConfirmationModal(props: {
   useEffect(() => {
     if (isSuccessDelete) {
       toastr.success('Success!', `Board deleted!`);
+      handleClose();
     }
   }, [isSuccessDelete]);
 
