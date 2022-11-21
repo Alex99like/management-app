@@ -2,59 +2,105 @@
 @import "../../../style/variables";
 
 .confirmationModal {
+  
+  .loader {
+    background: $transparent-bg-color;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    animation: loader;
+    animation-duration: 0.5s;
+  }
+
+  @keyframes loader {
+    0% {
+      background: transparent;
+      transform: scale(0.1) rotate(-360deg);
+    }
+
+    50% {
+      background: transparent;
+      transform: scale(1) rotate(0deg);
+    }
+
+    100% {
+      background: $transparent-bg-color;
+    }
+  }
+
   .box {
+    @include flex(column, center, center);
+
+    gap: 10px;
     width: 280px;
-    height: 140px;
     background-color: $secondary-bg-color;
-    border-radius: 24px;
-    padding: 10px;
-    margin: calc(50vh - 70px) auto 0;
-    transform: scale(0.01) translate(-500px, -500px);
-    transition: all 0.3s;
+    border-radius: 30px;
+    padding: 30px 10px;
+    margin: calc(50vh - 82px) auto 0;
+    animation: animateModal 0.7s;
 
-    &.active {
-      transform: scale(1);
-    }
-
-    &.switcherUp {
-      transform: scale(0.001) translateX(800px);
-    }
-
-    &.switcherDown {
-      transform: scale(0.001) translateX(-800px);
-    }
-
-    .message {
-      text-align: center;
-
-      h4 {
-        font-size: 22px;
+    @keyframes animateModal {
+      0% {
+        transform: translateY(-300px) scale(0.01);
       }
 
-      p {
-        color: #ff000096;
+      50% {
+        transform: translateY(50px) scale(0.8);
       }
+
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    h4 {
+      box-shadow: 0 0 2px $transparent-bg-color;
+      max-width: 240px;
+      font-size: 20px;
+      padding: 3px 10px;
+      border-radius: 10px;
+      color: $transparent-bg-color;
+    }
+
+    p {
+      font-weight: 500;
     }
 
     .buttons {
       @include flex(row, center, center);
 
-      gap: 10px;
-      margin: 15px;
-    }
+      gap: 20px;
 
-    .button {
-      background-color: $contrast-color;
-      color: $light-text-color;
-      border: 2px solid $contrast-color;
-      padding: 5px;
-      width: 100px;
-      border-radius: 24px;
-      box-shadow: 0 10px 20px -10px $contrast-color;
-      transition: box-shadow 0.5s;
+      .button {
+        width: 80px;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: 600;
+        color: $secondary-bg-color;
+        transition: 0.5s;
 
-      &:hover {
-        box-shadow: 0 10px 30px -10px $contrast-color;
+        &:nth-child(1) {
+          background-color: $red-color;
+          box-shadow: 0 10px 20px -4px $red-color;
+
+          &:hover {
+            box-shadow: 0 0 4px $red-color;
+            background-color: $secondary-bg-color;
+            text-shadow: 0 0 2px $red-color;
+          }
+        }
+
+        &:nth-child(2) {
+          background-color: $contrast-color;
+          box-shadow: 0 10px 20px -4px $contrast-color;
+
+          &:hover {
+            box-shadow: 0 0 4px $contrast-color;
+            background-color: $secondary-bg-color;
+            text-shadow: 0 0 2px $contrast-color;
+          }
+        }
       }
     }
   }
