@@ -24,7 +24,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Raleway', sans-serif;
+  font-family: Raleway, sans-serif;
 }
 
 a {
@@ -69,6 +69,7 @@ button {
   .toastr {
     &.rrt-success {
       background-color: #4b85e7;
+
       .rrt-progressbar {
         background-color: darken(#4b85e7, 15%);
       }

@@ -31,6 +31,10 @@
       width: 280px;
     }
 
+    @media (max-width: 600px) {
+      min-height: calc(100vh - 216px);
+    }
+
     h3 {
       font-size: 30px;
       padding-top: 20px;
@@ -45,46 +49,44 @@
 
       .newBoard {
         width: 280px;
-        padding: 10px;
         height: 100px;
         border-radius: 15px;
         box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
         transition: box-shadow 0.5s;
         cursor: pointer;
         padding: 5px;
-        background-color: white;
+        background-color: $secondary-bg-color;
 
         &:hover {
           box-shadow: rgb(0 0 0 / 16%) 0 10px 36px 0, rgb(0 0 0 / 6%) 0 0 0 1px;
         }
 
         .dashed {
-          border: 3px dashed gainsboro;
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          height: 100%;
+          border: 3px dashed $gray-color;
+
+          @include flex(column, center, center);
+
           border-radius: 13px;
-          padding: 10px 0 15px;
+          padding: 8px;
 
           .title {
             font-size: 18px;
-            color: gainsboro;
+            font-weight: 500;
+            color: $gray-color;
             padding: 0;
           }
 
           .add {
             padding: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-top: 5px;
+
+            @include flex(row, center, center);
+
             border-radius: 50%;
-            border: 3px dashed gainsboro;
+            border: 3px dashed $gray-color;
 
             svg {
-              color: gainsboro;
+              color: $gray-color;
               font-size: 20px;
             }
           }
