@@ -64,3 +64,14 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background-color: $dark-bg-color;
 }
+
+.redux-toastr {
+  .toastr {
+    &.rrt-success {
+      background-color: #4b85e7;
+      .rrt-progressbar {
+        background-color: darken(#4b85e7, 15%);
+      }
+    }
+  }
+}

@@ -11,6 +11,30 @@
   z-index: 2;
   background: #50494960;
 
+  .loader {
+    background: #50494960;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    animation: loader;
+    animation-duration: .5s;
+  }
+
+  @keyframes loader {
+    0% {
+      background: transparent;
+      transform: scale(.1) rotate(-360deg);
+    }
+    50% {
+      background: transparent;
+      transform: scale(1) rotate(0deg);
+    }
+    100% {
+      background: #50494960;
+    }
+  }
+
   .form {
     margin-top: 180px;
     background-color: $secondary-bg-color;

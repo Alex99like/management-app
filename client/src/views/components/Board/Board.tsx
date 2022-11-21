@@ -4,16 +4,18 @@ import dotsImg from '../../../assets/icons/dots.svg';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useState } from 'react';
+import { IFormBoard } from '../FormBoard/FormBoard';
 
 interface IBoardProps {
   board: {
     id: string;
     title: string;
-    description?: string;
+    description: string;
   };
+  update: (data: IFormBoard) => void;
 }
 
-function Board({ board: { title, description, id } }: IBoardProps) {
+function Board({ board: { title, description, id }, update }: IBoardProps) {
   const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
@@ -32,7 +34,12 @@ function Board({ board: { title, description, id } }: IBoardProps) {
         <div className={styles.container}>
           <h4 className={styles.title}>{title}</h4>
           <div>
-            <img className={styles.image} src={dotsImg} alt="edit" />
+            <img
+              className={styles.image}
+              src={dotsImg}
+              alt="edit"
+              onClick={() => update({ title, description, id })}
+            />
             <img className={styles.deleteImg} src={deleteImg} alt="delete" />
           </div>
         </div>
