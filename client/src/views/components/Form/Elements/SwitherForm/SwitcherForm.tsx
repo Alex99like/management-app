@@ -22,7 +22,7 @@ export const SwitcherForm = ({ switcher, onDisabled, onLogin, onRegister }: ISwi
           [styles.active]: switcher === 'login',
         })}
       >
-        Login
+        Log In
       </Button>
       <Button
         disabled={onDisabled}
@@ -32,7 +32,7 @@ export const SwitcherForm = ({ switcher, onDisabled, onLogin, onRegister }: ISwi
           [styles.active]: switcher === 'register',
         })}
       >
-        Register
+        Sign Up
       </Button>
     </div>
   );
