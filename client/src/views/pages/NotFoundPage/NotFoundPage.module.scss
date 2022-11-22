@@ -7,6 +7,10 @@
   height: calc(100vh - 145px);
   background: $primary-bg-color;
 
+  @media (max-width: 600px) {
+    height: calc(100vh - 216px);
+  }
+
   .title {
     font-size: 20px;
     margin-bottom: 45px;

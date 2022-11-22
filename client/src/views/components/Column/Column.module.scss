@@ -5,15 +5,23 @@
   min-width: 280px;
   max-width: 280px;
   border-radius: 24px;
+  background-color: $secondary-bg-color;
   box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
   transition: box-shadow 0.5s;
   padding: 10px;
   max-height: calc(100vh - 270px);
-  min-height: 150px;
+  min-height: 100px;
   overflow: scroll;
 
   &:hover {
     box-shadow: rgb(0 0 0 / 16%) 0 10px 36px 0, rgb(0 0 0 / 6%) 0 0 0 1px;
+  }
+
+  .tasks {
+    @include flex(column, center, stretch);
+
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
   .container {
@@ -21,6 +29,7 @@
 
     .title {
       width: 240px;
+      margin-bottom: 10px;
       font-size: 20px;
       font-weight: 400;
       white-space: nowrap;
