@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useState } from 'react';
 import { IFormBoard } from '../FormBoard/FormBoard';
+import { useActions } from '../../../hooks/useAction';
 
 interface IBoardProps {
   board: {
@@ -19,12 +20,14 @@ function Board({ board: { title, description, id }, update }: IBoardProps) {
   const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
+  const { setBoardId } = useActions();
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const target = e.target as HTMLDivElement;
     if (target.classList.contains(styles.deleteImg)) {
       setOpenModal(true);
     } else if (target.tagName !== 'IMG') {
+      setBoardId(id);
       navigate('/board');
     }
   }
