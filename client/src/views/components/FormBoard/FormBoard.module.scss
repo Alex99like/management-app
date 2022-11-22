@@ -2,56 +2,57 @@
 @import "../../../style/variables";
 
 .background {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  @include flex(row, center, flex-start);
+
   position: fixed;
   width: 100%;
   height: 100%;
   z-index: 2;
-  background: #50494960;
+  background: $transparent-bg-color;
 
   .loader {
-    background: #50494960;
+    background: $transparent-bg-color;
     position: fixed;
     width: 100%;
     height: 100%;
     z-index: 3;
     animation: loader;
-    animation-duration: .5s;
+    animation-duration: 0.5s;
   }
 
   @keyframes loader {
     0% {
       background: transparent;
-      transform: scale(.1) rotate(-360deg);
+      transform: scale(0.1) rotate(-360deg);
     }
+
     50% {
       background: transparent;
       transform: scale(1) rotate(0deg);
     }
+
     100% {
-      background: #50494960;
+      background: $transparent-bg-color;
     }
   }
 
   .form {
-    margin-top: 180px;
+    margin-top: calc(50vh - 120px);
     background-color: $secondary-bg-color;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+
+    @include flex(column, flex-start, flex-start);
+
     padding: 30px;
     gap: 15px;
     border-radius: 30px;
     outline: none;
     animation: animateModal;
     transform: scale(1.2);
-    animation-duration: .7s;
+    animation-duration: 0.7s;
 
-    // &.active {
-    //   transform: translateY(0);
-    // }
+    @media (max-width: 400px) {
+      padding: 20px 15px 15px;
+    }
 
     @keyframes animateModal {
       0% {
@@ -59,7 +60,7 @@
       }
 
       50% {
-        transform: translateY(50px) scale(.8);
+        transform: translateY(50px) scale(0.8);
       }
 
       100% {
@@ -68,53 +69,62 @@
     }
 
     .title {
-      box-shadow: 0 0 2px #50494960;
+      box-shadow: 0 0 2px $transparent-bg-color;
+      max-width: 240px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       font-size: 20px;
       padding: 3px 10px;
       border-radius: 10px;
-      color: #50494960;
+      color: $transparent-bg-color;
+
+      @media (max-width: 400px) {
+        max-width: 200px;
+      }
     }
 
     .btnContainer {
-      width: 80%;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-around;
+      width: 100%;
+
+      @include flex(row, center, stretch);
+
+      gap: 20px;
 
       .btn {
         width: 80px;
         border-radius: 10px;
         font-size: 20px;
         font-weight: 600;
-        color: whitesmoke;
-        transition: .3s;
+        color: $secondary-bg-color;
+        transition: 0.5s;
 
         &.create {
-          background-color: #1b65dcb9;
-          box-shadow: 0 10px 20px -4px #1b65dcb9; 
-          
+          background-color: $contrast-color;
+          box-shadow: 0 10px 20px -4px $contrast-color;
+
           &:hover {
-            box-shadow: 0 0 4px #1b65dcb9;
-            background-color: white;
-            text-shadow: 0 0 2px #1b65dc;
+            box-shadow: 0 0 4px $contrast-color;
+            background-color: $secondary-bg-color;
+            text-shadow: 0 0 2px $contrast-color;
           }
 
           &:disabled {
             box-shadow: none;
             text-shadow: none;
-            color: white;
-            background: gainsboro;
+            color: $secondary-bg-color;
+            background: $gray-color;
           }
         }
 
         &.cancel {
-          background-color: #c80505a9;
-          box-shadow: 0 10px 20px -4px #c80505a9; 
+          background-color: $red-color;
+          box-shadow: 0 10px 20px -4px $red-color;
 
           &:hover {
-            box-shadow: 0 0 4px #c80505a9;
-            background-color: white;
-            text-shadow: 0 0 2px #c80505;
+            box-shadow: 0 0 4px $red-color;
+            background-color: $secondary-bg-color;
+            text-shadow: 0 0 2px $red-color;
           }
         }
       }
