@@ -47,7 +47,9 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({
               </Link>
             </List>
             <List>
-              <MenuItem icon={<AccountCircleIcon color="primary" />} caption="Edit Profile" />
+              <Link to={'/edit'}>
+                <MenuItem icon={<AccountCircleIcon color="primary" />} caption="Edit Profile" />
+              </Link>
             </List>
             <Divider />
             <Buttons />

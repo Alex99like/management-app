@@ -21,8 +21,4 @@ export const AuthService = {
 
     return response;
   },
-
-  async logout() {
-    Cookies.expire('user-v-21');
-  },
 };

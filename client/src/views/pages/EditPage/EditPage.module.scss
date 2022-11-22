@@ -1,0 +1,65 @@
+.background {
+  width: 100%;
+  height: calc(100vh - 150px);
+  background-image: url(../../../assets/images/light-edit.jpg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    min-width: 320px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+
+    .id {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #0e0233;
+      padding: 3px 4px;
+      box-shadow: 0 0 2px #7c7b7b57;
+      border-radius: 5px;
+
+      span {
+        color: #7c7b7b57
+      }
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .avatar {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-image: url(../../../assets/icons/avatar-default.png);
+        background-size: cover;
+        background-position: center;
+        border: 5px solid #FFFFFF;
+      }
+
+      .name {
+        position: relative;
+        margin-left: 20px;
+        font-size: 28px;
+        display: flex;
+        align-items: flex-end;
+        box-shadow: 0px 2px 6px -4px rgba(105, 105, 105, 0.637);
+        padding: 0 7px;
+        border-radius: 7px;
+        
+        span {
+          font-size: 20px;
+          font-weight: 800;
+          color: #7b7a7aa9;
+          margin-right: 10px;
+          padding-bottom: 1.5px;
+        }
+      }
+    }
+  }
+}
