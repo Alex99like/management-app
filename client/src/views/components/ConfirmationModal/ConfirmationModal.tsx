@@ -1,8 +1,12 @@
-import { Box, Divider, Modal } from '@mui/material';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Box, Modal } from '@mui/material';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import styles from './ConfirmationModal.module.scss';
-import cn from 'classnames';
 import { useDeleteBoardMutation } from '../../../services/Board.service';
+import Lottie from 'lottie-react';
+import Loader from '../../../assets/animation/loader-req-board.json';
+import { toastr } from 'react-redux-toastr';
+import { useDeleteColumnMutation } from '../../../services/Column.service';
+import { useAppSelector } from '../../../store/store';
 
 function ConfirmationModal(props: {
   open: boolean;
@@ -11,27 +15,32 @@ function ConfirmationModal(props: {
   id: string;
 }) {
   const { open, setOpen, title, id } = props;
-  const [active, setActive] = useState(false);
-  const [switcherUp, setSwitcherUp] = useState(false);
-  const [switcherDown, setSwitcherDown] = useState(false);
+  const boardId = useAppSelector((state) => state.root.boardId);
   const handleClose = () => setOpen(false);
 
-  const [deleteBoard] = useDeleteBoardMutation();
+  const [deleteBoard, { isSuccess: isSuccessDelete, isLoading: isLoadingDelete }] =
+    useDeleteBoardMutation();
+
+  const [deleteColumn, { isSuccess: isSuccessColumnDelete, isLoading: isLoadingColumnDelete }] =
+    useDeleteColumnMutation();
 
   useEffect(() => {
-    setSwitcherUp(true);
-    setTimeout(() => {
-      setSwitcherUp(false);
-      setSwitcherDown(true);
-      setTimeout(() => {
-        setSwitcherDown(false);
-      }, 150);
-    }, 150);
-  }, [open]);
+    if (isSuccessDelete || isSuccessColumnDelete) {
+      toastr.success('Success!', `${title} deleted!`);
+      handleClose();
+    }
+  }, [isSuccessDelete, isSuccessColumnDelete]);
 
-  useEffect(() => {
-    setActive(true);
-  }, []);
+  const handleDelete = () => {
+    switch (title) {
+      case 'Column':
+        deleteColumn({ boardId, columnsId: id });
+        break;
+      case 'All board data':
+        deleteBoard({ boardId: id });
+        break;
+    }
+  };
 
   return (
     <Modal
@@ -40,27 +49,23 @@ function ConfirmationModal(props: {
       onClose={handleClose}
       disableAutoFocus={true}
     >
-      <Box
-        className={cn(styles.box, {
-          [styles.switcherUp]: switcherUp,
-          [styles.switcherDown]: switcherDown,
-          [styles.active]: active,
-        })}
-      >
-        <div className={styles.message}>
+      <>
+        {(isLoadingDelete || isLoadingColumnDelete) && (
+          <Lottie className={styles.loader} animationData={Loader} />
+        )}
+        <Box className={styles.box}>
           <h4>Are you sure?</h4>
           <p>{title} will be deleted.</p>
-        </div>
-        <Divider />
-        <div className={styles.buttons}>
-          <button className={styles.button} onClick={() => deleteBoard({ boardId: id })}>
-            OK
-          </button>
-          <button className={styles.button} onClick={handleClose}>
-            Cancel
-          </button>
-        </div>
-      </Box>
+          <div className={styles.buttons}>
+            <button className={styles.button} onClick={handleDelete}>
+              OK
+            </button>
+            <button className={styles.button} onClick={handleClose}>
+              Cancel
+            </button>
+          </div>
+        </Box>
+      </>
     </Modal>
   );
 }

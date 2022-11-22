@@ -1,12 +1,26 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
+.loader {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 80%;
+  width: 100%;
+  transform: scale(1.7);
+}
+
 .wrapper {
   background: $primary-bg-color;
   padding: 15px 30px;
   height: calc(100vh - 145px);
   overflow-x: scroll;
   overflow-y: hidden;
+
+  @media (max-width: 600px) {
+    height: calc(100vh - 216px);
+  }
 
   .topPanel {
     @include flex(row, flex-start, center);

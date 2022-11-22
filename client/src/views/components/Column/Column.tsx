@@ -5,7 +5,7 @@ import AddButton from '../AddButton/AddButton';
 import { useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
-function Column(props: { title: string }) {
+function Column(props: { title: string; id: string }) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -19,14 +19,9 @@ function Column(props: { title: string }) {
           onClick={() => setOpenModal(true)}
         />
       </div>
-      <div className={styles.tasks}>
-        <Task task="task1" />
-        <Task task="task2" />
-        <Task task="task3" />
-        <Task task="task4" />
-      </div>
+      <div className={styles.tasks}></div>
       <AddButton title="task" />
-      <ConfirmationModal id={'1'} open={openModal} setOpen={setOpenModal} title="Column" />
+      <ConfirmationModal id={props.id} open={openModal} setOpen={setOpenModal} title="Column" />
     </div>
   );
 }

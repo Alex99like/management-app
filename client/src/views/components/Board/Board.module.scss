@@ -3,6 +3,7 @@
 
 .board {
   width: 280px;
+  background-color: $secondary-bg-color;
   padding: 10px;
   border-radius: 15px;
   box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
@@ -16,6 +17,8 @@
   .container {
     @include flex(row, space-between, center);
 
+    margin-top: -5px;
+
     div {
       @include flex(row, center, center);
     }
@@ -23,8 +26,8 @@
     .title {
       width: 230px;
       font-size: 20px;
-      padding-bottom: 5px;
-      font-weight: 400;
+      margin-bottom: 5px;
+      font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -42,7 +45,7 @@
       }
     }
 
-    .image, 
+    .image,
     .deleteImg {
       box-sizing: content-box;
       border-radius: 50%;

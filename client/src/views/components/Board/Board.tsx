@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useState } from 'react';
 import { IFormBoard } from '../FormBoard/FormBoard';
+import { useActions } from '../../../hooks/useAction';
 
 interface IBoardProps {
   board: {
@@ -19,11 +20,14 @@ function Board({ board: { title, description, id }, update }: IBoardProps) {
   const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
+  const { setBoardId } = useActions();
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    if ((e.target as HTMLDivElement).classList.contains(styles.deleteImg)) {
+    const target = e.target as HTMLDivElement;
+    if (target.classList.contains(styles.deleteImg)) {
       setOpenModal(true);
-    } else if (!(e.target as HTMLDivElement).classList.contains(styles.image)) {
+    } else if (target.tagName !== 'IMG') {
+      setBoardId(id);
       navigate('/board');
     }
   }
@@ -32,7 +36,7 @@ function Board({ board: { title, description, id }, update }: IBoardProps) {
     <>
       <div className={styles.board} onClick={(e) => handleClick(e)}>
         <div className={styles.container}>
-          <h4 className={styles.title}>{title}</h4>
+          <p className={styles.title}>{title}</p>
           <div>
             <img
               className={styles.image}
@@ -43,7 +47,7 @@ function Board({ board: { title, description, id }, update }: IBoardProps) {
             <img className={styles.deleteImg} src={deleteImg} alt="delete" />
           </div>
         </div>
-        <p className={styles.description}>{description ? description : 'No description'}</p>
+        <p className={styles.description}>{description}</p>
       </div>
       <ConfirmationModal id={id} open={openModal} setOpen={setOpenModal} title="All board data" />
     </>
