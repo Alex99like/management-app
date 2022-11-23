@@ -158,3 +158,29 @@
     }
   }
 }
+
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  z-index: 10000;
+  background-color: #5d5b5b37;
+  animation: 1s loader-edit;
+}
+
+@keyframes loader-edit {
+  0% {
+    background-color: transparent;
+    transform: scale(0.1);
+  }
+
+  50% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+
+  100% {
+    background-color: #5d5b5b37;
+  }
+}

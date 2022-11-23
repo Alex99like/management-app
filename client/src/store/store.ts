@@ -1,4 +1,3 @@
-import { rtkQueryErrorLogger } from './../utils/rtkQueryErrorLogger';
 import { IInitialStateRoot, rootSlice } from './rootSlice';
 import { authSlice } from './AuthAction/authSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -42,9 +41,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    })
-      .concat(rtkQueryErrorLogger)
-      .concat(api.middleware),
+    }).concat(api.middleware),
 });
 
 export const persister = persistStore(store);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from '../../../hooks/useAuth';
 import { Button } from '../../components/Form/Elements/Button/Button';
 import { Field } from '../../components/Form/Elements/Field/Field';
@@ -7,16 +7,19 @@ import { IRegister } from '../../components/Form/form.interface';
 import { nameValid } from '../../components/Form/validate';
 import cn from 'classnames';
 import styles from './EditPage.module.scss';
+import { useActions } from '../../../hooks/useAction';
+import Lottie from 'lottie-react';
+import Loader from '../../../assets/animation/form-louder.json';
 
 export const EditPage = () => {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
+  const { updateUser } = useActions();
   const [bgDelete, setBgDelete] = useState(false);
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
     getValues,
   } = useForm<IRegister>({
     defaultValues: {
@@ -25,8 +28,18 @@ export const EditPage = () => {
     },
   });
 
+  const onSubmit: SubmitHandler<IRegister> = (data) => {
+    user && updateUser({ ...data, id: user.id });
+  };
+
   return (
     <>
+      {isLoading && (
+        <Lottie
+          className={cn(styles.loader, { [styles.active]: isLoading })}
+          animationData={Loader}
+        />
+      )}
       {user && (
         <div
           className={cn(styles.background, {
@@ -50,7 +63,7 @@ export const EditPage = () => {
                 </h3>
                 <h3 className={styles.name}>
                   <span>LOGIN: </span>
-                  {user.name}
+                  {user.login}
                 </h3>
               </div>
             </div>
@@ -59,7 +72,7 @@ export const EditPage = () => {
               {user.id}
             </h3>
           </div>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset className={styles.fieldset}>
               <legend className={styles.legend}>Update User</legend>
               <Field

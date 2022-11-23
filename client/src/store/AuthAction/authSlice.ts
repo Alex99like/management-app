@@ -1,6 +1,6 @@
 import { IUser } from './../../types/user.type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getUserLS, login, logout, register } from './authAction';
+import { deleteUser, getUserLS, login, logout, register, updateUser } from './authAction';
 
 export interface IInitialStateAuth {
   user: IUser | null;
@@ -54,6 +54,31 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.routes = 'private';
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }: PayloadAction<Omit<IUser, 'token'>>) => {
+        state.isLoading = false;
+        if (state.user) {
+          console.log(payload);
+          state.user.login = payload.login;
+          state.user.name = payload.name;
+        }
+      })
+      .addCase(updateUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state) => {
+        state.isLoading = false;
+        //********************/
+      })
+      .addCase(deleteUser.rejected, (state) => {
+        state.isLoading = false;
+        //********************/
       })
       .addCase(getUserLS.fulfilled, (state, { payload }) => {
         state.user = payload.user = payload.user;
