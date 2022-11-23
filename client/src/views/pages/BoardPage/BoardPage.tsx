@@ -5,6 +5,11 @@ import Column from '../../components/Column/Column';
 import styles from './BoardPage.module.scss';
 
 function BoardPage() {
+  const columns = [];
+  for (let i = 0; i < 6; i++) {
+    columns.push(<Column key={i + 1} id={`${i + 1}`} title={`column${i + 1}`} />);
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.topPanel}>
@@ -15,12 +20,7 @@ function BoardPage() {
         <h3>Task title</h3>
       </div>
       <div className={styles.board}>
-        <Column title="column1" />
-        <Column title="column2" />
-        <Column title="column3" />
-        <Column title="column4" />
-        <Column title="column5" />
-        <Column title="column6" />
+        {columns}
         <div>
           <AddButton title="column" />
         </div>
