@@ -2,6 +2,7 @@
   width: 100%;
   position: relative;
   height: calc(100vh - 150px);
+  background-color: white;
   background-image: url(../../../assets/images/light-edit.jpg);
   background-size: cover;
   background-position: center;
@@ -9,9 +10,21 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  animation: .7s opacity;
 
   &.bgExit {
     background-image: url(../../../assets/images/dark-edit.jpg);
+    animation: .7s opacity;
+  }
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 
   .deleteUser {
