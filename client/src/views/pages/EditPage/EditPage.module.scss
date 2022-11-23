@@ -1,14 +1,48 @@
 .background {
   width: 100%;
+  position: relative;
   height: calc(100vh - 150px);
   background-image: url(../../../assets/images/light-edit.jpg);
   background-size: cover;
   background-position: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
+
+  &.bgExit {
+    background-image: url(../../../assets/images/dark-edit.jpg);
+  }
+
+  .deleteUser {
+    position: absolute;
+    right: -160px;
+    top: -0px;
+    background-color: crimson;
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    line-height: 30px;
+    animation: 1s linear 1s infinite alternate delete-btn;
+  }
+
+  @keyframes delete-btn {
+    0% {
+      box-shadow: 0 0 1px crimson;
+    }
+
+    100% {
+      box-shadow: 0 0 20px 10px crimson;
+    }
+  }
 
   .container {
+    margin-top: 40px;
     min-width: 320px;
     padding: 20px;
     background-color: #FFFFFF;
@@ -28,6 +62,7 @@
     }
 
     .profile {
+      position: relative;
       display: flex;
       align-items: center;
       flex-wrap: wrap;
@@ -39,7 +74,7 @@
         background-image: url(../../../assets/icons/avatar-default.png);
         background-size: cover;
         background-position: center;
-        border: 5px solid #FFFFFF;
+        border: 5px solid #e7e7e7;
       }
 
       .name {
@@ -60,6 +95,66 @@
           padding-bottom: 1.5px;
         }
       }
+    }
+  }
+
+  .form {
+    margin-top: 15px;
+    padding: 5px 20px 20px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    
+    .fieldset {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 15px;
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 0 3px #716e6ead;
+      transition: .3s;
+
+      &:hover {
+        box-shadow: 0 0 3px #1ea7fcad;
+      }
+
+      .legend {
+        font-size: 24px;
+        padding: 0px 7px;
+        font-weight: 800;
+        background: #FFFFFF;
+        margin-left: 7px;
+        text-shadow: 0 0 1px black;
+        color: #f4f9ff;
+        border-radius: 5px;
+        box-shadow: 0 0 1px dimgray;
+      }
+    }
+  }
+
+  .updateBtn {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 22px;
+    font-weight: 600;
+    height: 40px;
+    border-radius: 7px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 4px #016bdc;
+    color: #016bdc;
+    animation: 2s linear 3s infinite alternate update-btn;
+  }
+
+  @keyframes update-btn {
+    0% {
+      background-color: #016bdc;
+      color: #FFFFFF;
+    }
+
+    100% {
+      background-color: #FFFFFF;
+      box-shadow: 0 0 4px #016bdc;
+      color: #016bdc;
     }
   }
 }
