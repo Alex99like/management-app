@@ -10,11 +10,13 @@ import styles from './EditPage.module.scss';
 import { useActions } from '../../../hooks/useAction';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/form-louder.json';
+import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 
 export const EditPage = () => {
   const { user, isLoading } = useAuth();
   const { updateUser } = useActions();
   const [bgDelete, setBgDelete] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const {
     register,
@@ -52,6 +54,7 @@ export const EditPage = () => {
                 className={styles.deleteUser}
                 onMouseEnter={() => setBgDelete(true)}
                 onMouseOut={() => setBgDelete(false)}
+                onClick={() => setOpenModal(true)}
               >
                 Delete Account
               </Button>
@@ -59,11 +62,11 @@ export const EditPage = () => {
               <div className={styles.data}>
                 <h3 className={styles.name}>
                   <span>NAME: </span>
-                  {user.name}
+                  <p>{user.name}</p>
                 </h3>
                 <h3 className={styles.name}>
                   <span>LOGIN: </span>
-                  {user.login}
+                  <p>{user.login}</p>
                 </h3>
               </div>
             </div>
@@ -120,6 +123,7 @@ export const EditPage = () => {
             </fieldset>
             <Button className={styles.updateBtn}>UPDATE PROFILE</Button>
           </form>
+          <ConfirmationModal id={user.id} open={openModal} setOpen={setOpenModal} title="Account" />
         </div>
       )}
     </>
