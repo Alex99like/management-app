@@ -121,7 +121,14 @@ button {
       }
     }
 
-    &.rrt-warning,
+    &.rrt-warning {
+      background-color: #4b3cbb;
+
+      .rrt-progressbar {
+        background-color: darken($red-color, 15%);
+      }
+    }
+
     &.rrt-error {
       background-color: $red-color;
 

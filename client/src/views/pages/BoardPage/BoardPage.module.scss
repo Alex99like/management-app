@@ -14,12 +14,23 @@
 .wrapper {
   background: $primary-bg-color;
   padding: 15px 30px;
-  height: calc(100vh - 145px);
-  overflow-x: scroll;
+  min-height: calc(100vh - 145px);
+  overflow-x: auto;
   overflow-y: hidden;
+  animation: 0.7s opacity;
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
 
   @media (max-width: 600px) {
-    height: calc(100vh - 216px);
+    min-height: calc(100vh - 216px);
   }
 
   .topPanel {
