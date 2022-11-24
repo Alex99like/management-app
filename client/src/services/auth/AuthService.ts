@@ -1,5 +1,5 @@
 import { IUser } from './../../types/user.type';
-import { axiosClassic } from '../../api/axios';
+import { axiosClassic, axiosClassicToken } from '../../api/axios';
 
 export const AuthService = {
   async register(login: string, name: string, password: string) {
@@ -22,7 +22,7 @@ export const AuthService = {
   },
 
   async update(login: string, name: string, password: string, idUser: string) {
-    const response = await axiosClassic.put<IUser>(`/users/${idUser}`, {
+    const response = await axiosClassicToken.put<IUser>(`/users/${idUser}`, {
       name,
       login,
       password,
@@ -32,7 +32,7 @@ export const AuthService = {
   },
 
   async delete(idUser: string) {
-    const response = await axiosClassic.delete(`/users/${idUser}`);
+    const response = await axiosClassicToken.delete(`/users/${idUser}`);
 
     return response;
   },

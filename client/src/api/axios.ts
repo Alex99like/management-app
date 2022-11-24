@@ -10,13 +10,17 @@ export const axiosClassic = axios.create({
   headers: getContentType(),
 });
 
-axiosClassic.interceptors.request.use((config) => {
-  const accessToken =
-    (
-      JSON.parse(
-        (JSON.parse(localStorage.getItem('persist:user')!) as { user: string }).user
-      ) as IUser
-    ).token ?? '';
+export const axiosClassicToken = axios.create({
+  baseURL: API_URL,
+  headers: getContentType(),
+});
+
+axiosClassicToken.interceptors.request.use((config) => {
+  const accessToken = (
+    JSON.parse(
+      (JSON.parse(localStorage.getItem('persist:user')!) as { user: string }).user
+    ) as IUser
+  ).token;
   if (config.headers && accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
