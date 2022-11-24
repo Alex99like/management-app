@@ -1,6 +1,5 @@
 import styles from './Column.module.scss';
 import deleteImg from '../../../assets/icons/delete.svg';
-import Task from '../Task/Task';
 import AddButton from '../AddButton/AddButton';
 import { useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';

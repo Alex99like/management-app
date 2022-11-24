@@ -78,7 +78,7 @@ function Header() {
           )}
           <ul className={styles.navList}>
             <li onClick={handleCreateButton}>{t('header.board')}</li>
-            <li>{t('header.profile')}</li>
+            <li onClick={() => navigate('/edit')}>{t('header.profile')}</li>
             <li>
               <SwitchLanguage />
             </li>
