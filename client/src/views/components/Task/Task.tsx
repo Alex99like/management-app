@@ -2,12 +2,12 @@ import styles from './Task.module.scss';
 import dotsImg from '../../../assets/icons/dots.svg';
 import { Draggable } from 'react-beautiful-dnd';
 
-function Task(props: { task: string; id: number; index: number }) {
+function Task(props: { task: string; id: string; index: number }) {
   return (
-    <Draggable draggableId={`${props.id}`} index={props.index}>
-      {(provided) => (
+    <Draggable draggableId={props.id} index={props.index}>
+      {(provided, snapshot) => (
         <div
-          className={styles.task}
+          className={snapshot.isDragging ? styles.draggable : styles.task}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
