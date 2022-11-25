@@ -1,9 +1,10 @@
+import { ITasks } from './../types/tasks.type';
 import { ITask, ITaskReq } from '../types/tasks.type';
 import { api } from './Api.service';
 
 export const tasksApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getTasks: builder.query<ITask[], { boardId: string; columnsId: string }>({
+    getTasks: builder.query<ITasks, { boardId: string; columnsId: string }>({
       query: ({ boardId, columnsId }) => `boards/${boardId}/columns/${columnsId}`,
       providesTags: () => [{ type: 'Tasks' }],
     }),
