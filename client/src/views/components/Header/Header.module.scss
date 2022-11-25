@@ -41,6 +41,10 @@ $tablet: 950px;
 
   transition: all 0.5s;
 
+  @media (max-width: 400px) {
+    padding: 0 20px;
+  }
+
   .navList {
     @include flex(row, space-between, center);
 
@@ -98,6 +102,10 @@ $tablet: 950px;
 
       @media (max-width: $tablet) {
         display: block;
+      }
+
+      @media (max-width: 400px) {
+        right: 20px;
       }
     }
 
