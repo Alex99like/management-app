@@ -1,11 +1,8 @@
 import styles from './AddButton.module.scss';
 
-function AddButton(props: { title: string }) {
+function AddButton(props: { title: string; callCreate: () => void }) {
   return (
-    <button
-      className={styles.button}
-      style={{ marginRight: props.title === 'column' ? '30px' : '0' }}
-    >
+    <button className={styles.button} onClick={props.callCreate} data-title={props.title}>
       + Add {props.title}
     </button>
   );

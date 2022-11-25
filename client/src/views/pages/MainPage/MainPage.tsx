@@ -35,7 +35,7 @@ function MainPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''} !`);
+      toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''}!`);
       closeModal();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +43,7 @@ function MainPage() {
 
   useEffect(() => {
     if (isSuccessUpdate) {
-      toastr.success('Success!', `Board update ${dataItemUpdate ? dataItemUpdate.title : ''} !`);
+      toastr.success('Success!', `Board update ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
       closeModal();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,7 +81,7 @@ function MainPage() {
                   <span className={styles.add}>
                     <MaterialIconBS name={'BsPlusLg'} />
                   </span>
-                  <h3 className={styles.title}>Add New Board</h3>
+                  <p className={styles.title}>Add New Board</p>
                 </div>
               </button>
             )}

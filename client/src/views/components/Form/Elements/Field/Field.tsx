@@ -7,7 +7,19 @@ import { MaterialIconAI, MaterialIconBS } from '../../../../../utils/MaterialIco
 
 export const Field = forwardRef<HTMLInputElement, IField>(
   (
-    { placeholder, error, type = 'text', style, icon, getValue, active, getValueBoard, ...rest },
+    {
+      placeholder,
+      error,
+      type = 'text',
+      style,
+      icon,
+      getValue,
+      active,
+      getValueBoard,
+      getValueColumn,
+      getValueTask,
+      ...rest
+    },
     ref
   ) => {
     const [onFocus, setOnFocus] = useState(active || false);
@@ -19,6 +31,15 @@ export const Field = forwardRef<HTMLInputElement, IField>(
       }
       if (getValueBoard) {
         if (getValueBoard.fn(getValueBoard.name).trim().length === 0) setOnFocus(false);
+        else setOnFocus(true);
+      }
+      if (getValueColumn) {
+        if ((getValueColumn.fn(getValueColumn.name) as string).trim().length === 0)
+          setOnFocus(false);
+        else setOnFocus(true);
+      }
+      if (getValueTask) {
+        if (getValueTask.fn(getValueTask.name).trim().length === 0) setOnFocus(false);
         else setOnFocus(true);
       }
     };

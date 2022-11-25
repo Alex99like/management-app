@@ -12,9 +12,14 @@ import i18n from '../../../utils/i18next';
 type DrawerLayoutPropsType = {
   menuOpen: boolean;
   closeMenu: () => void;
+  handleCreateButton: () => void;
 };
 
-const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({ menuOpen, closeMenu }) => {
+const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({
+  menuOpen,
+  closeMenu,
+  handleCreateButton,
+}) => {
   const linkStyle = {
     textDecoration: 'none',
     color: '#000',
@@ -37,12 +42,14 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({ menuOpen, closeMenu }) 
               </Link>
             </List>
             <List>
-              <Link style={linkStyle} to="/main">
+              <Link style={linkStyle} to="/main" onClick={handleCreateButton}>
                 <MenuItem icon={<DashboardIcon color="primary" />} caption="Create Board" />
               </Link>
             </List>
             <List>
-              <MenuItem icon={<AccountCircleIcon color="primary" />} caption="Edit Profile" />
+              <Link to={'/edit'}>
+                <MenuItem icon={<AccountCircleIcon color="primary" />} caption="Edit Profile" />
+              </Link>
             </List>
             <Divider />
             <Buttons />

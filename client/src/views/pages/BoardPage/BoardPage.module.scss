@@ -1,12 +1,41 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
+.loader {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 80%;
+  width: 100%;
+  transform: scale(1.7);
+}
+
 .wrapper {
   background: $primary-bg-color;
   padding: 15px 30px;
-  height: calc(100vh - 145px);
-  overflow-x: scroll;
+  min-height: calc(100vh - 145px);
+  overflow-x: auto;
   overflow-y: hidden;
+  animation: 0.7s opacity;
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    min-height: calc(100vh - 216px);
+  }
+
+  @media (max-width: 400px) {
+    padding: 15px 20px;
+  }
 
   .topPanel {
     @include flex(row, flex-start, center);

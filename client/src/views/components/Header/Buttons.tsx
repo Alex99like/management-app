@@ -17,7 +17,7 @@ function Buttons() {
       {!user ? (
         <>
           <NavLink to="/login" className={styles.primary}>
-            Log In
+            Log&nbsp;In
           </NavLink>
           <Button title="Sign Up" link="/register" />
         </>

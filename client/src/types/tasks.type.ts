@@ -10,3 +10,10 @@ export interface ITask extends ITaskReq {
   columnId: string;
   id: string;
 }
+
+export interface ITasks {
+  id: string;
+  order: number;
+  tasks: ITask[];
+  title: string;
+}

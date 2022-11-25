@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import logo from '../../../assets/icons/circle.svg';
 import { useEffect, useRef, useState } from 'react';
@@ -9,22 +9,35 @@ import SwitchLanguage from './SwitchLanguage';
 import Buttons from './Buttons';
 import { useAuth } from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
+import { useFormBoard } from '../FormBoard/useFormBoard';
+import { FormBoard } from '../FormBoard/FormBoard';
+import { IBoardReq } from '../../../types/board.type';
+import { useCreateBoardMutation } from '../../../services/Board.service';
+import { toastr } from 'react-redux-toastr';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
   const headerRef = useRef<HTMLElement | null>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { user } = useAuth();
+  const { activeModal, closeModal, callCreate, board } = useFormBoard();
+
+  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
+    useCreateBoardMutation();
 
   function handleScroll(elTopOffset: number) {
-    if (window.pageYOffset > elTopOffset) {
-      setAnimate(true);
-    } else {
-      setAnimate(false);
-    }
+    window.pageYOffset > elTopOffset ? setAnimate(true) : setAnimate(false);
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''} !`);
+      closeModal();
+    }
+  }, [dataItem, isSuccess]);
 
   useEffect(() => {
     const header = (headerRef.current as HTMLElement).getBoundingClientRect();
@@ -39,6 +52,11 @@ function Header() {
     };
   }, []);
 
+  function handleCreateButton() {
+    navigate('/main');
+    callCreate();
+  }
+
   return (
     <header className={animate ? styles.headerActive : styles.header} ref={headerRef}>
       <NavLink to="/" className={styles.title} onClick={() => setMenuOpen(false)}>
@@ -47,9 +65,20 @@ function Header() {
       </NavLink>
       {user && (
         <nav>
+          {activeModal && (
+            <FormBoard
+              handleBoard={(data: IBoardReq) => {
+                create(data);
+              }}
+              board={board}
+              activeModal={activeModal}
+              close={closeModal}
+              loading={isLoadingCreate}
+            />
+          )}
           <ul className={styles.navList}>
-            <li>{t('header.board')}</li>
-            <li>{t('header.profile')}</li>
+            <li onClick={handleCreateButton}>{t('header.board')}</li>
+            <li onClick={() => navigate('/edit')}>{t('header.profile')}</li>
             <li>
               <SwitchLanguage />
             </li>
@@ -61,7 +90,11 @@ function Header() {
         <MenuRoundedIcon className={styles.burger} onClick={() => setMenuOpen((prev) => !prev)} />
         <Buttons />
       </div>
-      <DrawerLayout menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
+      <DrawerLayout
+        menuOpen={menuOpen}
+        closeMenu={() => setMenuOpen(false)}
+        handleCreateButton={handleCreateButton}
+      />
     </header>
   );
 }
