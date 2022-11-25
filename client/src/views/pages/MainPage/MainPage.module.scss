@@ -13,6 +13,17 @@
 
 .wrapper {
   background: $primary-bg-color;
+  animation: 0.7s opacity;
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
 
   .main {
     width: 1210px;

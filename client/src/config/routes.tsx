@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { FormAuth } from '../views/components/Form/Form';
 import { Layout } from '../views/components/Layout/Layout';
 import BoardPage from '../views/pages/BoardPage/BoardPage';
+import { EditPage } from '../views/pages/EditPage/EditPage';
 import MainPage from '../views/pages/MainPage/MainPage';
 import NotFound from '../views/pages/NotFoundPage/NotFoundPage';
 import WelcomePage from '../views/pages/WelcomePage/WelcomePage';
@@ -23,6 +24,10 @@ export const publicRouter = createBrowserRouter([
       {
         path: 'board',
         element: <BoardPage />,
+      },
+      {
+        path: 'edit',
+        element: <EditPage />,
       },
       {
         path: '*',

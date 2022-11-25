@@ -7,6 +7,8 @@ import Loader from '../../../assets/animation/loader-req-board.json';
 import { toastr } from 'react-redux-toastr';
 import { useDeleteColumnMutation } from '../../../services/Column.service';
 import { useAppSelector } from '../../../store/store';
+import { useActions } from '../../../hooks/useAction';
+import { useAuth } from '../../../hooks/useAuth';
 
 function ConfirmationModal(props: {
   open: boolean;
@@ -17,6 +19,8 @@ function ConfirmationModal(props: {
   const { open, setOpen, title, id } = props;
   const boardId = useAppSelector((state) => state.root.boardId);
   const handleClose = () => setOpen(false);
+  const { deleteUser, toggleRoutes, logout } = useActions();
+  const { user } = useAuth();
 
   const [deleteBoard, { isSuccess: isSuccessDelete, isLoading: isLoadingDelete }] =
     useDeleteBoardMutation();
@@ -38,6 +42,11 @@ function ConfirmationModal(props: {
         break;
       case 'All board data':
         deleteBoard({ boardId: id });
+        break;
+      case 'Account':
+        toggleRoutes(true);
+        logout();
+        user && deleteUser({ id: user?.id });
         break;
     }
   };

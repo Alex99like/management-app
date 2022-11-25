@@ -1,6 +1,5 @@
 import { IUser } from './../../types/user.type';
-import { axiosClassic } from '../../api/axios';
-import Cookies from 'cookies-js';
+import { axiosClassic, axiosClassicToken } from '../../api/axios';
 
 export const AuthService = {
   async register(login: string, name: string, password: string) {
@@ -22,7 +21,19 @@ export const AuthService = {
     return response;
   },
 
-  async logout() {
-    Cookies.expire('user-v-21');
+  async update(login: string, name: string, password: string, idUser: string) {
+    const response = await axiosClassicToken.put<IUser>(`/users/${idUser}`, {
+      name,
+      login,
+      password,
+    });
+
+    return response;
+  },
+
+  async delete(idUser: string) {
+    const response = await axiosClassicToken.delete(`/users/${idUser}`);
+
+    return response;
   },
 };

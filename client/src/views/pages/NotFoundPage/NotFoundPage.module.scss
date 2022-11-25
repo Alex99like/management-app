@@ -4,15 +4,26 @@
 .notFound {
   @include flex(column, center, center);
 
-  height: calc(100vh - 145px);
+  min-height: calc(100vh - 145px);
+  padding-bottom: 15px;
   background: $primary-bg-color;
+  animation: 0.7s opacity;
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
 
   @media (max-width: 600px) {
-    height: calc(100vh - 216px);
+    min-height: calc(100vh - 216px);
   }
 
   .title {
-    font-size: 20px;
     margin-bottom: 45px;
 
     @media (max-width: 530px) {

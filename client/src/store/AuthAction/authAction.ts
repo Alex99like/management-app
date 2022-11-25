@@ -35,8 +35,34 @@ export const login = createAsyncThunk<IUser, IRegister>(
   }
 );
 
+export const updateUser = createAsyncThunk<Omit<IUser, 'token'>, IRegister & { id: string }>(
+  'users/update',
+  async ({ login, password, name, id }, thunkApi) => {
+    try {
+      const response = await AuthService.update(login, name, password, id);
+      toastr.success('Update', 'Completed successfully');
+      return response.data;
+    } catch (error) {
+      toastError(error);
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk<void, { id: string }>(
+  'users/delete',
+  async ({ id }, thunkApi) => {
+    try {
+      await AuthService.delete(id);
+      toastr.success('Delete', 'Completed successfully');
+    } catch (error) {
+      toastError(error);
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
 export const logout = createAsyncThunk<void>('auth/logout', async () => {
-  AuthService.logout();
   toastr.warning('Logout', 'You have logged out of your account');
 });
 

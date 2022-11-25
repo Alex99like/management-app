@@ -93,6 +93,7 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
             icon={'BsEmojiSmile'}
             getValue={{ fn: getValues, name: 'name' }}
             placeholder="Name"
+            active={!!getValues('name')}
             error={errors.name}
           />
         )}
@@ -107,6 +108,7 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
           icon={'BsPersonFill'}
           getValue={{ fn: getValues, name: 'login' }}
           placeholder="Login"
+          active={!!getValues('login')}
           error={errors.login}
         />
         <Field
@@ -121,6 +123,7 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
           getValue={{ fn: getValues, name: 'password' }}
           type="password"
           placeholder="Password"
+          active={!!getValues('password')}
           error={errors.password}
         />
         <div className={styles['container-btn']}>
