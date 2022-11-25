@@ -1,7 +1,7 @@
 import styles from './Task.module.scss';
 import dotsImg from '../../../assets/icons/dots.svg';
 
-function Task(props: { task: string }) {
+function Task(props: { task: string; id: string; columnsId: string }) {
   return (
     <div className={styles.task}>
       <p>{props.task}</p>

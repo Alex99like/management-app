@@ -17,6 +17,7 @@ export const Field = forwardRef<HTMLInputElement, IField>(
       active,
       getValueBoard,
       getValueColumn,
+      getValueTask,
       ...rest
     },
     ref
@@ -35,6 +36,10 @@ export const Field = forwardRef<HTMLInputElement, IField>(
       if (getValueColumn) {
         if ((getValueColumn.fn(getValueColumn.name) as string).trim().length === 0)
           setOnFocus(false);
+        else setOnFocus(true);
+      }
+      if (getValueTask) {
+        if (getValueTask.fn(getValueTask.name).trim().length === 0) setOnFocus(false);
         else setOnFocus(true);
       }
     };
