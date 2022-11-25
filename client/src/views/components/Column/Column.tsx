@@ -4,21 +4,28 @@ import Task from '../Task/Task';
 import AddButton from '../AddButton/AddButton';
 import { useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 function Column(props: {
   title: string;
   id: string;
+  index: number;
   tasks: { id: string; task: string }[] | Record<string, never>[];
 }) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Droppable droppableId={props.id}>
-      {(provided) => (
-        <div className={styles.column}>
+    <Draggable draggableId={props.id} index={props.index}>
+      {(provided, snapshot) => (
+        <div
+          className={snapshot.isDragging ? styles.draggable : styles.column}
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+        >
           <div className={styles.container}>
-            <h4 className={styles.title}>{props.title}</h4>
+            <h4 className={styles.title} {...provided.dragHandleProps}>
+              {props.title}
+            </h4>
             <img
               className={styles.image}
               src={deleteImg}
@@ -26,23 +33,27 @@ function Column(props: {
               onClick={() => setOpenModal(true)}
             />
           </div>
-          <div
-            className={styles.tasks}
-            style={{ minHeight: '50px' }}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            {props.tasks &&
-              props.tasks.map((task, index) => (
-                <Task key={task.id} id={task.id} task={task.task} index={index} />
-              ))}
-            {provided.placeholder}
-          </div>
+          <Droppable droppableId={props.id} type="task">
+            {(provided) => (
+              <div
+                className={styles.tasks}
+                style={{ minHeight: '50px' }}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {props.tasks &&
+                  props.tasks.map((task, index) => (
+                    <Task key={task.id} id={task.id} task={task.task} index={index} />
+                  ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
           <AddButton title="task" />
           <ConfirmationModal id={'1'} open={openModal} setOpen={setOpenModal} title="Column" />
         </div>
       )}
-    </Droppable>
+    </Draggable>
   );
 }
 
