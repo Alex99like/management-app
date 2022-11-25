@@ -9,14 +9,16 @@ import { useDeleteColumnMutation } from '../../../services/Column.service';
 import { useAppSelector } from '../../../store/store';
 import { useActions } from '../../../hooks/useAction';
 import { useAuth } from '../../../hooks/useAuth';
+import { useDeleteTaskMutation } from '../../../services/Task.service';
 
 function ConfirmationModal(props: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   title: string;
   id: string;
+  columnsId?: string;
 }) {
-  const { open, setOpen, title, id } = props;
+  const { open, setOpen, title, id, columnsId } = props;
   const boardId = useAppSelector((state) => state.root.boardId);
   const handleClose = () => setOpen(false);
   const { deleteUser, toggleRoutes, logout } = useActions();
@@ -28,12 +30,15 @@ function ConfirmationModal(props: {
   const [deleteColumn, { isSuccess: isSuccessColumnDelete, isLoading: isLoadingColumnDelete }] =
     useDeleteColumnMutation();
 
+  const [deleteTask, { isSuccess: isSuccessTaskDelete, isLoading: isLoadingTaskDelete }] =
+    useDeleteTaskMutation();
+
   useEffect(() => {
-    if (isSuccessDelete || isSuccessColumnDelete) {
+    if (isSuccessDelete || isSuccessColumnDelete || isSuccessTaskDelete) {
       toastr.success('Success!', `${title} deleted!`);
       handleClose();
     }
-  }, [isSuccessDelete, isSuccessColumnDelete]);
+  }, [isSuccessDelete, isSuccessColumnDelete, isSuccessTaskDelete]);
 
   const handleDelete = () => {
     switch (title) {
@@ -48,6 +53,9 @@ function ConfirmationModal(props: {
         logout();
         user && deleteUser({ id: user?.id });
         break;
+      case 'Task':
+        deleteTask({ boardId, columnsId: columnsId as string, taskId: id });
+        break;
     }
   };
 
@@ -59,7 +67,7 @@ function ConfirmationModal(props: {
       disableAutoFocus={true}
     >
       <>
-        {(isLoadingDelete || isLoadingColumnDelete) && (
+        {(isLoadingDelete || isLoadingColumnDelete || isLoadingTaskDelete) && (
           <Lottie className={styles.loader} animationData={Loader} />
         )}
         <Box className={styles.box}>
