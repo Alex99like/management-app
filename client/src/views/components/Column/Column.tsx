@@ -16,12 +16,7 @@ import { ITaskReq } from '../../../types/tasks.type';
 import { FormTask } from '../FormTask/FormTask';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-function Column(props: {
-  title: string;
-  id: string;
-  index: number;
-  tasks: { id: string; task: string }[] | Record<string, never>[];
-}) {
+function Column(props: { title: string; id: string; index: number }) {
   const [openModal, setOpenModal] = useState(false);
   const boardId = useAppSelector((state) => state.root.boardId);
   const userId = useAppSelector((state) => state.auth.user.id);

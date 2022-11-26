@@ -34,25 +34,6 @@ function BoardPage() {
 
   const [update, { isLoading: isLoadingUpdate }] = useUpdateColumnMutation();
 
-  // const initialData = {
-  //   tasks: {
-  //     task1: { id: 'task1', task: 'task1' },
-  //     task2: { id: 'task2', task: 'task2' },
-  //     task3: { id: 'task3', task: 'task3' },
-  //     task4: { id: 'task4', task: 'task4' },
-  //   },
-  //   columns: {
-  //     column1: { id: 'column1', title: 'column1', order: ['task1', 'task2', 'task3', 'task4'] },
-  //     column2: { id: 'column2', title: 'column2', order: [] },
-  //     column3: { id: 'column3', title: 'column3', order: [] },
-  //     column4: { id: 'column4', title: 'column4', order: [] },
-  //     column5: { id: 'column5', title: 'column5', order: [] },
-  //     column6: { id: 'column6', title: 'column6', order: [] },
-  //   },
-  //   columnOrder: ['column1', 'column2', 'column3', 'column4', 'column5', 'column6'],
-  // };
-  // const [data, setData] = useState(initialData);
-
   useEffect(() => {
     if (isSuccess) {
       toastr.success('Success!', `Column created ${dataItem ? dataItem.title : ''}!`);
@@ -70,77 +51,89 @@ function BoardPage() {
     if (type === 'create') create({ column: { title: data.title }, boardId });
   };
 
-  const dragEndHandler = (result: DropResult) => {};
+  const dragEndHandler = (result: DropResult) => {
+    const { destination, source, draggableId, type } = result;
 
-  // const dragEndHandler = (result: DropResult) => {
-  //   const { destination, source, draggableId, type } = result;
+    if (!destination) {
+      return;
+    }
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+    if (type === 'column') {
+      const changedColumn = data?.find((column) => {
+        if (destination.index > source.index) {
+          column.order === destination.index + 1;
+          return column;
+        } else {
+          column.order === destination.index - 1;
+          return column;
+        }
+      });
+      const actualColumn = data?.find((column) => column.id === draggableId);
+      if (actualColumn && changedColumn) {
+        update({
+          column: { order: destination.index + 1, title: actualColumn.title },
+          boardId,
+          columnsId: actualColumn.id,
+        });
+        update({
+          column: { order: source.index + 1, title: changedColumn.title },
+          boardId,
+          columnsId: changedColumn.id,
+        });
+      }
+      return;
+    }
+    // const start = data.columns[source.droppableId as keyof typeof data.columns];
+    // const finish = data.columns[destination.droppableId as keyof typeof data.columns];
 
-  //   if (!destination) {
-  //     return;
-  //   }
-  //   if (destination.droppableId === source.droppableId && destination.index === source.index) {
-  //     return;
-  //   }
-  //   if (type === 'column') {
-  //     const newColumnOrder = Array.from(data.columnOrder);
-  //     newColumnOrder.splice(source.index, 1);
-  //     newColumnOrder.splice(destination.index, 0, draggableId);
+    // if (start === finish) {
+    //   const newTaskOrder = Array.from(start.order);
+    //   newTaskOrder.splice(source.index, 1);
+    //   newTaskOrder.splice(destination.index, 0, draggableId);
 
-  //     const newState = {
-  //       ...data,
-  //       columnOrder: newColumnOrder,
-  //     };
-  //     setData(newState);
-  //     return;
-  //   }
-  //   const start = data.columns[source.droppableId as keyof typeof data.columns];
-  //   const finish = data.columns[destination.droppableId as keyof typeof data.columns];
+    //   const newColumn = {
+    //     ...start,
+    //     order: newTaskOrder,
+    //   };
 
-  //   if (start === finish) {
-  //     const newTaskOrder = Array.from(start.order);
-  //     newTaskOrder.splice(source.index, 1);
-  //     newTaskOrder.splice(destination.index, 0, draggableId);
+    //   // const newState = {
+    //   //   ...data,
+    //   //   columns: {
+    //   //     ...data.columns,
+    //   //     [newColumn.id]: newColumn,
+    //   //   },
+    //   // };
+    //   // setData(newState);
+    //   return;
+    // } else {
+    //   const startTaskOrder = Array.from(start.order);
+    //   startTaskOrder.splice(source.index, 1);
+    //   const newStart = {
+    //     ...start,
+    //     order: startTaskOrder,
+    //   };
 
-  //     const newColumn = {
-  //       ...start,
-  //       order: newTaskOrder,
-  //     };
+    //   const finishTaskOrder = Array.from(finish.order);
+    //   finishTaskOrder.splice(destination.index, 0, draggableId);
+    //   const newFinish = {
+    //     ...finish,
+    //     order: finishTaskOrder,
+    //   };
 
-  //     const newState = {
-  //       ...data,
-  //       columns: {
-  //         ...data.columns,
-  //         [newColumn.id]: newColumn,
-  //       },
-  //     };
-  //     setData(newState);
-  //     return;
-  //   } else {
-  //     const startTaskOrder = Array.from(start.order);
-  //     startTaskOrder.splice(source.index, 1);
-  //     const newStart = {
-  //       ...start,
-  //       order: startTaskOrder,
-  //     };
-
-  //     const finishTaskOrder = Array.from(finish.order);
-  //     finishTaskOrder.splice(destination.index, 0, draggableId);
-  //     const newFinish = {
-  //       ...finish,
-  //       order: finishTaskOrder,
-  //     };
-
-  //     const newState = {
-  //       ...data,
-  //       columns: {
-  //         ...data.columns,
-  //         [newStart.id]: newStart,
-  //         [newFinish.id]: newFinish,
-  //       },
-  //     };
-  //     setData(newState);
-  //   }
-  // };
+    // const newState = {
+    //   ...data,
+    //   columns: {
+    //     ...data.columns,
+    //     [newStart.id]: newStart,
+    //     [newFinish.id]: newFinish,
+    //   },
+    // };
+    // setData(newState);
+    // }
+  };
+  //console.log('DATA', data); [{id: '8069b527-d7ec-4dbe-85cb-f758f7624edf', title: 'Mall', order: 1}, {id: '209bff6e-4a4f-4d3f-967a-9bfa4f886a91', title: 'SHHH', order: 2}]
 
   return (
     <div className={styles.wrapper}>
@@ -173,21 +166,8 @@ function BoardPage() {
                 <div className={styles.board} {...provided.droppableProps} ref={provided.innerRef}>
                   {data &&
                     data.map((column, index) => {
-                      // const column = data.columns[columnId as keyof typeof data.columns];
-                      // const tasks = column.order
-                      // ? column.order.map(
-                      //     (taskId) => data.tasks[taskId as keyof typeof data.tasks]
-                      //   )
-                      // : [];
-
                       return (
-                        <Column
-                          key={column.id}
-                          id={column.id}
-                          title={column.title}
-                          // tasks={tasks}
-                          index={index}
-                        />
+                        <Column key={column.id} id={column.id} title={column.title} index={index} />
                       );
                     })}
                   <div>
