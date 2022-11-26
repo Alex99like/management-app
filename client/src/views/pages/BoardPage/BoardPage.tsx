@@ -85,29 +85,35 @@ function BoardPage() {
       }
       return;
     }
-    // const start = data.columns[source.droppableId as keyof typeof data.columns];
-    // const finish = data.columns[destination.droppableId as keyof typeof data.columns];
 
-    // if (start === finish) {
-    //   const newTaskOrder = Array.from(start.order);
-    //   newTaskOrder.splice(source.index, 1);
-    //   newTaskOrder.splice(destination.index, 0, draggableId);
+    const start = data?.find((column) => column.id === source.droppableId);
+    const finish = data?.find((column) => column.id === destination.droppableId);
 
-    //   const newColumn = {
-    //     ...start,
-    //     order: newTaskOrder,
-    //   };
+    if (start === finish) {
+      console.log(result);
+      useEffect(() => {
+        const { data } = useGetTasksQuery({ boardId, columnsId: props.id });
+      })
+      // const newTaskOrder = Array.from(start.order);
+      // newTaskOrder.splice(source.index, 1);
+      // newTaskOrder.splice(destination.index, 0, draggableId);
 
-    //   // const newState = {
-    //   //   ...data,
-    //   //   columns: {
-    //   //     ...data.columns,
-    //   //     [newColumn.id]: newColumn,
-    //   //   },
-    //   // };
-    //   // setData(newState);
-    //   return;
-    // } else {
+      // const newColumn = {
+      //   ...start,
+      //   order: newTaskOrder,
+      // };
+
+      // const newState = {
+      //   ...data,
+      //   columns: {
+      //     ...data.columns,
+      //     [newColumn.id]: newColumn,
+      //   },
+      // };
+      // setData(newState);
+      return;
+    }
+    // else {
     //   const startTaskOrder = Array.from(start.order);
     //   startTaskOrder.splice(source.index, 1);
     //   const newStart = {
