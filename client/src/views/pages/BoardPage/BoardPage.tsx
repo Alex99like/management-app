@@ -27,6 +27,7 @@ import {
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
+  const userId = useAppSelector((state) => state.auth.user.id);
 
   const [loading, setLoading] = useState(false);
 
@@ -38,9 +39,9 @@ function BoardPage() {
     useCreateColumnMutation();
 
   const [update, { isLoading: isLoadingUpdate }] = useUpdateColumnMutation();
-  const [updateTask] = useUpdateTaskMutation();
-  const [createTask] = useCreateTaskMutation();
-  const [deleteTask] = useDeleteTaskMutation();
+  const [updateTask, { isLoading: isLoadingTaskUpdate }] = useUpdateTaskMutation();
+  const [createTask, { isLoading: isLoadingTaskCreate }] = useCreateTaskMutation();
+  const [deleteTask, { isLoading: isLoadingTaskDelete }] = useDeleteTaskMutation();
 
   const state = useRootState();
   const dataSort = data && [...data];
@@ -55,8 +56,24 @@ function BoardPage() {
   useEffect(() => {
     if (isLoadingCreate && !isLoadingUpdate) setLoading(true);
     if (!isLoadingCreate && isLoadingUpdate) setLoading(true);
-    if (!isLoadingCreate && !isLoadingUpdate) setLoading(false);
-  }, [isLoadingCreate, isLoadingUpdate]);
+    if (isLoadingTaskUpdate) setLoading(true);
+    if (isLoadingTaskCreate) setLoading(true);
+    if (isLoadingTaskDelete) setLoading(true);
+    if (
+      !isLoadingCreate &&
+      !isLoadingUpdate &&
+      !isLoadingTaskUpdate &&
+      !isLoadingTaskCreate &&
+      !isLoadingTaskDelete
+    )
+      setLoading(false);
+  }, [
+    isLoadingCreate,
+    isLoadingUpdate,
+    isLoadingTaskUpdate,
+    isLoadingTaskDelete,
+    isLoadingTaskCreate,
+  ]);
 
   const handleCreateColumn = (data: IColumnReq) => {
     if (type === 'create') create({ column: { title: data.title }, boardId });
@@ -117,66 +134,68 @@ function BoardPage() {
               columnId: start.id,
               title: newTask.title,
               description: newTask.description,
-              userId: newTask.userId,
+              userId,
             },
           });
         });
 
         return;
       }
-    } else if (start && finish) {
-      const startColumn =
-        state.initialData.columns[start.id as keyof typeof state.initialData.columns];
-      const finishColumn =
-        state.initialData.columns[finish.id as keyof typeof state.initialData.columns];
-      if (startColumn && finishColumn) {
-        const startTaskOrder = Array.from(startColumn.order as Record<string, string>[]);
-        const actualTask = startTaskOrder[source.index];
-        startTaskOrder.splice(source.index, 1);
+    } else {
+      if (start && finish) {
+        const startColumn =
+          state.initialData.columns[start.id as keyof typeof state.initialData.columns];
+        const finishColumn =
+          state.initialData.columns[finish.id as keyof typeof state.initialData.columns];
+        if (startColumn && finishColumn) {
+          const startTaskOrder = Array.from(startColumn.order as Record<string, string>[]);
+          const actualTask = startTaskOrder[source.index];
+          startTaskOrder.splice(source.index, 1);
 
-        const finishTaskOrder = Array.from(finishColumn.order as Record<string, string>[]);
-        finishTaskOrder.splice(destination.index, 0, actualTask);
+          const finishTaskOrder = Array.from(finishColumn.order as Record<string, string>[]);
+          finishTaskOrder.splice(destination.index, 0, actualTask);
 
-        deleteTask({
-          boardId,
-          columnsId: start.id,
-          taskId: actualTask.id,
-        });
-        startTaskOrder.forEach((newTask, index) => {
-          updateTask({
-            taskId: newTask.id,
+          deleteTask({
+            boardId,
+            columnsId: start.id,
+            taskId: actualTask.id,
+          });
+          createTask({
+            boardId,
+            columnsId: finish.id,
             task: {
-              boardId,
-              order: index + 1,
-              columnId: start.id,
-              title: newTask.title,
-              description: newTask.description,
-              userId: newTask.userId,
+              title: actualTask.title,
+              description: actualTask.description,
+              userId,
             },
           });
-        });
-        createTask({
-          boardId,
-          columnsId: finish.id,
-          task: {
-            title: actualTask.title,
-            description: actualTask.description,
-            userId: actualTask.userId,
-          },
-        });
-        finishTaskOrder.forEach((newTask, index) => {
-          updateTask({
-            taskId: newTask.id,
-            task: {
-              boardId,
-              order: index + 1,
-              columnId: finish.id,
-              title: newTask.title,
-              description: newTask.description,
-              userId: newTask.userId,
-            },
+          startTaskOrder.forEach((newTask, index) => {
+            updateTask({
+              taskId: newTask.id,
+              task: {
+                boardId,
+                order: index + 1,
+                columnId: start.id,
+                title: newTask.title,
+                description: newTask.description,
+                userId,
+              },
+            });
           });
-        });
+          finishTaskOrder.forEach((newTask, index) => {
+            updateTask({
+              taskId: newTask.id,
+              task: {
+                boardId,
+                order: index + 1,
+                columnId: finish.id,
+                title: newTask.title,
+                description: newTask.description,
+                userId,
+              },
+            });
+          });
+        }
       }
     }
   };
