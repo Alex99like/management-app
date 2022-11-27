@@ -24,6 +24,7 @@ import {
   useDeleteTaskMutation,
   useUpdateTaskMutation,
 } from '../../../services/Task.service';
+import { ITask } from '../../../types/tasks.type';
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
@@ -79,7 +80,7 @@ function BoardPage() {
     if (type === 'create') create({ column: { title: data.title }, boardId });
   };
 
-  const dragEndHandler = (result: DropResult) => {
+  const dragEndHandler = async (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
 
     if (!destination) {
@@ -149,18 +150,16 @@ function BoardPage() {
           state.initialData.columns[finish.id as keyof typeof state.initialData.columns];
         if (startColumn && finishColumn) {
           const startTaskOrder = Array.from(startColumn.order as Record<string, string>[]);
-          const actualTask = startTaskOrder[source.index];
+          const actualTask = { ...startTaskOrder[source.index] };
           startTaskOrder.splice(source.index, 1);
-
           const finishTaskOrder = Array.from(finishColumn.order as Record<string, string>[]);
-          finishTaskOrder.splice(destination.index, 0, actualTask);
 
           deleteTask({
             boardId,
             columnsId: start.id,
             taskId: actualTask.id,
           });
-          createTask({
+          const createdTask = await createTask({
             boardId,
             columnsId: finish.id,
             task: {
@@ -169,6 +168,8 @@ function BoardPage() {
               userId,
             },
           });
+          actualTask.id = (createdTask as { data: ITask }).data.id;
+          finishTaskOrder.splice(destination.index, 0, actualTask);
           startTaskOrder.forEach((newTask, index) => {
             updateTask({
               taskId: newTask.id,
