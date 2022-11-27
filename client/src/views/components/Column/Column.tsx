@@ -9,12 +9,13 @@ import {
   useGetTasksQuery,
   useUpdateTaskMutation,
 } from '../../../services/Task.service';
-import { useAppSelector } from '../../../store/store';
+import { useAppSelector, useRootState } from '../../../store/store';
 import Task from '../Task/Task';
 import { toastr } from 'react-redux-toastr';
 import { ITaskReq } from '../../../types/tasks.type';
 import { FormTask } from '../FormTask/FormTask';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { useActions } from '../../../hooks/useAction';
 
 function Column(props: { title: string; id: string; index: number }) {
   const [openModal, setOpenModal] = useState(false);
@@ -28,6 +29,15 @@ function Column(props: { title: string; id: string; index: number }) {
     useCreateTaskMutation();
 
   const [update, { isLoading: isLoadingUpdate }] = useUpdateTaskMutation();
+
+  const { setData } = useActions();
+  const state = useRootState();
+
+  useEffect(() => {
+    if (data) {
+      setData(data);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (isSuccess) {
