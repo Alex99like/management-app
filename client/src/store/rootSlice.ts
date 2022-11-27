@@ -12,13 +12,11 @@ const initialState: IInitialStateRoot = {
   theme: 'light',
   boardId: '',
   initialData: {
-    tasks: {},
     columns: {},
   },
 };
 
 interface initialData {
-  tasks: Record<string, Record<string, string>>;
   columns: {
     [key: string]: Record<string, string | number | Record<string, string | number | []>[]>;
   };
@@ -39,7 +37,6 @@ export const rootSlice = createSlice({
     },
     setData: (state, { payload }) => {
       state.initialData = {
-        tasks: {},
         columns: {
           ...state.initialData.columns,
           [payload.id as keyof typeof payload]: {
