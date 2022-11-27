@@ -19,7 +19,11 @@ import { useEffect, useState } from 'react';
 import { IColumnReq } from '../../../types/column.type';
 import { toastr } from 'react-redux-toastr';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
-import { useUpdateTaskMutation } from '../../../services/Task.service';
+import {
+  useCreateTaskMutation,
+  useDeleteTaskMutation,
+  useUpdateTaskMutation,
+} from '../../../services/Task.service';
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
@@ -35,6 +39,8 @@ function BoardPage() {
 
   const [update, { isLoading: isLoadingUpdate }] = useUpdateColumnMutation();
   const [updateTask] = useUpdateTaskMutation();
+  const [createTask] = useCreateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
   const state = useRootState();
   const dataSort = data && [...data];
@@ -118,32 +124,61 @@ function BoardPage() {
 
         return;
       }
+    } else if (start && finish) {
+      const startColumn =
+        state.initialData.columns[start.id as keyof typeof state.initialData.columns];
+      const finishColumn =
+        state.initialData.columns[finish.id as keyof typeof state.initialData.columns];
+      if (startColumn && finishColumn) {
+        const startTaskOrder = Array.from(startColumn.order as Record<string, string>[]);
+        const actualTask = startTaskOrder[source.index];
+        startTaskOrder.splice(source.index, 1);
+
+        const finishTaskOrder = Array.from(finishColumn.order as Record<string, string>[]);
+        finishTaskOrder.splice(destination.index, 0, actualTask);
+
+        deleteTask({
+          boardId,
+          columnsId: start.id,
+          taskId: actualTask.id,
+        });
+        startTaskOrder.forEach((newTask, index) => {
+          updateTask({
+            taskId: newTask.id,
+            task: {
+              boardId,
+              order: index + 1,
+              columnId: start.id,
+              title: newTask.title,
+              description: newTask.description,
+              userId: newTask.userId,
+            },
+          });
+        });
+        createTask({
+          boardId,
+          columnsId: finish.id,
+          task: {
+            title: actualTask.title,
+            description: actualTask.description,
+            userId: actualTask.userId,
+          },
+        });
+        finishTaskOrder.forEach((newTask, index) => {
+          updateTask({
+            taskId: newTask.id,
+            task: {
+              boardId,
+              order: index + 1,
+              columnId: finish.id,
+              title: newTask.title,
+              description: newTask.description,
+              userId: newTask.userId,
+            },
+          });
+        });
+      }
     }
-    // else {
-    //   const startTaskOrder = Array.from(start.order);
-    //   startTaskOrder.splice(source.index, 1);
-    //   const newStart = {
-    //     ...start,
-    //     order: startTaskOrder,
-    //   };
-
-    //   const finishTaskOrder = Array.from(finish.order);
-    //   finishTaskOrder.splice(destination.index, 0, draggableId);
-    //   const newFinish = {
-    //     ...finish,
-    //     order: finishTaskOrder,
-    //   };
-
-    // const newState = {
-    //   ...data,
-    //   columns: {
-    //     ...data.columns,
-    //     [newStart.id]: newStart,
-    //     [newFinish.id]: newFinish,
-    //   },
-    // };
-    // setData(newState);
-    // }
   };
 
   return (
