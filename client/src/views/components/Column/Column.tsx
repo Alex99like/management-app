@@ -31,7 +31,7 @@ function Column(props: { title: string; id: string; index: number }) {
   const [update, { isLoading: isLoadingUpdate }] = useUpdateTaskMutation();
 
   const { setData } = useActions();
-  const state = useRootState();
+  const dataTasksSort = data && [...data.tasks];
 
   useEffect(() => {
     if (data) {
@@ -98,16 +98,18 @@ function Column(props: { title: string; id: string; index: number }) {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {data?.tasks &&
-                    data?.tasks.map((task, index) => (
-                      <Task
-                        key={task.id}
-                        id={task.id}
-                        task={task.title}
-                        columnsId={props.id}
-                        index={index}
-                      />
-                    ))}
+                  {dataTasksSort &&
+                    dataTasksSort
+                      .sort((a, b) => a.order - b.order)
+                      .map((task, index) => (
+                        <Task
+                          key={task.id}
+                          id={task.id}
+                          task={task.title}
+                          columnsId={props.id}
+                          index={index}
+                        />
+                      ))}
                   {provided.placeholder}
                 </div>
               )}

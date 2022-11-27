@@ -19,7 +19,9 @@ const initialState: IInitialStateRoot = {
 
 interface initialData {
   tasks: Record<string, Record<string, string>>;
-  columns: Record<string, Record<string, string>>;
+  columns: {
+    [key: string]: Record<string, string | number | Record<string, string | number | []>[]>;
+  };
 }
 
 export const rootSlice = createSlice({
