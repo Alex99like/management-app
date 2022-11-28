@@ -1,7 +1,8 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
-.task {
+.task,
+.draggable {
   background-color: $secondary-bg-color;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 24%) 0 0 1px 0.8px;
@@ -24,4 +25,8 @@
       width: 17px;
     }
   }
+}
+
+.draggable {
+  background-color: $light-blue;
 }

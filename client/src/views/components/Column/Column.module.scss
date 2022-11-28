@@ -1,7 +1,8 @@
 @import "../../../style/variables";
 @import "../../../style/abstracts";
 
-.column {
+.column,
+.draggable {
   min-width: 280px;
   max-width: 280px;
   border-radius: 24px;
@@ -57,4 +58,8 @@
   &::-webkit-scrollbar {
     width: 0;
   }
+}
+
+.draggable {
+  background-color: $light-blue;
 }

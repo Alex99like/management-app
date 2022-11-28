@@ -89,4 +89,8 @@
   &::-webkit-scrollbar-thumb:hover {
     background-color: $hover-color;
   }
+
+  .boardContainer {
+    display: flex;
+  }
 }

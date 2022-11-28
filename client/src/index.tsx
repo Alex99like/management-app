@@ -7,9 +7,9 @@ import { RootProvider } from './providers/RootProvider';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <React.StrictMode>
-    <RootProvider>
-      <App />
-    </RootProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <RootProvider>
+    <App />
+  </RootProvider>
+  // </React.StrictMode>
 );
