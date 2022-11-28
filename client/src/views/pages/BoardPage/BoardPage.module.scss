@@ -77,20 +77,25 @@
   .board {
     @include flex(row, flex-start, flex-start);
 
-    gap: 30px;
     margin: 15px 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $hover-color;
-    box-shadow: inset 1px 1px 10px $pale-text-color;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: $hover-color;
   }
 
   .boardContainer {
     display: flex;
+  }
+
+  &::-webkit-scrollbar {
+    height: 10px;
+    cursor: pointer;
+    background-color: $secondary-bg-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-bg-color;
+    box-shadow: inset 1px 1px 10px $contrast-color;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $secondary-bg-color;
   }
 }
