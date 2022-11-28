@@ -34,7 +34,7 @@ function BoardPage() {
 
   const { data, isLoading } = useGetColumnsQuery({ boardId });
   const { data: boardData } = useGetBoardsQuery();
-  const { activeModal, column, closeModal, type, callCreate } = useFormColumn();
+  const { activeModal, column, closeModal, callCreate } = useFormColumn();
 
   const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateColumnMutation();
@@ -77,7 +77,7 @@ function BoardPage() {
   ]);
 
   const handleCreateColumn = (data: IColumnReq) => {
-    if (type === 'create') create({ column: { title: data.title }, boardId });
+    create({ column: { title: data.title }, boardId });
   };
 
   const dragEndHandler = async (result: DropResult) => {
