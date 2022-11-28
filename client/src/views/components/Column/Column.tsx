@@ -91,7 +91,7 @@ function Column(props: { title: string; id: string; index: number }) {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {dataTasksSort &&
+                  {dataTasksSort && dataTasksSort?.length !== 0 ? (
                     dataTasksSort
                       .sort((a, b) => a.order - b.order)
                       .map((task, index) => (
@@ -102,7 +102,10 @@ function Column(props: { title: string; id: string; index: number }) {
                           columnsId={props.id}
                           index={index}
                         />
-                      ))}
+                      ))
+                  ) : (
+                    <p className={styles.message}>You don&apos;t have any tasks yet</p>
+                  )}
                   {provided.placeholder}
                 </div>
               )}
