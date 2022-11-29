@@ -4,26 +4,33 @@ import AddButton from '../AddButton/AddButton';
 import { useEffect, useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useFormTask } from '../FormTask/useFormTask';
-import { useCreateTaskMutation, useGetTasksQuery } from '../../../services/Task.service';
+import {
+  useCreateTaskMutation,
+  useGetTasksQuery,
+  useUpdateTaskMutation,
+} from '../../../services/Task.service';
 import { useAppSelector } from '../../../store/store';
 import Task from '../Task/Task';
 import { toastr } from 'react-redux-toastr';
-import { ITaskReq } from '../../../types/tasks.type';
-import { FormTask } from '../FormTask/FormTask';
+import { FormTask, IFormTask } from '../FormTask/FormTask';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { useActions } from '../../../hooks/useAction';
 import EditInput from './EditInput';
 
 function Column(props: { title: string; id: string; index: number }) {
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [isEdit, setEdit] = useState<boolean>(false);
   const boardId = useAppSelector((state) => state.root.boardId);
   const userId = useAppSelector((state) => state.auth.user.id);
-  const { activeModal, task, closeModal, type, callCreate } = useFormTask();
+  const { activeModal, task, closeModal, type, callCreate, callUpdate } = useFormTask();
   const { data } = useGetTasksQuery({ boardId, columnsId: props.id });
 
   const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateTaskMutation();
+
+  const [update, { isSuccess: isSuccessUpdate, data: dataItemUpdate, isLoading: isLoadingUpdate }] =
+    useUpdateTaskMutation();
 
   const { setData } = useActions();
   const dataTasksSort = data && [...data.tasks];
@@ -41,12 +48,37 @@ function Column(props: { title: string; id: string; index: number }) {
     }
   }, [dataItem, isSuccess]);
 
-  const handleCreateTask = (data: ITaskReq) => {
+  useEffect(() => {
+    if (isSuccessUpdate) {
+      toastr.success('Success!', `Task updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
+      closeModal();
+    }
+  }, [dataItemUpdate, isSuccessUpdate]);
+
+  useEffect(() => {
+    if (isLoadingCreate && !isLoadingUpdate) setLoading(true);
+    if (!isLoadingCreate && isLoadingUpdate) setLoading(true);
+    if (!isLoadingCreate && !isLoadingUpdate) setLoading(false);
+  }, [isLoadingCreate, isLoadingUpdate]);
+
+  const handleTask = (data: IFormTask) => {
     if (type === 'create')
       create({
         task: { title: data.title, description: data.description, userId },
         boardId,
         columnsId: props.id,
+      });
+    if (type === 'update')
+      update({
+        task: {
+          title: data.title,
+          description: data.description,
+          userId,
+          order: task?.order as number,
+          boardId,
+          columnId: props.id,
+        },
+        taskId: task?.taskId as string,
       });
   };
 
@@ -54,11 +86,11 @@ function Column(props: { title: string; id: string; index: number }) {
     <>
       {activeModal && (
         <FormTask
-          handleTask={handleCreateTask}
+          handleTask={handleTask}
           task={task}
           activeModal={activeModal}
           close={closeModal}
-          loading={isLoadingCreate}
+          loading={loading}
         />
       )}
       <Draggable draggableId={props.id} index={props.index}>
@@ -97,10 +129,10 @@ function Column(props: { title: string; id: string; index: number }) {
                       .map((task, index) => (
                         <Task
                           key={task.id}
-                          id={task.id}
-                          task={task.title}
+                          task={task}
                           columnsId={props.id}
                           index={index}
+                          callUpdate={callUpdate}
                         />
                       ))
                   ) : (

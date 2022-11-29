@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from '../FormBoard/FormBoard.module.scss';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Field } from '../Form/Elements/Field/Field';
@@ -8,18 +7,16 @@ import cn from 'classnames';
 import { Button } from '../Form/Elements/Button/Button';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/loader-req-board.json';
-import { ITaskReq } from '../../../types/tasks.type';
 
 export interface IFormTask {
   title: string;
   description: string;
-  userId: string;
 }
 
 interface IPropsFormTask {
   activeModal: boolean;
   close: () => void;
-  handleTask: (data: ITaskReq) => void;
+  handleTask: (data: IFormTask) => void;
   task?: IFormTask;
   loading: boolean;
 }
@@ -34,6 +31,7 @@ export const FormTask = ({ activeModal, close, handleTask, task, loading }: IPro
     mode: 'onChange',
     defaultValues: {
       title: task?.title ? task.title : '',
+      description: task?.description ? task.description : '',
     },
   });
 
