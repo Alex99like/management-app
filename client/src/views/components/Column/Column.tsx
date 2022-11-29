@@ -4,31 +4,26 @@ import AddButton from '../AddButton/AddButton';
 import { useEffect, useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useFormTask } from '../FormTask/useFormTask';
-import {
-  useCreateTaskMutation,
-  useGetTasksQuery,
-  useUpdateTaskMutation,
-} from '../../../services/Task.service';
-import { useAppSelector, useRootState } from '../../../store/store';
+import { useCreateTaskMutation, useGetTasksQuery } from '../../../services/Task.service';
+import { useAppSelector } from '../../../store/store';
 import Task from '../Task/Task';
 import { toastr } from 'react-redux-toastr';
 import { ITaskReq } from '../../../types/tasks.type';
 import { FormTask } from '../FormTask/FormTask';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { useActions } from '../../../hooks/useAction';
+import EditInput from './EditInput';
 
 function Column(props: { title: string; id: string; index: number }) {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [isEdit, setEdit] = useState<boolean>(false);
   const boardId = useAppSelector((state) => state.root.boardId);
   const userId = useAppSelector((state) => state.auth.user.id);
   const { activeModal, task, closeModal, type, callCreate } = useFormTask();
   const { data } = useGetTasksQuery({ boardId, columnsId: props.id });
-  const [loading, setLoading] = useState(false);
 
   const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateTaskMutation();
-
-  const [update, { isLoading: isLoadingUpdate }] = useUpdateTaskMutation();
 
   const { setData } = useActions();
   const dataTasksSort = data && [...data.tasks];
@@ -45,12 +40,6 @@ function Column(props: { title: string; id: string; index: number }) {
       closeModal();
     }
   }, [dataItem, isSuccess]);
-
-  useEffect(() => {
-    if (isLoadingCreate && !isLoadingUpdate) setLoading(true);
-    if (!isLoadingCreate && isLoadingUpdate) setLoading(true);
-    if (!isLoadingCreate && !isLoadingUpdate) setLoading(false);
-  }, [isLoadingCreate, isLoadingUpdate]);
 
   const handleCreateTask = (data: ITaskReq) => {
     if (type === 'create')
@@ -69,7 +58,7 @@ function Column(props: { title: string; id: string; index: number }) {
           task={task}
           activeModal={activeModal}
           close={closeModal}
-          loading={loading}
+          loading={isLoadingCreate}
         />
       )}
       <Draggable draggableId={props.id} index={props.index}>
@@ -79,10 +68,14 @@ function Column(props: { title: string; id: string; index: number }) {
             {...provided.draggableProps}
             ref={provided.innerRef}
           >
-            <div className={styles.container}>
-              <h4 className={styles.title} {...provided.dragHandleProps}>
-                {props.title}
-              </h4>
+            <div className={styles.container} {...provided.dragHandleProps}>
+              {isEdit ? (
+                <EditInput setEdit={setEdit} title={props.title} columnsId={props.id} />
+              ) : (
+                <h4 className={styles.title} onClick={() => setEdit(true)}>
+                  {props.title}
+                </h4>
+              )}
               <img
                 className={styles.image}
                 src={deleteImg}
@@ -98,7 +91,7 @@ function Column(props: { title: string; id: string; index: number }) {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {dataTasksSort &&
+                  {dataTasksSort && dataTasksSort?.length !== 0 ? (
                     dataTasksSort
                       .sort((a, b) => a.order - b.order)
                       .map((task, index) => (
@@ -109,7 +102,10 @@ function Column(props: { title: string; id: string; index: number }) {
                           columnsId={props.id}
                           index={index}
                         />
-                      ))}
+                      ))
+                  ) : (
+                    <p className={styles.message}>You don&apos;t have any tasks yet</p>
+                  )}
                   {provided.placeholder}
                 </div>
               )}
