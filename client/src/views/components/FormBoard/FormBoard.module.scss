@@ -68,6 +68,22 @@
       }
     }
 
+    .userName {
+      color: $pale-text-color;
+      width: 240px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (max-width: 400px) {
+        width: 200px;
+      }
+
+      span {
+        color: $contrast-color;
+      }
+    }
+
     .title {
       box-shadow: 0 0 2px $transparent-bg-color;
       max-width: 240px;

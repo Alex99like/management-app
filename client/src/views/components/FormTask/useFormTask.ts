@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { IFormTask } from './FormTask';
+import { IUpdateTask } from '../../../types/tasks.type';
 
 export const useFormTask = () => {
   const [activeModal, setActiveModal] = useState(false);
   const [type, setType] = useState<'create' | 'update'>('create');
-  const [task, setTask] = useState<IFormTask>();
+  const [task, setTask] = useState<IUpdateTask>();
 
   const closeModal = () => {
     setActiveModal(false);
@@ -16,7 +16,7 @@ export const useFormTask = () => {
     setActiveModal(true);
   };
 
-  const callUpdate = (data: IFormTask) => {
+  const callUpdate = (data: IUpdateTask) => {
     setTask(data);
     setType('update');
     setActiveModal(true);

@@ -17,3 +17,10 @@ export interface ITasks {
   tasks: ITask[];
   title: string;
 }
+
+export interface IUpdateTask {
+  title: string;
+  description: string;
+  order?: number;
+  taskId?: string;
+}

@@ -4,13 +4,21 @@ import dotsImg from '../../../assets/icons/dots.svg';
 import { useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { Draggable } from 'react-beautiful-dnd';
+import { ITask, IUpdateTask } from '../../../types/tasks.type';
 
-function Task(props: { task: string; columnsId: string; id: string; index: number }) {
-  const { task, columnsId, id } = props;
+interface IPropsTask {
+  task: ITask;
+  columnsId: string;
+  index: number;
+  callUpdate: (data: IUpdateTask) => void;
+}
+
+function Task({ task, columnsId, index, callUpdate }: IPropsTask) {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
-      <Draggable draggableId={props.id} index={props.index}>
+      <Draggable draggableId={task.id} index={index}>
         {(provided, snapshot) => (
           <div
             className={snapshot.isDragging ? styles.draggable : styles.task}
@@ -18,12 +26,19 @@ function Task(props: { task: string; columnsId: string; id: string; index: numbe
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <p>{task}</p>
+            <p>{task.title}</p>
             <img
               className={styles.image}
               src={dotsImg}
               alt="edit"
-              onClick={() => setOpenModal(true)}
+              onClick={() =>
+                callUpdate({
+                  title: task.title,
+                  description: task.description,
+                  taskId: task.id,
+                  order: task.order,
+                })
+              }
             />
             <img
               className={styles.image}
@@ -35,7 +50,7 @@ function Task(props: { task: string; columnsId: string; id: string; index: numbe
         )}
       </Draggable>
       <ConfirmationModal
-        id={id}
+        id={task.id}
         open={openModal}
         setOpen={setOpenModal}
         title="Task"

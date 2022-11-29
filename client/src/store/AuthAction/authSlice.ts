@@ -61,7 +61,6 @@ export const authSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, { payload }: PayloadAction<Omit<IUser, 'token'>>) => {
         state.isLoading = false;
         if (state.user) {
-          console.log(payload);
           state.user.login = payload.login;
           state.user.name = payload.name;
         }
@@ -74,11 +73,11 @@ export const authSlice = createSlice({
       })
       .addCase(deleteUser.fulfilled, (state) => {
         state.isLoading = false;
-        //********************/
+        state.user = null;
+        state.routes = 'private';
       })
       .addCase(deleteUser.rejected, (state) => {
         state.isLoading = false;
-        //********************/
       })
       .addCase(getUserLS.fulfilled, (state, { payload }) => {
         state.user = payload.user = payload.user;
