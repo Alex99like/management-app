@@ -38,18 +38,19 @@ function EditInput(props: {
   useEffect(() => {
     if (isSuccessUpdate) {
       setEdit(false);
-      toastr.success('Success!', `Column update ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
+      toastr.success('Success!', `Column updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
     }
   }, [dataItemUpdate, isSuccessUpdate, setEdit]);
 
   return (
     <>
       {isLoadingUpdate && <Lottie className={cn(styles.loader)} animationData={Loader} />}
-      <div className={styles.edit}>
+      <form className={styles.edit} onSubmit={handleSubmit(onSubmit)}>
         <input
           className={styles.input}
           defaultValue={title}
           spellCheck={false}
+          autoFocus
           {...register('title', {
             required: 'Title is required',
             pattern: {
@@ -72,7 +73,7 @@ function EditInput(props: {
             <MaterialIconAI name="AiOutlineWarning" /> {errors.title.message}
           </div>
         )}
-      </div>
+      </form>
     </>
   );
 }

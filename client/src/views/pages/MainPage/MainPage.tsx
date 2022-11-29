@@ -43,7 +43,7 @@ function MainPage() {
 
   useEffect(() => {
     if (isSuccessUpdate) {
-      toastr.success('Success!', `Board update ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
+      toastr.success('Success!', `Board updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
       closeModal();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
