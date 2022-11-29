@@ -50,7 +50,6 @@ function ConfirmationModal(props: {
         break;
       case 'Account':
         toggleRoutes(true);
-        logout();
         user && deleteUser({ id: user?.id });
         break;
       case 'Task':

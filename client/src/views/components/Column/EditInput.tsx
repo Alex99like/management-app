@@ -49,7 +49,6 @@ function EditInput(props: {
         <input
           className={styles.input}
           defaultValue={title}
-          spellCheck={false}
           autoFocus
           {...register('title', {
             required: 'Title is required',

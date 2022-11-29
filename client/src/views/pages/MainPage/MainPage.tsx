@@ -38,7 +38,6 @@ function MainPage() {
       toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''}!`);
       closeModal();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
@@ -46,7 +45,6 @@ function MainPage() {
       toastr.success('Success!', `Board updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
       closeModal();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItemUpdate, isSuccessUpdate]);
 
   const handleCreateBoard = (data: IBoardReq) => {
