@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { Button } from '../Form/Elements/Button/Button';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/loader-req-board.json';
+import { useAuth } from '../../../hooks/useAuth';
 
 export interface IFormTask {
   title: string;
@@ -34,6 +35,8 @@ export const FormTask = ({ activeModal, close, handleTask, task, loading }: IPro
       description: task?.description ? task.description : '',
     },
   });
+
+  const { user } = useAuth();
 
   const onSubmit: SubmitHandler<IFormTask> = (data) => {
     handleTask(data);
@@ -73,6 +76,11 @@ export const FormTask = ({ activeModal, close, handleTask, task, loading }: IPro
             active={!!task}
             placeholder={'Description'}
           />
+          {task && (
+            <p className={styles.userName}>
+              Assigned to: <span>{user?.name}</span>
+            </p>
+          )}
           <div className={styles.btnContainer}>
             <Button disabled={!isValid} className={cn(styles.btn, styles.create)}>
               {task ? 'Update' : 'Create'}
