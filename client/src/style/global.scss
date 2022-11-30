@@ -117,7 +117,7 @@ button {
       background-color: $contrast-color;
 
       .rrt-progressbar {
-        background-color: darken($contrast-color, 15%);
+        background-color: lighten($contrast-color, 5%);
       }
     }
 
@@ -125,7 +125,7 @@ button {
       background-color: #4b3cbb;
 
       .rrt-progressbar {
-        background-color: darken(#4b3cbb, 15%);
+        background-color: lighten(#4b3cbb, 5%);
       }
     }
 
@@ -133,7 +133,7 @@ button {
       background-color: $red-color;
 
       .rrt-progressbar {
-        background-color: darken($red-color, 15%);
+        background-color: lighten($red-color, 5%);
       }
     }
   }
