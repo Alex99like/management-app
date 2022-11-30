@@ -99,27 +99,13 @@ function BoardPage() {
       return;
     }
     if (type === 'column' && data) {
-      const columnsOrder: string[] = [];
-      const copy = [...data];
-      copy
-        .sort((a, b) => a.order - b.order)
-        .forEach((column) => {
-          columnsOrder.push(column.id);
+      const columnToChange = data.find((columnData) => columnData.id === draggableId);
+      columnToChange &&
+        update({
+          column: { order: destination.index + 1, title: columnToChange.title },
+          boardId,
+          columnsId: draggableId,
         });
-      const newColumnOrder = Array.from(columnsOrder);
-      newColumnOrder.splice(source.index, 1);
-      newColumnOrder.splice(destination.index, 0, draggableId);
-
-      newColumnOrder.forEach(async (column, index) => {
-        const columnToChange = data.find((columnData) => columnData.id === column);
-        if (columnToChange) {
-          await update({
-            column: { order: index + 1, title: columnToChange.title },
-            boardId,
-            columnsId: column,
-          });
-        }
-      });
       return;
     }
 
@@ -129,23 +115,22 @@ function BoardPage() {
     if (start === finish && start) {
       const column = state.initialData.columns[start.id as keyof typeof state.initialData.columns];
       if (column) {
-        const newTaskOrder = Array.from(column.order as Record<string, string>[]);
+        const newTaskOrder: Record<string, string>[] = Array.from(
+          column.order as Record<string, string>[]
+        );
+        newTaskOrder.sort((a, b) => +a.order - +b.order);
         const actualTask = newTaskOrder[source.index];
-        newTaskOrder?.splice(source.index, 1);
-        newTaskOrder?.splice(destination.index, 0, actualTask);
 
-        newTaskOrder.forEach((newTask, index) => {
-          updateTask({
-            taskId: newTask.id,
-            task: {
-              boardId,
-              order: index + 1,
-              columnId: start.id,
-              title: newTask.title,
-              description: newTask.description,
-              userId,
-            },
-          });
+        updateTask({
+          taskId: actualTask.id,
+          task: {
+            boardId,
+            order: destination.index + 1,
+            columnId: start.id,
+            title: actualTask.title,
+            description: actualTask.description,
+            userId,
+          },
         });
 
         return;
@@ -158,9 +143,10 @@ function BoardPage() {
           state.initialData.columns[finish.id as keyof typeof state.initialData.columns];
         if (startColumn && finishColumn) {
           const startTaskOrder = Array.from(startColumn.order as Record<string, string>[]);
+          startTaskOrder.sort((a, b) => +a.order - +b.order);
           const actualTask = { ...startTaskOrder[source.index] };
-          startTaskOrder.splice(source.index, 1);
           const finishTaskOrder = Array.from(finishColumn.order as Record<string, string>[]);
+          finishTaskOrder.sort((a, b) => +a.order - +b.order);
 
           deleteTask({
             boardId,
@@ -176,34 +162,23 @@ function BoardPage() {
               userId,
             },
           });
+          console.log(actualTask.id);
           actualTask.id = (createdTask as { data: ITask }).data.id;
-          finishTaskOrder.splice(destination.index, 0, actualTask);
-          startTaskOrder.forEach((newTask, index) => {
+          console.log(actualTask);
+          console.log(destination.index + 1);
+          if (actualTask.id) {
             updateTask({
-              taskId: newTask.id,
+              taskId: actualTask.id,
               task: {
                 boardId,
-                order: index + 1,
-                columnId: start.id,
-                title: newTask.title,
-                description: newTask.description,
-                userId,
-              },
-            });
-          });
-          finishTaskOrder.forEach((newTask, index) => {
-            updateTask({
-              taskId: newTask.id,
-              task: {
-                boardId,
-                order: index + 1,
+                order: destination.index + 1,
                 columnId: finish.id,
-                title: newTask.title,
-                description: newTask.description,
+                title: actualTask.title,
+                description: actualTask.description,
                 userId,
               },
             });
-          });
+          }
         }
       }
     }
