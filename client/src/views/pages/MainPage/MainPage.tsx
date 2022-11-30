@@ -19,7 +19,6 @@ function MainPage() {
   const { data, isLoading } = useGetBoardsQuery();
   const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateBoardMutation();
-
   const [update, { isSuccess: isSuccessUpdate, data: dataItemUpdate, isLoading: isLoadingUpdate }] =
     useUpdateBoardMutation();
 
@@ -84,7 +83,9 @@ function MainPage() {
               </button>
             )}
             {data &&
-              data.map((board) => <Board key={board.id} board={board} update={callUpdate} />)}
+              data.map((board) => {
+                return <Board key={board.id} board={board} update={callUpdate} />;
+              })}
           </div>
         </div>
       </div>
