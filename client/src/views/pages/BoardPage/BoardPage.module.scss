@@ -11,11 +11,23 @@
   transform: scale(1.7);
 }
 
+.boardPage {
+  transition:
+    background-color 0.7s ease-in-out,
+    color 0.7s ease-in-out;
+}
+
+.lightTheme {
+  background-color: $primary-bg-color;
+}
+
+.darkTheme {
+  background-color: $dark-bg-color;
+}
+
 .wrapper {
-  background: $primary-bg-color;
   padding: 15px 30px;
   min-height: calc(100vh - 145px);
-  overflow-x: auto;
   overflow-y: hidden;
   animation: 0.7s opacity;
 
@@ -44,6 +56,7 @@
 
     h3 {
       font-size: 22px;
+      transition: color 0.7s ease-in-out;
     }
 
     .button {
@@ -83,19 +96,17 @@
   .boardContainer {
     display: flex;
   }
+}
 
-  &::-webkit-scrollbar {
-    height: 10px;
-    cursor: pointer;
-    background-color: $secondary-bg-color;
-  }
+.wrapper::-webkit-scrollbar {
+  height: 10px;
+}
 
-  &::-webkit-scrollbar-thumb {
-    background-color: $secondary-bg-color;
-    box-shadow: inset 1px 1px 10px $contrast-color;
-  }
+.wrapper::-webkit-scrollbar-thumb {
+  background-color: $secondary-bg-color;
+  box-shadow: inset 1px 1px 10px $contrast-color;
+}
 
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: $secondary-bg-color;
-  }
+.wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: $secondary-bg-color;
 }
