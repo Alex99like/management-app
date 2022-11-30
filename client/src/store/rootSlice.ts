@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface IInitialStateRoot {
   lang: 'en' | 'ru';
-  theme: 'light' | 'dark';
+  isLightTheme: boolean;
   boardId: string;
   initialData: initialData;
 }
 
 const initialState: IInitialStateRoot = {
   lang: 'en',
-  theme: 'light',
+  isLightTheme: true,
   boardId: '',
   initialData: {
     columns: {},
@@ -30,7 +30,7 @@ export const rootSlice = createSlice({
       state.lang = payload;
     },
     changeTheme: (state, { payload }) => {
-      state.theme = payload;
+      state.isLightTheme = payload;
     },
     setBoardId: (state, { payload }) => {
       state.boardId = payload;

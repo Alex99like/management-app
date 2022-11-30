@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import styles from './ConfirmationModal.module.scss';
 import { useDeleteBoardMutation } from '../../../services/Board.service';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/loader-req-board.json';
+import Loader from '../../../assets/animation/loader.json';
 import { toastr } from 'react-redux-toastr';
 import { useDeleteColumnMutation } from '../../../services/Column.service';
 import { useAppSelector } from '../../../store/store';

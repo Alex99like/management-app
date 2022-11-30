@@ -1,9 +1,12 @@
 import styles from './Footer.module.scss';
 import rsImg from '../../../assets/icons/rs.svg';
+import { useAppSelector } from '../../../store/store';
 
 function Footer() {
+  const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
+
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} ${isLightTheme ? styles.footerLight : styles.footerDark}`}>
       <p className={styles.year}>2022</p>
       <div className={styles.links}>
         <a
