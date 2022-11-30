@@ -16,9 +16,21 @@
   }
 }
 
-.wrapper {
+.lightWrapper {
   background: $primary-bg-color;
+  color: $dark-text-color;
+}
+
+.darkWrapper {
+  background: $dark-bg-color;
+  color: $light-text-color;
+}
+
+.wrapper {
   animation: 0.7s opacity;
+  transition:
+    background-color 0.7s ease-in-out,
+    color 0.7s ease-in-out;
 
   @keyframes opacity {
     0% {
@@ -104,6 +116,11 @@
 
         gap: 10px;
         margin: 5px 0;
+        cursor: auto;
+
+        img {
+          filter: saturate(100%) invert(47%) sepia(14%) saturate(2873%) hue-rotate(168deg) brightness(87%);
+        }
       }
     }
 
@@ -187,8 +204,16 @@
     }
   }
 
-  .aboutTeamWrapper {
+  .aboutTeamLight {
     background: $primary-bg-color;
+  }
+
+  .aboutTeamDark {
+    background: $dark-bg-color;
+  }
+
+  .aboutTeamWrapper {
+    transition: background-color 0.7s ease-in-out;
 
     .aboutTeamSection {
       @extend %section;
