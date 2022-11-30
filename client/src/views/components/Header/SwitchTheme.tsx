@@ -1,5 +1,7 @@
 import { Switch } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useActions } from '../../../hooks/useAction';
+import { useAppSelector } from '../../../store/store';
 
 const MaterialUISwitch = styled(Switch)(() => ({
   width: 62,
@@ -19,7 +21,7 @@ const MaterialUISwitch = styled(Switch)(() => ({
       },
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: '#aab4be',
+        backgroundColor: '#c8e2fd',
       },
     },
   },
@@ -43,14 +45,16 @@ const MaterialUISwitch = styled(Switch)(() => ({
   },
   '& .MuiSwitch-track': {
     opacity: 1,
-    backgroundColor: '#aab4be',
+    backgroundColor: '#c8e2fd',
     borderRadius: 20 / 2,
   },
 }));
 
 function SwitchTheme() {
-  function changeTheme() {}
-  return <MaterialUISwitch onChange={changeTheme} />;
+  const { changeTheme } = useActions();
+  const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
+
+  return <MaterialUISwitch checked={!isLightTheme} onChange={() => changeTheme(!isLightTheme)} />;
 }
 
 export default SwitchTheme;

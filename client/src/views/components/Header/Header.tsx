@@ -14,11 +14,13 @@ import { FormBoard } from '../FormBoard/FormBoard';
 import { IBoardReq } from '../../../types/board.type';
 import { useCreateBoardMutation } from '../../../services/Board.service';
 import { toastr } from 'react-redux-toastr';
+import { useAppSelector } from '../../../store/store';
 
 function Header() {
   const [animate, setAnimate] = useState<boolean>(false);
   const headerRef = useRef<HTMLElement | null>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -58,7 +60,14 @@ function Header() {
   }
 
   return (
-    <header className={animate ? styles.headerActive : styles.header} ref={headerRef}>
+    <header
+      className={`${styles.header} ${
+        isLightTheme
+          ? `${styles.headerLight} ${animate && styles.headerLightActive}`
+          : `${styles.headerDark} ${animate && styles.headerDarkActive}`
+      }`}
+      ref={headerRef}
+    >
       <NavLink to="/" className={styles.title} onClick={() => setMenuOpen(false)}>
         <img src={logo} alt="logo" className={styles.logo} />
         Taskero

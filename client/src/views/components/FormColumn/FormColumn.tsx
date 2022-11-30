@@ -7,7 +7,7 @@ import { Modal } from '@mui/material';
 import cn from 'classnames';
 import { Button } from '../Form/Elements/Button/Button';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/loader-req-board.json';
+import Loader from '../../../assets/animation/loader.json';
 import { IColumnReq } from '../../../types/column.type';
 
 export interface IFormColumn {

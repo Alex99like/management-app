@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { Button } from '../Form/Elements/Button/Button';
 import { IBoardReq } from '../../../types/board.type';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/loader-req-board.json';
+import Loader from '../../../assets/animation/loader.json';
 
 export interface IFormBoard {
   title: string;

@@ -11,7 +11,7 @@ import {
 import { useGetBoardsQuery } from '../../../services/Board.service';
 import { useAppSelector, useRootState } from '../../../store/store';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/loder-border.json';
+import Loader from '../../../assets/animation/page-loader.json';
 import cn from 'classnames';
 import { FormColumn } from '../../components/FormColumn/FormColumn';
 import { useFormColumn } from '../../components/FormColumn/useFormColumn';
@@ -29,6 +29,7 @@ import { ITask } from '../../../types/tasks.type';
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
   const userId = useAppSelector((state) => state.auth.user.id);
+  const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
 
   const [loading, setLoading] = useState(false);
 
@@ -202,63 +203,67 @@ function BoardPage() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      {isLoading ? (
-        <Lottie
-          className={cn(styles.loader, { [styles.active]: isLoading })}
-          animationData={Loader}
-        />
-      ) : (
-        <>
-          {activeModal && (
-            <FormColumn
-              handleColumn={handleCreateColumn}
-              column={column}
-              activeModal={activeModal}
-              close={closeModal}
-              loading={loading}
-            />
-          )}
-          <div className={styles.topPanel}>
-            <NavLink to="/main" className={styles.button}>
-              <img src={arrow} alt="arrow" className={styles.arrow} />
-              Back
-            </NavLink>
-            <h3>{boardData?.find((board) => board.id === boardId)?.title || ''}</h3>
-          </div>
-          <div className={styles.boardContainer}>
-            <DragDropContext onDragEnd={dragEndHandler}>
-              <Droppable droppableId="all" direction="horizontal" type="column">
-                {(provided) => (
-                  <div
-                    className={styles.board}
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {dataSort &&
-                      dataSort
-                        .sort((a, b) => a.order - b.order)
-                        .map((column, index) => {
-                          return (
-                            <Column
-                              key={column.id}
-                              id={column.id}
-                              title={column.title}
-                              index={index}
-                            />
-                          );
-                        })}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-              <div>
-                <AddButton title="column" callCreate={callCreate} />
-              </div>
-            </DragDropContext>
-          </div>
-        </>
-      )}
+    <div className={`${styles.boardPage} ${isLightTheme ? styles.lightTheme : styles.darkTheme}`}>
+      <div className={`${styles.wrapper}`}>
+        {isLoading ? (
+          <Lottie
+            className={cn(styles.loader, { [styles.active]: isLoading })}
+            animationData={Loader}
+          />
+        ) : (
+          <>
+            {activeModal && (
+              <FormColumn
+                handleColumn={handleCreateColumn}
+                column={column}
+                activeModal={activeModal}
+                close={closeModal}
+                loading={loading}
+              />
+            )}
+            <div className={styles.topPanel}>
+              <NavLink to="/main" className={styles.button}>
+                <img src={arrow} alt="arrow" className={styles.arrow} />
+                Back
+              </NavLink>
+              <h3 style={{ color: isLightTheme ? '#000' : '#fff' }}>
+                {boardData?.find((board) => board.id === boardId)?.title || ''}
+              </h3>
+            </div>
+            <div className={styles.boardContainer}>
+              <DragDropContext onDragEnd={dragEndHandler}>
+                <Droppable droppableId="all" direction="horizontal" type="column">
+                  {(provided) => (
+                    <div
+                      className={styles.board}
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {dataSort &&
+                        dataSort
+                          .sort((a, b) => a.order - b.order)
+                          .map((column, index) => {
+                            return (
+                              <Column
+                                key={column.id}
+                                id={column.id}
+                                title={column.title}
+                                index={index}
+                              />
+                            );
+                          })}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+                <div>
+                  <AddButton title="column" callCreate={callCreate} />
+                </div>
+              </DragDropContext>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

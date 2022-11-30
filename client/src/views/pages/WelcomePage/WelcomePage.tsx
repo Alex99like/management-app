@@ -10,6 +10,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { Divider } from '@mui/material';
 import TeamMember from './TeamMember';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../../store/store';
 
 function WelcomePage() {
   const links = [
@@ -21,11 +22,11 @@ function WelcomePage() {
   const images = [manImg, womenWithLaptopImg, womenImg];
 
   const { t } = useTranslation();
-
   const { user } = useAuth();
+  const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${isLightTheme ? styles.lightWrapper : styles.darkWrapper}`}>
       <section className={styles.aboutProjectSection}>
         <div>
           <h3>{t('welcomePage.subtitle')}</h3>
@@ -72,7 +73,11 @@ function WelcomePage() {
         </div>
       </section>
       <Divider />
-      <div className={styles.aboutTeamWrapper}>
+      <div
+        className={`${styles.aboutTeamWrapper} ${
+          isLightTheme ? styles.aboutTeamLight : styles.aboutTeamDark
+        }`}
+      >
         <section className={styles.aboutTeamSection}>
           <div>
             <h3>{t('welcomePage.teamSubTitle')}</h3>
