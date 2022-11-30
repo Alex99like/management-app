@@ -26,6 +26,7 @@ import {
 } from '../../../services/Task.service';
 import { ITask } from '../../../types/tasks.type';
 import LoaderPlane from '../../../assets/animation/loading-paperplane.json';
+import { useActions } from '../../../hooks/useAction';
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
@@ -47,6 +48,7 @@ function BoardPage() {
 
   const state = useRootState();
   const dataSort = data && [...data];
+  const { setData } = useActions();
 
   useEffect(() => {
     if (isSuccess) {
@@ -76,6 +78,12 @@ function BoardPage() {
     isLoadingTaskDelete,
     isLoadingTaskCreate,
   ]);
+
+  useEffect(() => {
+    if (data) {
+      setData(data);
+    }
+  }, [data]);
 
   const handleCreateColumn = (data: IColumnReq) => {
     create({ column: { title: data.title }, boardId });
