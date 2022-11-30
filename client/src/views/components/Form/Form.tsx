@@ -12,7 +12,8 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useActions } from '../../../hooks/useAction';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/form-louder.json';
+import Loader from '../../../assets/animation/form-loader.json';
+import { useAppSelector } from '../../../store/store';
 
 export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   const {
@@ -27,6 +28,7 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   const { switcherDown, switcherUp } = useSwitcher(switcher);
   const [active, setActive] = useState(false);
   const { isLoading } = useAuth();
+  const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
 
   const navigate = useNavigate();
 
@@ -64,6 +66,8 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
     <div
       className={cn(styles.background, {
         [styles.active]: active,
+        [styles.backgroundLight]: isLightTheme,
+        [styles.backgroundDark]: !isLightTheme,
       })}
     >
       {isLoading && (
@@ -116,7 +120,7 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
             required: 'Password is required',
             minLength: {
               value: 6,
-              message: 'Please enter a valid email address',
+              message: 'Please enter a valid password',
             },
           })}
           icon={'BsKeyFill'}
