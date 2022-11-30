@@ -25,6 +25,7 @@ import {
   useUpdateTaskMutation,
 } from '../../../services/Task.service';
 import { ITask } from '../../../types/tasks.type';
+import LoaderPlane from '../../../assets/animation/loading-paperplane.json';
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
@@ -90,27 +91,26 @@ function BoardPage() {
       return;
     }
     if (type === 'column' && data) {
-      const columnsOrder = [];
-      let i = 0;
-      while (data && i <= data.length) {
-        const column = data.find((column) => column.order === i);
-        if (column) {
-          columnsOrder.push(column?.id);
-        }
-        i++;
-      }
+      const columnsOrder: string[] = [];
+      const copy = [...data];
+      copy
+        .sort((a, b) => a.order - b.order)
+        .forEach((column) => {
+          columnsOrder.push(column.id);
+        });
       const newColumnOrder = Array.from(columnsOrder);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
 
-      newColumnOrder.forEach((column, index) => {
+      newColumnOrder.forEach(async (column, index) => {
         const columnToChange = data.find((columnData) => columnData.id === column);
-        columnToChange &&
-          update({
+        if (columnToChange) {
+          await update({
             column: { order: index + 1, title: columnToChange.title },
             boardId,
             columnsId: column,
           });
+        }
       });
       return;
     }
@@ -210,6 +210,13 @@ function BoardPage() {
         />
       ) : (
         <>
+          {(isLoadingCreate ||
+            isLoadingUpdate ||
+            isLoadingTaskUpdate ||
+            isLoadingTaskCreate ||
+            isLoadingTaskDelete) && (
+            <Lottie className={cn(styles.loaderPlane)} animationData={LoaderPlane} />
+          )}
           {activeModal && (
             <FormColumn
               handleColumn={handleCreateColumn}

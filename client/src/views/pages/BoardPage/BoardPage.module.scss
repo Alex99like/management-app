@@ -15,7 +15,7 @@
   background: $primary-bg-color;
   padding: 15px 30px;
   min-height: calc(100vh - 145px);
-  overflow-x: auto;
+  // overflow-x: auto;
   overflow-y: hidden;
   animation: 0.7s opacity;
 
@@ -98,4 +98,16 @@
   &::-webkit-scrollbar-thumb:hover {
     background-color: $secondary-bg-color;
   }
+}
+
+.loaderPlane {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 60%;
+  width: 100%;
+  transform: scale(1.7);
+  background: #ffffff4f;
+  z-index: 100;
 }
