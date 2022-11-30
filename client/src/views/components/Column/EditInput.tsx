@@ -10,7 +10,7 @@ import { useAppSelector } from '../../../store/store';
 import { useUpdateColumnMutation } from '../../../services/Column.service';
 import { toastr } from 'react-redux-toastr';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/loading-paperplane.json';
+import Loader from '../../../assets/animation/paperplane.json';
 import cn from 'classnames';
 
 function EditInput(props: {
