@@ -162,10 +162,7 @@ function BoardPage() {
               userId,
             },
           });
-          console.log(actualTask.id);
           actualTask.id = (createdTask as { data: ITask }).data.id;
-          console.log(actualTask);
-          console.log(destination.index + 1);
           if (actualTask.id) {
             updateTask({
               taskId: actualTask.id,
