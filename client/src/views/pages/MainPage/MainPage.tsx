@@ -14,14 +14,23 @@ import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/loder-border.json';
 import cn from 'classnames';
 import { useFormBoard } from '../../components/FormBoard/useFormBoard';
+import { useListenError } from '../../../utils/useListenError';
 
 function MainPage() {
-  const { data, isLoading } = useGetBoardsQuery();
-  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
+  const { data, isLoading, error } = useGetBoardsQuery();
+  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate, error: errorCreate }] =
     useCreateBoardMutation();
-  const [update, { isSuccess: isSuccessUpdate, data: dataItemUpdate, isLoading: isLoadingUpdate }] =
-    useUpdateBoardMutation();
+  const [
+    update,
+    {
+      isSuccess: isSuccessUpdate,
+      data: dataItemUpdate,
+      isLoading: isLoadingUpdate,
+      error: errorUpdate,
+    },
+  ] = useUpdateBoardMutation();
 
+  useListenError([error, errorCreate, errorUpdate]);
   const { activeModal, closeModal, callCreate, callUpdate, board, type } = useFormBoard();
 
   const [loading, setLoading] = useState(false);
