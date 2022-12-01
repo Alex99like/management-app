@@ -14,7 +14,7 @@
   padding: 10px;
   max-height: calc(100vh - 270px);
   min-height: 151px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .loader {
     position: absolute;
@@ -131,7 +131,11 @@
   }
 
   &::-webkit-scrollbar {
-    width: 0;
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $contrast-color;
   }
 }
 
