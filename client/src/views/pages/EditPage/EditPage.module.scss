@@ -6,7 +6,7 @@
   position: relative;
   min-height: calc(100vh - 145px);
   background-color: $secondary-bg-color;
-  background-image: url(../../../assets/images/light-edit.jpg);
+  background-image: url("../../../assets/images/light-edit.jpg");
   background-size: cover;
   background-position: center;
 
@@ -19,7 +19,7 @@
   }
 
   &.bgExit {
-    background-image: url(../../../assets/images/dark-edit.jpg);
+    background-image: url("../../../assets/images/dark-edit.jpg");
     animation: 0.7s opacity;
   }
 
@@ -117,7 +117,7 @@
         width: 70px;
         height: 70px;
         border-radius: 50%;
-        background-image: url(../../../assets/icons/avatar-default.png);
+        background-image: url("../../../assets/icons/avatar-default.png");
         background-size: cover;
         background-position: center;
         border: 5px solid $gray-color;
