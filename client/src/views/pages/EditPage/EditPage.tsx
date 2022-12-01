@@ -119,6 +119,7 @@ export const EditPage = () => {
                 type="password"
                 placeholder="Password"
                 error={errors.password}
+                autoComplete="off"
               />
             </fieldset>
             <Button className={styles.updateBtn}>UPDATE PROFILE</Button>
