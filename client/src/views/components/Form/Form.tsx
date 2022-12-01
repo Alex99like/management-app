@@ -126,6 +126,7 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
           icon={'BsKeyFill'}
           getValue={{ fn: getValues, name: 'password' }}
           type="password"
+          autoComplete="off"
           placeholder="Password"
           active={!!getValues('password')}
           error={errors.password}

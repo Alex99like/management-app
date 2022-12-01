@@ -4,12 +4,12 @@
   width: 100vw;
   height: 100vh;
   flex-direction: column;
-  background: rgb(54,89,209);
-  background: linear-gradient(180deg, rgba(54,89,209,1) 0%, rgba(53,81,201,1) 32%, rgba(255,255,255,1) 100%);
+  background: rgb(54 89 209);
+  background: linear-gradient(180deg, rgb(54 89 209 / 100%) 0%, rgb(53 81 201 / 100%) 32%, rgb(255 255 255 / 100%) 100%);
 
   .title {
     margin-top: 160px;
-    color: #ffffff;
+    color: #fff;
     font-size: 5vw;
     font-weight: 800;
   }
@@ -24,7 +24,7 @@
 
     .or {
       font-size: 4vw;
-      color: #FFFFFF;
+      color: #fff;
     }
 
     .btnContainer {
@@ -37,7 +37,7 @@
       gap: 10px;
       flex-direction: column;
       padding: 5px;
-      border: 2px solid rgba(255, 255, 255, 0.446);
+      border: 2px solid rgb(255 255 255 / 44.6%);
       border-radius: 7px;
 
       .description {
@@ -45,18 +45,18 @@
         font-size: 2vw;
       }
 
-      .btn { 
+      .btn {
         color: white;
         font-size: 2.5vw;
-        padding: 0px 7px;
+        padding: 0 7px;
         border-radius: 5px;
         background: transparent;
-        border: 2px solid rgba(255, 255, 255, 0.446);
-        transition: .2s;
+        border: 2px solid rgb(255 255 255 / 44.6%);
+        transition: 0.2s;
 
         &:hover {
           border: 2px solid transparent;
-          color: rgba(54,89,209,1);
+          color: rgb(54 89 209 / 100%);
           background: white;
         }
       }

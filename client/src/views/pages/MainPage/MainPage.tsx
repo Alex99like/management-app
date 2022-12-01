@@ -38,8 +38,7 @@ function MainPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isLoadingCreate && !isLoadingUpdate) setLoading(true);
-    if (!isLoadingCreate && isLoadingUpdate) setLoading(true);
+    if (isLoadingCreate || isLoadingUpdate) setLoading(true);
     if (!isLoadingCreate && !isLoadingUpdate) setLoading(false);
   }, [isLoadingCreate, isLoadingUpdate]);
 

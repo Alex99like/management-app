@@ -5,10 +5,14 @@
   position: fixed;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
-  height: 80%;
+  padding-top: 30px;
+  height: calc(100% - 145px);
   width: 100%;
   transform: scale(1.7);
+
+  @media (max-width: 600px) {
+    height: calc(100% - 216px);
+  }
 }
 
 .lightWrapper {

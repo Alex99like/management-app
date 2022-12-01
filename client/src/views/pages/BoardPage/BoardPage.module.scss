@@ -3,12 +3,17 @@
 
 .loader {
   position: fixed;
+  left: 0;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
-  height: 80%;
+  padding-top: 10px;
+  height: calc(100% - 145px);
   width: 100%;
   transform: scale(1.7);
+
+  @media (max-width: 600px) {
+    height: calc(100% - 216px);
+  }
 }
 
 .boardPage {
@@ -116,9 +121,10 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  height: 60%;
+  top: 0;
+  left: 0;
+  height: 100%;
   width: 100%;
-  transform: scale(1.7);
-  background: #ffffff4f;
+  background: transparent;
   z-index: 100;
 }
