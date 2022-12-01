@@ -39,6 +39,11 @@ const translationEn = {
       'Programming is hard. The basic rules on which everything is built are very simple, but as the program develops, it itself begins to introduce its own rules and laws. Thus, the programmer builds a labyrinth in which he himself can get lost.',
     ],
   },
+  notFoundPage: {
+    title: 'The page you were looking for could not be found',
+    routesWelcome: 'Go To Welcome Page',
+    routesMain: 'Go To Main Page',
+  },
 };
 
 export default translationEn;
