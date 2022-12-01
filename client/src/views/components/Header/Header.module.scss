@@ -31,15 +31,19 @@ $tablet: 950px;
   }
 }
 
-%header {
+.header {
   padding: 0 30px;
+  height: 80px;
   position: sticky;
   top: 0;
   z-index: 1300;
+  transition:
+    background-color 0.7s ease-in-out,
+    color 0.7s ease-in-out,
+    height 0.5s,
+    box-shadow 0.5s;
 
   @include flex(row, space-between, center);
-
-  transition: all 0.5s;
 
   @media (max-width: 400px) {
     padding: 0 20px;
@@ -57,19 +61,17 @@ $tablet: 950px;
     li {
       @extend %listItem;
 
-      %down {
+      .down {
         width: 15px;
         margin-top: 3px;
         transition: all 0.3s;
       }
 
-      .down {
-        @extend %down;
+      .downDark {
+        filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(1318%) hue-rotate(317deg) brightness(117%) contrast(100%);
       }
 
       .downRotate {
-        @extend %down;
-
         transform: rotate(180deg);
         margin-top: 0;
       }
@@ -138,19 +140,26 @@ $tablet: 950px;
   }
 }
 
-.header {
-  @extend %header;
-
-  height: 80px;
+.headerLight {
+  color: $dark-text-color;
   background-color: $secondary-bg-color;
 }
 
-.headerActive {
-  @extend %header;
+.headerDark {
+  color: $light-text-color;
+  background-color: rgb(39 30 94);
+}
 
+.headerLightActive {
   height: 70px;
   box-shadow: 0 5px 10px -10px $contrast-color;
-  background-color: #eeebff;
+  background-color: $primary-bg-color;
+}
+
+.headerDarkActive {
+  height: 70px;
+  box-shadow: 0 5px 10px -10px $contrast-color;
+  background-color: $dark-bg-color;
 }
 
 .drawer {
@@ -158,6 +167,12 @@ $tablet: 950px;
 
   @media (max-width: $tablet) {
     display: block;
+  }
+
+  .menuItem {
+    &:hover {
+      background-color: $hover-color;
+    }
   }
 
   .buttonGroup {

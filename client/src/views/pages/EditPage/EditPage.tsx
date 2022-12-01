@@ -9,7 +9,7 @@ import cn from 'classnames';
 import styles from './EditPage.module.scss';
 import { useActions } from '../../../hooks/useAction';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/form-louder.json';
+import Loader from '../../../assets/animation/form-loader.json';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 
 export const EditPage = () => {

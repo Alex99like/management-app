@@ -11,14 +11,15 @@ import Board from '../../components/Board/Board';
 import { FormBoard } from '../../components/FormBoard/FormBoard';
 import styles from './MainPage.module.scss';
 import Lottie from 'lottie-react';
-import Loader from '../../../assets/animation/loder-border.json';
+import Loader from '../../../assets/animation/page-loader.json';
 import cn from 'classnames';
 import { useFormBoard } from '../../components/FormBoard/useFormBoard';
-import { useListenError } from '../../../utils/useListenError';
+import { useAppSelector } from '../../../store/store';
 
 function MainPage() {
-  const { data, isLoading, error } = useGetBoardsQuery();
-  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate, error: errorCreate }] =
+  const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
+  const { data, isLoading } = useGetBoardsQuery();
+  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateBoardMutation();
   const [
     update,
@@ -77,9 +78,11 @@ function MainPage() {
           loading={loading}
         />
       )}
-      <div className={styles.wrapper}>
+      <div
+        className={`${styles.wrapper} ${isLightTheme ? styles.lightWrapper : styles.darkWrapper}`}
+      >
         <div className={styles.main}>
-          {!isLoading && <h3>Your Boards</h3>}
+          {!isLoading && <h3 style={{ color: isLightTheme ? '#000' : '#fff' }}>Your Boards</h3>}
           <div className={styles.boards}>
             {!isLoading && (
               <button className={styles.newBoard} onClick={callCreate}>

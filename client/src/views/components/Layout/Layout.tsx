@@ -22,7 +22,6 @@ const Layout = (): JSX.Element => {
       navigate('/');
       toggleRoutes(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routes]);
 
   return (
