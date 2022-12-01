@@ -15,11 +15,12 @@ import Loader from '../../../assets/animation/page-loader.json';
 import cn from 'classnames';
 import { useFormBoard } from '../../components/FormBoard/useFormBoard';
 import { useAppSelector } from '../../../store/store';
+import { useListenError } from '../../../utils/useListenError';
 
 function MainPage() {
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
-  const { data, isLoading } = useGetBoardsQuery();
-  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
+  const { data, isLoading, error } = useGetBoardsQuery();
+  const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate, error: errorCreate }] =
     useCreateBoardMutation();
   const [
     update,
