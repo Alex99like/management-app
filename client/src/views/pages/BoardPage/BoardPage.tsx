@@ -59,11 +59,14 @@ function BoardPage() {
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
-    if (isLoadingCreate && !isLoadingUpdate) setLoading(true);
-    if (!isLoadingCreate && isLoadingUpdate) setLoading(true);
-    if (isLoadingTaskUpdate) setLoading(true);
-    if (isLoadingTaskCreate) setLoading(true);
-    if (isLoadingTaskDelete) setLoading(true);
+    if (
+      isLoadingCreate ||
+      isLoadingUpdate ||
+      isLoadingTaskUpdate ||
+      isLoadingTaskCreate ||
+      isLoadingTaskDelete
+    )
+      setLoading(true);
     if (
       !isLoadingCreate &&
       !isLoadingUpdate &&
@@ -192,11 +195,7 @@ function BoardPage() {
           />
         ) : (
           <>
-            {(isLoadingCreate ||
-              isLoadingUpdate ||
-              isLoadingTaskUpdate ||
-              isLoadingTaskCreate ||
-              isLoadingTaskDelete) && (
+            {!activeModal && loading && (
               <Lottie className={cn(styles.loaderPlane)} animationData={LoaderPlane} />
             )}
             {activeModal && (
