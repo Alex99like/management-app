@@ -110,3 +110,15 @@
 .wrapper::-webkit-scrollbar-thumb:hover {
   background-color: $secondary-bg-color;
 }
+
+.loaderPlane {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 60%;
+  width: 100%;
+  transform: scale(1.7);
+  background: #ffffff4f;
+  z-index: 100;
+}
