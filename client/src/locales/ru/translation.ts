@@ -44,6 +44,10 @@ const translationRu = {
     routesWelcome: 'На Стартовую',
     routesMain: 'На Главную',
   },
+  mainPage: {
+    title: 'Ваши Доски',
+    newBoard: 'Добавить Доску',
+  },
 };
 
 export default translationRu;

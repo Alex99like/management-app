@@ -44,6 +44,10 @@ const translationEn = {
     routesWelcome: 'Go To Welcome Page',
     routesMain: 'Go To Main Page',
   },
+  mainPage: {
+    title: 'Your Boards',
+    newBoard: 'Add New Board',
+  },
 };
 
 export default translationEn;
