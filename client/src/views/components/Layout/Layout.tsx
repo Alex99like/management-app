@@ -5,8 +5,10 @@ import Header from '../Header/Header';
 import ReduxToastrLib from 'react-redux-toastr';
 import { useAuth } from '../../../hooks/useAuth';
 import { useActions } from '../../../hooks/useAction';
+import { withErrorBoundary } from 'react-error-boundary';
+import { ErrorElement } from '../Error/ErrorBoundary';
 
-export const Layout = (): JSX.Element => {
+const Layout = (): JSX.Element => {
   const navigate = useNavigate();
   const { routes, isAuth } = useAuth();
   const { toggleRoutes } = useActions();
@@ -41,3 +43,7 @@ export const Layout = (): JSX.Element => {
     </>
   );
 };
+
+export default withErrorBoundary(Layout, {
+  fallback: <ErrorElement />,
+});

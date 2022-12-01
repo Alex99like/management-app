@@ -21,10 +21,17 @@ function MainPage() {
   const { data, isLoading } = useGetBoardsQuery();
   const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateBoardMutation();
+  const [
+    update,
+    {
+      isSuccess: isSuccessUpdate,
+      data: dataItemUpdate,
+      isLoading: isLoadingUpdate,
+      error: errorUpdate,
+    },
+  ] = useUpdateBoardMutation();
 
-  const [update, { isSuccess: isSuccessUpdate, data: dataItemUpdate, isLoading: isLoadingUpdate }] =
-    useUpdateBoardMutation();
-
+  useListenError([error, errorCreate, errorUpdate]);
   const { activeModal, closeModal, callCreate, callUpdate, board, type } = useFormBoard();
 
   const [loading, setLoading] = useState(false);
@@ -88,7 +95,9 @@ function MainPage() {
               </button>
             )}
             {data &&
-              data.map((board) => <Board key={board.id} board={board} update={callUpdate} />)}
+              data.map((board) => {
+                return <Board key={board.id} board={board} update={callUpdate} />;
+              })}
           </div>
         </div>
       </div>

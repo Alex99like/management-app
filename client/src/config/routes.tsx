@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { ErrorElement } from '../views/components/Error/ErrorBoundary';
 import { FormAuth } from '../views/components/Form/Form';
-import { Layout } from '../views/components/Layout/Layout';
+import Layout from '../views/components/Layout/Layout';
 import BoardPage from '../views/pages/BoardPage/BoardPage';
 import { EditPage } from '../views/pages/EditPage/EditPage';
 import MainPage from '../views/pages/MainPage/MainPage';
@@ -11,6 +12,7 @@ export const publicRouter = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: '/',
@@ -41,6 +43,7 @@ export const privateRouter = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: '/',
