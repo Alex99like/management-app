@@ -16,8 +16,9 @@ import { FormTask, IFormTask } from '../FormTask/FormTask';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { useActions } from '../../../hooks/useAction';
 import EditInput from './EditInput';
+import { AiOutlineOrderedList } from 'react-icons/ai';
 
-function Column(props: { title: string; id: string; index: number }) {
+function Column(props: { title: string; id: string; index: number; order: number }) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [isEdit, setEdit] = useState<boolean>(false);
@@ -102,7 +103,12 @@ function Column(props: { title: string; id: string; index: number }) {
           >
             <div className={styles.container} {...provided.dragHandleProps}>
               {isEdit ? (
-                <EditInput setEdit={setEdit} title={props.title} columnsId={props.id} />
+                <EditInput
+                  setEdit={setEdit}
+                  title={props.title}
+                  columnsId={props.id}
+                  order={props.order}
+                />
               ) : (
                 <h4 className={styles.title} onClick={() => setEdit(true)}>
                   {props.title}

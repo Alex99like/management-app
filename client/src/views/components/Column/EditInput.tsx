@@ -17,6 +17,7 @@ function EditInput(props: {
   setEdit: Dispatch<SetStateAction<boolean>>;
   title: string;
   columnsId: string;
+  order: number;
 }) {
   const {
     register,
@@ -32,7 +33,7 @@ function EditInput(props: {
   const boardId = useAppSelector((state) => state.root.boardId);
 
   const onSubmit: SubmitHandler<IFormColumn> = (data) => {
-    update({ boardId, columnsId, column: { title: data.title, order: 1 } });
+    update({ boardId, columnsId, column: { title: data.title, order: props.order } });
   };
 
   useEffect(() => {

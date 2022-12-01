@@ -235,6 +235,7 @@ function BoardPage() {
                                 id={column.id}
                                 title={column.title}
                                 index={index}
+                                order={column.order}
                               />
                             );
                           })}
