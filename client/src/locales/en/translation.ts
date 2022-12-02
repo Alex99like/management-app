@@ -48,6 +48,31 @@ const translationEn = {
     title: 'Your Boards',
     newBoard: 'Add New Board',
   },
+  editPage: {
+    delete: 'Delete Account',
+    name: 'NAME: ',
+    login: 'LOGIN: ',
+    id: 'Your ID: ',
+    update: 'Update User',
+    form: {
+      name: {
+        placeholder: 'Name',
+        required: 'Name is required',
+        valid: 'Please enter a valid name',
+      },
+      login: {
+        placeholder: 'Login',
+        required: 'Login is required',
+        valid: 'Please enter a valid login',
+      },
+      password: {
+        placeholder: 'Password',
+        required: 'Password is required',
+        valid: 'Password length must be more than 5 elements',
+      },
+      update: 'UPDATE PROFILE',
+    },
+  },
 };
 
 export default translationEn;

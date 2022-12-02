@@ -48,6 +48,31 @@ const translationRu = {
     title: 'Ваши Доски',
     newBoard: 'Добавить Доску',
   },
+  editPage: {
+    delete: 'Удалить Аккаунт',
+    name: 'ИМЯ: ',
+    login: 'ЛОГИН: ',
+    id: 'Ваш ID: ',
+    update: 'Обновить',
+    form: {
+      name: {
+        placeholder: 'Имя',
+        required: 'Имя обязателно для заполнения',
+        valid: 'Пожалуйста, введите корреткное имя пользователя',
+      },
+      login: {
+        placeholder: 'Логин',
+        required: 'Логин обязателен для заполнения',
+        valid: 'Пожалуйста, введите корреткный логин',
+      },
+      password: {
+        placeholder: 'Пароль',
+        required: 'Пароль обязателен для заполнения',
+        valid: 'Длина пароля не может быть короче 5 символов',
+      },
+      update: 'ОБНОВИТЬ ПРОФИЛЬ',
+    },
+  },
 };
 
 export default translationRu;
