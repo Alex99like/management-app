@@ -70,6 +70,11 @@ const translationEn = {
         required: 'Password is required',
         valid: 'Password length must be more than 5 elements',
       },
+      title: {
+        placeholder: 'Title',
+        required: 'Title is required',
+        valid: 'Please enter a valid title',
+      },
       update: 'UPDATE PROFILE',
     },
   },
