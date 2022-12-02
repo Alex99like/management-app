@@ -73,6 +73,9 @@ const translationEn = {
       update: 'UPDATE PROFILE',
     },
   },
+  boardPage: {
+    back: 'Back',
+  },
   toastr: {
     success: 'Success!',
     mainPage: {

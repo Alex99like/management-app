@@ -215,7 +215,7 @@ function BoardPage() {
             <div className={styles.topPanel}>
               <NavLink to="/main" className={styles.button}>
                 <img src={arrow} alt="arrow" className={styles.arrow} />
-                Back
+                {t('boardPage.back')}
               </NavLink>
               <h3 style={{ color: isLightTheme ? '#000' : '#fff' }}>
                 {boardData?.find((board) => board.id === boardId)?.title || ''}

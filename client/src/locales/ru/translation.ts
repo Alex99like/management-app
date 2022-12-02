@@ -73,6 +73,9 @@ const translationRu = {
       update: 'ОБНОВИТЬ ПРОФИЛЬ',
     },
   },
+  boardPage: {
+    back: 'Назад',
+  },
   toastr: {
     success: 'Успешно!',
     mainPage: {
