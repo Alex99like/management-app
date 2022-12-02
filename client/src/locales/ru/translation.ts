@@ -86,6 +86,10 @@ const translationRu = {
       create: 'Создана колонка',
     },
   },
+  addButton: {
+    add: 'Добавить',
+    column: 'колонку',
+  },
 };
 
 export default translationRu;

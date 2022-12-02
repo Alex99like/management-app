@@ -86,6 +86,9 @@ const translationEn = {
       create: 'Column created',
     },
   },
+  addButton: {
+    column: 'column',
+  },
 };
 
 export default translationEn;

@@ -249,7 +249,7 @@ function BoardPage() {
                   )}
                 </Droppable>
                 <div>
-                  <AddButton title="column" callCreate={callCreate} />
+                  <AddButton title={t('addButton.column')} callCreate={callCreate} />
                 </div>
               </DragDropContext>
             </div>
