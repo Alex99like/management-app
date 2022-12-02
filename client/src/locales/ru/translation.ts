@@ -90,6 +90,9 @@ const translationRu = {
     add: 'Добавить',
     column: 'колонку',
   },
+  confirmationModal: {
+    board: 'Все данные доски',
+  },
 };
 
 export default translationRu;

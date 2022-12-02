@@ -45,7 +45,7 @@ function ConfirmationModal(props: {
       case 'Column':
         deleteColumn({ boardId, columnsId: id });
         break;
-      case 'All board data':
+      case 'All board data' && 'Все данные доски':
         deleteBoard({ boardId: id });
         break;
       case 'Account':

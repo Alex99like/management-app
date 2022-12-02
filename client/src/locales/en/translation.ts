@@ -87,7 +87,11 @@ const translationEn = {
     },
   },
   addButton: {
+    add: 'Add',
     column: 'column',
+  },
+  confirmationModal: {
+    board: 'All board data',
   },
 };
 
