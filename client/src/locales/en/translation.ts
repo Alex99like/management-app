@@ -73,6 +73,16 @@ const translationEn = {
       update: 'UPDATE PROFILE',
     },
   },
+  toastr: {
+    success: 'Success!',
+    mainPage: {
+      create: 'Board created',
+      update: 'Board updated',
+    },
+    boardPage: {
+      create: 'Column created',
+    },
+  },
 };
 
 export default translationEn;

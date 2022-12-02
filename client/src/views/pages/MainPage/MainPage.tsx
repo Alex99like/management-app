@@ -46,14 +46,20 @@ function MainPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.mainPage.create')} ${dataItem ? dataItem.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
     if (isSuccessUpdate) {
-      toastr.success('Success!', `Board updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.mainPage.update')}  ${dataItemUpdate ? dataItemUpdate.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItemUpdate, isSuccessUpdate]);

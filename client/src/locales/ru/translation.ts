@@ -73,6 +73,16 @@ const translationRu = {
       update: 'ОБНОВИТЬ ПРОФИЛЬ',
     },
   },
+  toastr: {
+    success: 'Успешно!',
+    mainPage: {
+      create: 'Создана доска',
+      update: 'Обновлена доска',
+    },
+    boardPage: {
+      create: 'Создана колонка',
+    },
+  },
 };
 
 export default translationRu;

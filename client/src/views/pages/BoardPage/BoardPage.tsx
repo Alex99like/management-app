@@ -27,11 +27,13 @@ import {
 import { ITask } from '../../../types/tasks.type';
 import LoaderPlane from '../../../assets/animation/paperplane.json';
 import { useActions } from '../../../hooks/useAction';
+import { useTranslation } from 'react-i18next';
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
   const userId = useAppSelector((state) => state.auth.user.id);
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
+  const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
 
@@ -53,7 +55,10 @@ function BoardPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toastr.success('Success!', `Column created ${dataItem ? dataItem.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.boardPage.create')} ${dataItem ? dataItem.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItem, isSuccess]);
