@@ -87,7 +87,12 @@ const translationRu = {
       },
       formColumn: {
         update: 'Обновить Колонку',
-        create: 'Создать новую колонку',
+        create: 'Создать новую Колонку',
+      },
+      formTask: {
+        update: 'Обновить Задачу',
+        create: 'Создать новую Задачу',
+        assigned: 'Принадлежит: ',
       },
       update: 'ОБНОВИТЬ ПРОФИЛЬ',
     },
@@ -123,6 +128,7 @@ const translationRu = {
   confirmationModal: {
     board: 'Вся доска',
     column: 'Колонка',
+    account: 'Учетная запись',
     sure: 'Вы уверены?',
     delete: ' будет удалена',
     ok: 'ОК',

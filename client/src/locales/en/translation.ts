@@ -89,6 +89,11 @@ const translationEn = {
         update: 'Update Column',
         create: 'Create New Column',
       },
+      formTask: {
+        update: 'Update Task',
+        create: 'Create New Task',
+        assigned: 'Assigned to: ',
+      },
       update: 'UPDATE PROFILE',
     },
   },
@@ -123,6 +128,7 @@ const translationEn = {
   confirmationModal: {
     board: 'All board data',
     column: 'Column',
+    account: 'Account',
     sure: 'Are you sure?',
     delete: ' will be deleted.',
     ok: 'OK',

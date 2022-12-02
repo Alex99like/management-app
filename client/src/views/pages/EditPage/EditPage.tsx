@@ -126,7 +126,12 @@ export const EditPage = () => {
             </fieldset>
             <Button className={styles.updateBtn}>{t('editPage.form.update')}</Button>
           </form>
-          <ConfirmationModal id={user.id} open={openModal} setOpen={setOpenModal} title="Account" />
+          <ConfirmationModal
+            id={user.id}
+            open={openModal}
+            setOpen={setOpenModal}
+            title={t('confirmationModal.account')}
+          />
         </div>
       )}
     </>

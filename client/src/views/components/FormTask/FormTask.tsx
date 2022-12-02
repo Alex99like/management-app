@@ -8,6 +8,7 @@ import { Button } from '../Form/Elements/Button/Button';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/loader.json';
 import { useAuth } from '../../../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export interface IFormTask {
   title: string;
@@ -37,6 +38,7 @@ export const FormTask = ({ activeModal, close, handleTask, task, loading }: IPro
   });
 
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IFormTask> = (data) => {
     handleTask(data);
@@ -47,46 +49,51 @@ export const FormTask = ({ activeModal, close, handleTask, task, loading }: IPro
       <>
         {loading && <Lottie className={cn(styles.loader)} animationData={Loader} />}
         <form onSubmit={handleSubmit(onSubmit)} className={cn(styles.form)}>
-          <h2 className={styles.title}>{task ? `Update Task ${task.title}` : 'Create New Task'}</h2>
+          <h2 className={styles.title}>
+            {task
+              ? `${t('editPage.form.formTask.update')} ${task.title}`
+              : t('editPage.form.formTask.create')}
+          </h2>
           <Field
             {...register('title', {
-              required: 'Title is required',
+              required: t('editPage.form.title.required') as string,
               pattern: {
                 value: taskValid,
-                message: 'Please enter a valid title',
+                message: t('editPage.form.title.valid'),
               },
             })}
             getValueTask={{ fn: getValues, name: 'title' }}
             icon={'BsFileEarmarkWordFill'}
             error={errors.title}
             active={!!task}
-            placeholder={'Title'}
+            placeholder={t('editPage.form.title.placeholder')}
           />
           <Field
             {...register('description', {
-              required: 'Description is required',
+              required: t('editPage.form.description.required') as string,
               pattern: {
                 value: taskValid,
-                message: 'Please enter a valid description',
+                message: t('editPage.form.description.valid'),
               },
             })}
             getValueTask={{ fn: getValues, name: 'description' }}
             icon={'BsChatLeftTextFill'}
             error={errors.description}
             active={!!task}
-            placeholder={'Description'}
+            placeholder={t('editPage.form.description.placeholder')}
           />
           {task && (
             <p className={styles.userName}>
-              Assigned to: <span>{user?.name}</span>
+              {t('editPage.form.formTask.assigned')}
+              <span>{user?.name}</span>
             </p>
           )}
           <div className={styles.btnContainer}>
             <Button disabled={!isValid} className={cn(styles.btn, styles.create)}>
-              {task ? 'Update' : 'Create'}
+              {task ? t('editPage.form.button.update') : t('editPage.form.button.create')}
             </Button>
             <Button type={'button'} onClick={close} className={cn(styles.btn, styles.cancel)}>
-              Cancel
+              {t('editPage.form.button.cancel')}
             </Button>
           </div>
         </form>
