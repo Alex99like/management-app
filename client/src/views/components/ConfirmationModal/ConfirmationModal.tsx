@@ -50,7 +50,7 @@ function ConfirmationModal(props: {
       case 'All board data' && 'Вся доска':
         deleteBoard({ boardId: id });
         break;
-      case 'Account' && 'Аккаунт':
+      case 'Account' && 'Учетная запись':
         toggleRoutes(true);
         user && deleteUser({ id: user?.id });
         break;

@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/form-loader.json';
 import { useAppSelector } from '../../../store/store';
+import { useTranslation } from 'react-i18next';
 
 export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   const {

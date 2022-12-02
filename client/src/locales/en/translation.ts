@@ -75,6 +75,16 @@ const translationEn = {
         required: 'Title is required',
         valid: 'Please enter a valid title',
       },
+      description: {
+        placeholder: 'Description',
+        required: 'Description is required',
+        valid: 'Please enter a valid description',
+      },
+      button: {
+        update: 'Update',
+        create: 'Create',
+        cancel: 'Cancel',
+      },
       update: 'UPDATE PROFILE',
     },
   },
@@ -102,6 +112,10 @@ const translationEn = {
     task: 'task',
   },
   column: "You don't have any tasks yet",
+  formBoard: {
+    update: 'Update Board',
+    create: 'Create New Board',
+  },
   confirmationModal: {
     board: 'All board data',
     column: 'Column',

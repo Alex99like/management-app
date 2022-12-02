@@ -75,6 +75,16 @@ const translationRu = {
         required: 'Заголовок обязателен для заполнения',
         valid: 'Пожалуйста, введите корреткный заголовок',
       },
+      description: {
+        placeholder: 'Описание',
+        required: 'Описание обязательно для заполнения',
+        valid: 'Пожалуйста, введите корреткное описание',
+      },
+      button: {
+        update: 'Обновить',
+        create: 'Создать',
+        cancel: 'Закрыть',
+      },
       update: 'ОБНОВИТЬ ПРОФИЛЬ',
     },
   },
@@ -102,6 +112,10 @@ const translationRu = {
     task: 'задачу',
   },
   column: 'У вас пока нет задач',
+  formBoard: {
+    update: 'Обновить доску',
+    create: 'Создать новую доску',
+  },
   confirmationModal: {
     board: 'Вся доска',
     column: 'Колонка',
