@@ -110,6 +110,14 @@ const translationRu = {
     ok: 'ОК',
     cancel: 'Закрыть',
   },
+  errorBoundary: {
+    title: 'Упс, что-то пошло не так !!!',
+    tryAgain: 'Вы можете попытаться снова',
+    back: 'Назад',
+    or: 'ИЛИ',
+    mainPage: 'Вы можете вернуться на Главную',
+    welcome: 'На Главную',
+  },
 };
 
 export default translationRu;

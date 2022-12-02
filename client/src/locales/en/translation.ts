@@ -110,6 +110,14 @@ const translationEn = {
     ok: 'OK',
     cancel: 'Cancel',
   },
+  errorBoundary: {
+    title: 'Ops, what went wrong !!!',
+    tryAgain: 'You can try again',
+    back: 'Go Back',
+    or: 'OR',
+    mainPage: 'You can return to the main page',
+    welcome: 'Go Welcome',
+  },
 };
 
 export default translationEn;
