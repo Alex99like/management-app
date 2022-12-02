@@ -10,6 +10,7 @@ import { useAppSelector } from '../../../store/store';
 import { useActions } from '../../../hooks/useAction';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDeleteTaskMutation } from '../../../services/Task.service';
+import { useTranslation } from 'react-i18next';
 
 function ConfirmationModal(props: {
   open: boolean;
@@ -23,6 +24,7 @@ function ConfirmationModal(props: {
   const handleClose = () => setOpen(false);
   const { deleteUser, toggleRoutes, logout } = useActions();
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const [deleteBoard, { isSuccess: isSuccessDelete, isLoading: isLoadingDelete }] =
     useDeleteBoardMutation();
@@ -35,7 +37,7 @@ function ConfirmationModal(props: {
 
   useEffect(() => {
     if (isSuccessDelete || isSuccessColumnDelete || isSuccessTaskDelete) {
-      toastr.success('Success!', `${title} deleted!`);
+      toastr.success(t('toastr.success'), `${title} ${t('toastr.delete')}!`);
       handleClose();
     }
   }, [isSuccessDelete, isSuccessColumnDelete, isSuccessTaskDelete]);
@@ -45,14 +47,14 @@ function ConfirmationModal(props: {
       case 'Column' && 'Колонка':
         deleteColumn({ boardId, columnsId: id });
         break;
-      case 'All board data' && 'Все данные доски':
+      case 'All board data' && 'Вся доска':
         deleteBoard({ boardId: id });
         break;
-      case 'Account':
+      case 'Account' && 'Аккаунт':
         toggleRoutes(true);
         user && deleteUser({ id: user?.id });
         break;
-      case 'Task':
+      case 'Task' && 'Задача':
         deleteTask({ boardId, columnsId: columnsId as string, taskId: id });
         break;
     }
@@ -70,14 +72,17 @@ function ConfirmationModal(props: {
           <Lottie className={styles.loader} animationData={Loader} />
         )}
         <Box className={styles.box}>
-          <h4>Are you sure?</h4>
-          <p>{title} will be deleted.</p>
+          <h4>{t('confirmationModal.sure')}</h4>
+          <p>
+            {title}
+            {t('confirmationModal.delete')}
+          </p>
           <div className={styles.buttons}>
             <button className={styles.button} onClick={handleDelete}>
-              OK
+              {t('confirmationModal.ok')}
             </button>
             <button className={styles.button} onClick={handleClose}>
-              Cancel
+              {t('confirmationModal.cancel')}
             </button>
           </div>
         </Box>

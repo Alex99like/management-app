@@ -89,6 +89,7 @@ const translationEn = {
       create: 'Task created',
       update: 'Task updated',
     },
+    delete: 'deleted',
   },
   addButton: {
     add: 'Add',
@@ -99,6 +100,10 @@ const translationEn = {
   confirmationModal: {
     board: 'All board data',
     column: 'Column',
+    sure: 'Are you sure?',
+    delete: ' will be deleted.',
+    ok: 'OK',
+    cancel: 'Cancel',
   },
 };
 

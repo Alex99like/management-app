@@ -89,6 +89,7 @@ const translationRu = {
       create: 'Создана задача',
       update: 'Обновлена задача',
     },
+    delete: 'удалена',
   },
   addButton: {
     add: 'Добавить',
@@ -97,8 +98,12 @@ const translationRu = {
   },
   column: 'У вас пока нет задач',
   confirmationModal: {
-    board: 'Все данные доски',
+    board: 'Вся доска',
     column: 'Колонка',
+    sure: 'Вы уверены?',
+    delete: ' будет удалена',
+    ok: 'ОК',
+    cancel: 'Закрыть',
   },
 };
 
