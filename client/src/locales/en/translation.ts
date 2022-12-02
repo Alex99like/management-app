@@ -85,13 +85,20 @@ const translationEn = {
     boardPage: {
       create: 'Column created',
     },
+    column: {
+      create: 'Task created',
+      update: 'Task updated',
+    },
   },
   addButton: {
     add: 'Add',
     column: 'column',
+    task: 'task',
   },
+  column: "You don't have any tasks yet",
   confirmationModal: {
     board: 'All board data',
+    column: 'Column',
   },
 };
 

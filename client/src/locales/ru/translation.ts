@@ -85,13 +85,20 @@ const translationRu = {
     boardPage: {
       create: 'Создана колонка',
     },
+    column: {
+      create: 'Создана задача',
+      update: 'Обновлена задача',
+    },
   },
   addButton: {
     add: 'Добавить',
     column: 'колонку',
+    task: 'задачу',
   },
+  column: 'У вас пока нет задач',
   confirmationModal: {
     board: 'Все данные доски',
+    column: 'Колонка',
   },
 };
 

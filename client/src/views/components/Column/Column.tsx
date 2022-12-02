@@ -16,7 +16,7 @@ import { FormTask, IFormTask } from '../FormTask/FormTask';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { useActions } from '../../../hooks/useAction';
 import EditInput from './EditInput';
-import { AiOutlineOrderedList } from 'react-icons/ai';
+import { useTranslation } from 'react-i18next';
 
 function Column(props: { title: string; id: string; index: number; order: number }) {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -26,6 +26,7 @@ function Column(props: { title: string; id: string; index: number; order: number
   const userId = useAppSelector((state) => state.auth.user.id);
   const { activeModal, task, closeModal, type, callCreate, callUpdate } = useFormTask();
   const { data } = useGetTasksQuery({ boardId, columnsId: props.id });
+  const { t } = useTranslation();
 
   const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateTaskMutation();
@@ -44,14 +45,20 @@ function Column(props: { title: string; id: string; index: number; order: number
 
   useEffect(() => {
     if (isSuccess) {
-      toastr.success('Success!', `Task created ${dataItem ? dataItem.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.column.create')} ${dataItem ? dataItem.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
     if (isSuccessUpdate) {
-      toastr.success('Success!', `Task updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.column.update')} ${dataItemUpdate ? dataItemUpdate.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItemUpdate, isSuccessUpdate]);
@@ -142,18 +149,18 @@ function Column(props: { title: string; id: string; index: number; order: number
                         />
                       ))
                   ) : (
-                    <p className={styles.message}>You don&apos;t have any tasks yet</p>
+                    <p className={styles.message}>{t('column')}</p>
                   )}
                   {provided.placeholder}
                 </div>
               )}
             </Droppable>
-            <AddButton title="task" callCreate={callCreate} />
+            <AddButton title={t('addButton.task')} callCreate={callCreate} />
             <ConfirmationModal
               id={props.id}
               open={openModal}
               setOpen={setOpenModal}
-              title="Column"
+              title={t('confirmationModal.column')}
             />
           </div>
         )}

@@ -42,7 +42,7 @@ function ConfirmationModal(props: {
 
   const handleDelete = () => {
     switch (title) {
-      case 'Column':
+      case 'Column' && 'Колонка':
         deleteColumn({ boardId, columnsId: id });
         break;
       case 'All board data' && 'Все данные доски':
