@@ -85,6 +85,10 @@ const translationEn = {
         create: 'Create',
         cancel: 'Cancel',
       },
+      formColumn: {
+        update: 'Update Column',
+        create: 'Create New Column',
+      },
       update: 'UPDATE PROFILE',
     },
   },

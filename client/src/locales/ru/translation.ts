@@ -85,6 +85,10 @@ const translationRu = {
         create: 'Создать',
         cancel: 'Закрыть',
       },
+      formColumn: {
+        update: 'Обновить Колонку',
+        create: 'Создать новую колонку',
+      },
       update: 'ОБНОВИТЬ ПРОФИЛЬ',
     },
   },
