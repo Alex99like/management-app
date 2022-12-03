@@ -114,6 +114,15 @@ const translationEn = {
       update: 'Task updated',
     },
     delete: 'deleted',
+    authAction: {
+      completed: 'Completed successfully',
+      registration: 'Registration',
+      login: 'Login',
+      update: 'Update',
+      delete: 'Delete',
+      logout: 'Logout',
+      loggedOut: 'You have logged out of your account',
+    },
   },
   addButton: {
     add: 'Add',

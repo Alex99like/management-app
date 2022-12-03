@@ -114,6 +114,15 @@ const translationRu = {
       update: 'Обновлена задача',
     },
     delete: 'удалена',
+    authAction: {
+      completed: 'Успешно',
+      registration: 'Регистрация',
+      login: 'Логин',
+      update: 'Обновление',
+      delete: 'Удаление',
+      logout: 'Логаут',
+      loggedOut: 'Вы вышли из своего аккаунта',
+    },
   },
   addButton: {
     add: 'Добавить',
