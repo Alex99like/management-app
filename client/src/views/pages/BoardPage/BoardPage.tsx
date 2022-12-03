@@ -16,7 +16,7 @@ import cn from 'classnames';
 import { FormColumn } from '../../components/FormColumn/FormColumn';
 import { useFormColumn } from '../../components/FormColumn/useFormColumn';
 import { useEffect, useState } from 'react';
-import { IColumnReq } from '../../../types/column.type';
+import { IColumn, IColumnReq } from '../../../types/column.type';
 import { toastr } from 'react-redux-toastr';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import {
@@ -34,6 +34,7 @@ function BoardPage() {
   const userId = useAppSelector((state) => state.auth.user.id);
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
   const { t } = useTranslation();
+  const [newData, setNewData] = useState<IColumn[]>([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -92,6 +93,14 @@ function BoardPage() {
     if (data) {
       setData(data);
     }
+  }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      setNewData([...data]);
+    }
+    console.log(newData);
+    console.log('DATA', data);
   }, [data]);
 
   const handleCreateColumn = (data: IColumnReq) => {
