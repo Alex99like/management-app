@@ -123,6 +123,10 @@ const translationEn = {
       logout: 'Logout',
       loggedOut: 'You have logged out of your account',
     },
+    rtkError: 'RTK error',
+    error: 'Error',
+    authorization: 'Authorization',
+    anyError: 'any error',
   },
   addButton: {
     add: 'Add',

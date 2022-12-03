@@ -123,6 +123,10 @@ const translationRu = {
       logout: 'Логаут',
       loggedOut: 'Вы вышли из своего аккаунта',
     },
+    rtkError: 'RTK ошибка',
+    error: 'Ошибка',
+    authorization: 'Авторизация',
+    anyError: 'иная ошибка',
   },
   addButton: {
     add: 'Добавить',
