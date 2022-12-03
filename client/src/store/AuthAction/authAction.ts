@@ -6,13 +6,15 @@ import { AuthService } from '../../services/auth/AuthService';
 import { toastr } from 'react-redux-toastr';
 import { REHYDRATE, getStoredState } from 'reduxjs-toolkit-persist';
 import storage from 'reduxjs-toolkit-persist/lib/storage';
+import { useTranslation } from 'react-i18next';
 
 export const register = createAsyncThunk<IUser, IRegister>(
   'auth/register',
   async ({ login, password, name }, thunkApi) => {
     try {
       const response = await AuthService.register(login, name, password);
-      toastr.success('Registration', 'Completed successfully');
+      const { t } = useTranslation();
+      toastr.success(t('toastr.authAction.registration'), t('toastr.authAction.completed'));
       return response.data;
     } catch (error) {
       toastError(error);
@@ -26,7 +28,8 @@ export const login = createAsyncThunk<IUser, IRegister>(
   async ({ login, password }, thunkApi) => {
     try {
       const response = await AuthService.login(login, password);
-      toastr.success('Login', 'Completed successfully');
+      const { t } = useTranslation();
+      toastr.success(t('toastr.authAction.login'), t('toastr.authAction.completed'));
       return response.data;
     } catch (error) {
       toastError(error);
@@ -40,7 +43,8 @@ export const updateUser = createAsyncThunk<Omit<IUser, 'token'>, IRegister & { i
   async ({ login, password, name, id }, thunkApi) => {
     try {
       const response = await AuthService.update(login, name, password, id);
-      toastr.success('Update', 'Completed successfully');
+      const { t } = useTranslation();
+      toastr.success(t('toastr.authAction.update'), t('toastr.authAction.completed'));
       return response.data;
     } catch (error) {
       toastError(error);
@@ -54,7 +58,8 @@ export const deleteUser = createAsyncThunk<void, { id: string }>(
   async ({ id }, thunkApi) => {
     try {
       await AuthService.delete(id);
-      toastr.success('Delete', 'Completed successfully');
+      const { t } = useTranslation();
+      toastr.success(t('toastr.authAction.delete'), t('toastr.authAction.completed'));
     } catch (error) {
       toastError(error);
       return thunkApi.rejectWithValue(error);
@@ -63,7 +68,8 @@ export const deleteUser = createAsyncThunk<void, { id: string }>(
 );
 
 export const logout = createAsyncThunk<void>('auth/logout', async () => {
-  toastr.warning('Logout', 'You have logged out of your account');
+  const { t } = useTranslation();
+  toastr.warning(t('toastr.authAction.logout'), t('toastr.authAction.loggedOut'));
 });
 
 export const getUserLS = createAsyncThunk(REHYDRATE, async () => {

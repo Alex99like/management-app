@@ -27,11 +27,13 @@ import {
 import { ITask } from '../../../types/tasks.type';
 import LoaderPlane from '../../../assets/animation/paperplane.json';
 import { useActions } from '../../../hooks/useAction';
+import { useTranslation } from 'react-i18next';
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
   const userId = useAppSelector((state) => state.auth.user.id);
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
+  const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
 
@@ -53,7 +55,10 @@ function BoardPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toastr.success('Success!', `Column created ${dataItem ? dataItem.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.boardPage.create')} ${dataItem ? dataItem.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItem, isSuccess]);
@@ -210,7 +215,7 @@ function BoardPage() {
             <div className={styles.topPanel}>
               <NavLink to="/main" className={styles.button}>
                 <img src={arrow} alt="arrow" className={styles.arrow} />
-                Back
+                {t('boardPage.back')}
               </NavLink>
               <h3 style={{ color: isLightTheme ? '#000' : '#fff' }}>
                 {boardData?.find((board) => board.id === boardId)?.title || ''}
@@ -235,6 +240,7 @@ function BoardPage() {
                                 id={column.id}
                                 title={column.title}
                                 index={index}
+                                order={column.order}
                               />
                             );
                           })}
@@ -243,7 +249,7 @@ function BoardPage() {
                   )}
                 </Droppable>
                 <div>
-                  <AddButton title="column" callCreate={callCreate} />
+                  <AddButton title={t('addButton.column')} callCreate={callCreate} />
                 </div>
               </DragDropContext>
             </div>

@@ -9,6 +9,7 @@ import { Button } from '../Form/Elements/Button/Button';
 import { IBoardReq } from '../../../types/board.type';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/loader.json';
+import { useTranslation } from 'react-i18next';
 
 export interface IFormBoard {
   title: string;
@@ -38,6 +39,8 @@ export const FormBoard = ({ activeModal, close, handleBoard, board, loading }: I
     },
   });
 
+  const { t } = useTranslation();
+
   const onSubmit: SubmitHandler<IFormBoard> = (data) => {
     handleBoard(data);
   };
@@ -48,42 +51,42 @@ export const FormBoard = ({ activeModal, close, handleBoard, board, loading }: I
         {loading && <Lottie className={cn(styles.loader)} animationData={Loader} />}
         <form onSubmit={handleSubmit(onSubmit)} className={cn(styles.form)}>
           <h2 className={styles.title}>
-            {board ? `Update Board ${board.title}` : 'Create New Board'}
+            {board ? `${t('formBoard.update')} ${board.title}` : t('formBoard.create')}
           </h2>
           <Field
             {...register('title', {
-              required: 'Title is required',
+              required: t('editPage.form.title.required') as string,
               pattern: {
                 value: boardValid,
-                message: 'Please enter a valid title',
+                message: t('editPage.form.title.valid'),
               },
             })}
             getValueBoard={{ fn: getValues, name: 'title' }}
             icon={'BsFileEarmarkWordFill'}
             error={errors.title}
             active={!!board}
-            placeholder={'Title'}
+            placeholder={t('editPage.form.title.placeholder')}
           />
           <Field
             {...register('description', {
-              required: 'Description is required',
+              required: t('editPage.form.description.required') as string,
               pattern: {
                 value: boardValid,
-                message: 'Please enter a valid description',
+                message: t('editPage.form.description.valid'),
               },
             })}
             getValueBoard={{ fn: getValues, name: 'description' }}
             icon={'BsChatLeftTextFill'}
             error={errors.description}
             active={!!board}
-            placeholder={'Description'}
+            placeholder={t('editPage.form.description.placeholder')}
           />
           <div className={styles.btnContainer}>
             <Button disabled={!isValid} className={cn(styles.btn, styles.create)}>
-              {board ? 'Update' : 'Create'}
+              {board ? t('editPage.form.button.update') : t('editPage.form.button.create')}
             </Button>
             <Button type={'button'} onClick={close} className={cn(styles.btn, styles.cancel)}>
-              Cancel
+              {t('editPage.form.button.cancel')}
             </Button>
           </div>
         </form>

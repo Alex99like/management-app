@@ -3,6 +3,7 @@ import { toastr } from 'react-redux-toastr';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const isFetchBaseQueryError = (
   error: FetchBaseQueryError | SerializedError | undefined
@@ -15,16 +16,20 @@ export const useListenError = (
   errors: Array<FetchBaseQueryError | SerializedError | undefined>
 ) => {
   const { toggleRoutes, logout } = useActions();
+  const { t } = useTranslation();
 
   useEffect(() => {
     errors.forEach((error) => {
       if (isFetchBaseQueryError(error)) {
         if (error.status === 401) {
-          toastr.error('Error', 'Authorization');
+          toastr.error(t('toastr.rtkError'), t('toastr.authorization'));
           toggleRoutes(true);
           logout();
         } else {
-          toastr.error('Error', (error.data as { message: string }).message || 'any error');
+          toastr.error(
+            t('toastr.rtkError'),
+            (error.data as { message: string }).message || t('toastr.anyError')
+          );
         }
       }
     });

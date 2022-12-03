@@ -11,12 +11,14 @@ import { useActions } from '../../../hooks/useAction';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/form-loader.json';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
+import { useTranslation } from 'react-i18next';
 
 export const EditPage = () => {
   const { user, isLoading } = useAuth();
   const { updateUser } = useActions();
   const [bgDelete, setBgDelete] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const { t } = useTranslation();
 
   const {
     register,
@@ -56,75 +58,80 @@ export const EditPage = () => {
                 onMouseOut={() => setBgDelete(false)}
                 onClick={() => setOpenModal(true)}
               >
-                Delete Account
+                {t('editPage.delete')}
               </Button>
               <div className={styles.avatar}></div>
               <div className={styles.data}>
                 <h3 className={styles.name}>
-                  <span>NAME: </span>
+                  <span>{t('editPage.name')}</span>
                   <p>{user.name}</p>
                 </h3>
                 <h3 className={styles.name}>
-                  <span>LOGIN: </span>
+                  <span>{t('editPage.login')}</span>
                   <p>{user.login}</p>
                 </h3>
               </div>
             </div>
             <h3 className={styles.id}>
-              <span>Your ID: </span>
+              <span>{t('editPage.id')}</span>
               {user.id}
             </h3>
           </div>
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset className={styles.fieldset}>
-              <legend className={styles.legend}>Update User</legend>
+              <legend className={styles.legend}>{t('editPage.update')}</legend>
               <Field
                 {...register('name', {
-                  required: 'Name is required',
+                  required: t('editPage.form.name.required') as string,
                   pattern: {
                     value: nameValid,
-                    message: 'Please enter a valid name',
+                    message: t('editPage.form.name.valid'),
                   },
                 })}
                 icon={'BsEmojiSmile'}
                 getValue={{ fn: getValues, name: 'name' }}
-                placeholder="Name"
+                placeholder={t('editPage.form.name.placeholder')}
                 active={!!user.name}
                 error={errors.name}
               />
               <Field
                 {...register('login', {
-                  required: 'Login is required',
+                  required: t('editPage.form.login.required') as string,
                   pattern: {
                     value: nameValid,
-                    message: 'Please enter a valid login',
+                    message: t('editPage.form.login.valid'),
                   },
                 })}
                 icon={'BsPersonFill'}
                 getValue={{ fn: getValues, name: 'login' }}
-                placeholder="Login"
+                placeholder={t('editPage.form.login.placeholder')}
                 active={!!user.login}
                 error={errors.login}
               />
               <Field
                 {...register('password', {
-                  required: 'Password is required',
+                  required: t('editPage.form.password.required') as string,
                   minLength: {
                     value: 6,
-                    message: 'Please enter a valid email address',
+                    message: t('editPage.form.password.valid'),
                   },
                 })}
                 icon={'BsKeyFill'}
                 getValue={{ fn: getValues, name: 'password' }}
                 type="password"
-                placeholder="Password"
+                placeholder={t('editPage.form.password.placeholder')}
                 error={errors.password}
                 autoComplete="off"
               />
             </fieldset>
-            <Button className={styles.updateBtn}>UPDATE PROFILE</Button>
+            <Button className={styles.updateBtn}>{t('editPage.form.update')}</Button>
           </form>
-          <ConfirmationModal id={user.id} open={openModal} setOpen={setOpenModal} title="Account" />
+          <ConfirmationModal
+            id={user.id}
+            open={openModal}
+            setOpen={setOpenModal}
+            title={t('confirmationModal.account')}
+          />
         </div>
       )}
     </>

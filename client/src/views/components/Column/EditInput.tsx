@@ -12,17 +12,21 @@ import { toastr } from 'react-redux-toastr';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/paperplane.json';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 function EditInput(props: {
   setEdit: Dispatch<SetStateAction<boolean>>;
   title: string;
   columnsId: string;
+  order: number;
 }) {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<IFormColumn>();
+
+  const { t } = useTranslation();
 
   const [update, { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate, data: dataItemUpdate }] =
     useUpdateColumnMutation();
@@ -32,13 +36,16 @@ function EditInput(props: {
   const boardId = useAppSelector((state) => state.root.boardId);
 
   const onSubmit: SubmitHandler<IFormColumn> = (data) => {
-    update({ boardId, columnsId, column: { title: data.title, order: 1 } });
+    update({ boardId, columnsId, column: { title: data.title, order: props.order } });
   };
 
   useEffect(() => {
     if (isSuccessUpdate) {
       setEdit(false);
-      toastr.success('Success!', `Column updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.column.update')} ${dataItemUpdate ? dataItemUpdate.title : ''}!`
+      );
     }
   }, [dataItemUpdate, isSuccessUpdate, setEdit]);
 
@@ -51,10 +58,10 @@ function EditInput(props: {
           defaultValue={title}
           autoFocus
           {...register('title', {
-            required: 'Title is required',
+            required: t('editPage.form.title.required') as string,
             pattern: {
               value: columnValid,
-              message: 'Please enter a valid title',
+              message: t('editPage.form.title.valid'),
             },
           })}
         />

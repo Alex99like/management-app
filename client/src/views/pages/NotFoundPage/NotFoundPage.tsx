@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../hooks/useAuth';
 import Button from '../../components/Button/Button';
 import styles from './NotFoundPage.module.scss';
@@ -6,6 +7,7 @@ function NotFoundPage() {
   const classNames: string[] = ['last', 'second', 'first', 'basic', 'first', 'second', 'last'];
   const error = 401;
   const { routes } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.notFound}>
@@ -16,9 +18,11 @@ function NotFoundPage() {
           </p>
         ))}
       </div>
-      <p className={styles.title}>The page you were looking for could not be found</p>
+      <p className={styles.title}>{t('notFoundPage.title')}</p>
       <Button
-        title={routes === 'private' ? 'Go To Welcome Page' : 'Go To Main Page'}
+        title={
+          routes === 'private' ? t('notFoundPage.routesWelcome') : t('notFoundPage.routesMain')
+        }
         link={routes === 'private' ? '/' : '/main'}
       />
     </div>

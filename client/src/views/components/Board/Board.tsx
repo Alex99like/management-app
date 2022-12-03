@@ -6,6 +6,7 @@ import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useState } from 'react';
 import { IFormBoard } from '../FormBoard/FormBoard';
 import { useActions } from '../../../hooks/useAction';
+import { useTranslation } from 'react-i18next';
 
 interface IBoardProps {
   board: {
@@ -18,6 +19,7 @@ interface IBoardProps {
 
 function Board({ board: { title, description, id }, update }: IBoardProps) {
   const [openModal, setOpenModal] = useState(false);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const { setBoardId } = useActions();
@@ -49,7 +51,12 @@ function Board({ board: { title, description, id }, update }: IBoardProps) {
         </div>
         <p className={styles.description}>{description}</p>
       </div>
-      <ConfirmationModal id={id} open={openModal} setOpen={setOpenModal} title="All board data" />
+      <ConfirmationModal
+        id={id}
+        open={openModal}
+        setOpen={setOpenModal}
+        title={t('confirmationModal.board') as string}
+      />
     </>
   );
 }

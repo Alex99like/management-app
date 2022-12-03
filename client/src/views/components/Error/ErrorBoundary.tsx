@@ -1,24 +1,26 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import styles from './ErrorElement.module.scss';
 
 export const ErrorElement = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Ops, what went wrong !!!</h1>
+      <h1 className={styles.title}>{t('errorBoundary.title')}</h1>
       <div className={styles.containerChoice}>
         <div className={styles.btnContainer}>
-          <p className={styles.description}>You can try again</p>
+          <p className={styles.description}>{t('errorBoundary.tryAgain')}</p>
           <button className={styles.btn} onClick={() => window.location.reload()}>
-            Go Back
+            {t('errorBoundary.back')}
           </button>
         </div>
-        <h2 className={styles.or}>OR</h2>
+        <h2 className={styles.or}>{t('errorBoundary.or')}</h2>
         <div className={styles.btnContainer}>
-          <p className={styles.description}>You can return to the main page</p>
+          <p className={styles.description}>{t('errorBoundary.mainPage')}</p>
           <button className={styles.btn} onClick={() => location.replace('/')}>
-            Go Welcome
+            {t('errorBoundary.welcome')}
           </button>
         </div>
       </div>

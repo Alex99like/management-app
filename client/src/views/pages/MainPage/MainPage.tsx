@@ -16,6 +16,7 @@ import cn from 'classnames';
 import { useFormBoard } from '../../components/FormBoard/useFormBoard';
 import { useAppSelector } from '../../../store/store';
 import { useListenError } from '../../../utils/useListenError';
+import { useTranslation } from 'react-i18next';
 
 function MainPage() {
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
@@ -36,6 +37,7 @@ function MainPage() {
   const { activeModal, closeModal, callCreate, callUpdate, board, type } = useFormBoard();
 
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isLoadingCreate || isLoadingUpdate) setLoading(true);
@@ -44,14 +46,20 @@ function MainPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toastr.success('Success!', `Board created ${dataItem ? dataItem.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.mainPage.create')} ${dataItem ? dataItem.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
     if (isSuccessUpdate) {
-      toastr.success('Success!', `Board updated ${dataItemUpdate ? dataItemUpdate.title : ''}!`);
+      toastr.success(
+        t('toastr.success'),
+        `${t('toastr.mainPage.update')}  ${dataItemUpdate ? dataItemUpdate.title : ''}!`
+      );
       closeModal();
     }
   }, [dataItemUpdate, isSuccessUpdate]);
@@ -82,7 +90,9 @@ function MainPage() {
         className={`${styles.wrapper} ${isLightTheme ? styles.lightWrapper : styles.darkWrapper}`}
       >
         <div className={styles.main}>
-          {!isLoading && <h3 style={{ color: isLightTheme ? '#000' : '#fff' }}>Your Boards</h3>}
+          {!isLoading && (
+            <h3 style={{ color: isLightTheme ? '#000' : '#fff' }}>{t('mainPage.title')}</h3>
+          )}
           <div className={styles.boards}>
             {!isLoading && (
               <button className={styles.newBoard} onClick={callCreate}>
@@ -90,7 +100,7 @@ function MainPage() {
                   <span className={styles.add}>
                     <MaterialIconBS name={'BsPlusLg'} />
                   </span>
-                  <p className={styles.title}>Add New Board</p>
+                  <p className={styles.title}>{t('mainPage.newBoard')}</p>
                 </div>
               </button>
             )}

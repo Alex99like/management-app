@@ -3,12 +3,3 @@ export interface IRegister {
   login: string;
   password: string;
 }
-
-// export interface IRegisterRes extends Omit<IRegister, 'password'> {
-//   id: string;
-// }
-
-// export interface ILogReg {
-//   login: string;
-//   password: string;
-// }
