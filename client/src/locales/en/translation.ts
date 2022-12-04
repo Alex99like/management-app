@@ -1,5 +1,6 @@
 const translationEn = {
   header: {
+    welcome: 'Welcome',
     board: 'Create Board',
     profile: 'Edit Profile',
     language: {
@@ -92,7 +93,6 @@ const translationEn = {
       formTask: {
         update: 'Update Task',
         create: 'Create New Task',
-        assigned: 'Assigned to: ',
       },
       update: 'UPDATE PROFILE',
     },

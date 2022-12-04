@@ -12,7 +12,8 @@
   box-shadow: 0 1px 10px -5px $contrast-color;
   transition: box-shadow 0.5s;
 
-  &[data-title="column"] {
+  &[data-title="column"],
+  &[data-title="колонку"] {
     margin: 15px 30px 15px 0;
 
     @media (max-width: 400px) {

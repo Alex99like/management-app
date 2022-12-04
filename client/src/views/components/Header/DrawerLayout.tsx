@@ -18,6 +18,8 @@ import Buttons from './Buttons';
 import { useAuth } from '../../../hooks/useAuth';
 import i18n from '../../../utils/i18next';
 import { useAppSelector } from '../../../store/store';
+import { useTranslation } from 'react-i18next';
+import { useActions } from '../../../hooks/useAction';
 
 type DrawerLayoutPropsType = {
   menuOpen: boolean;
@@ -31,6 +33,8 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({
   handleCreateButton,
 }) => {
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
+  const { t } = useTranslation();
+  const { changeLang } = useActions();
 
   const theme = createTheme({
     components: {
@@ -49,6 +53,7 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({
   const { user } = useAuth();
 
   function handleClick(key: string) {
+    changeLang(key);
     i18n.changeLanguage(key);
   }
 
@@ -66,25 +71,31 @@ const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({
             <>
               <List>
                 <Link to="/">
-                  <MenuItem icon={<HomeOutlinedIcon color="primary" />} caption="Welcome" />
+                  <MenuItem
+                    icon={<HomeOutlinedIcon color="primary" />}
+                    caption={t('header.welcome')}
+                  />
                 </Link>
               </List>
               <List>
                 <Link to="/main" onClick={handleCreateButton}>
-                  <MenuItem icon={<DashboardIcon color="primary" />} caption="Create Board" />
+                  <MenuItem icon={<DashboardIcon color="primary" />} caption={t('header.board')} />
                 </Link>
               </List>
               <List>
                 <Link to={'/edit'}>
-                  <MenuItem icon={<AccountCircleIcon color="primary" />} caption="Edit Profile" />
+                  <MenuItem
+                    icon={<AccountCircleIcon color="primary" />}
+                    caption={t('header.profile')}
+                  />
                 </Link>
               </List>
               <Divider />
               <Buttons />
               <Divider />
               <ButtonGroup variant="text" className={styles.buttonGroup}>
-                <Button onClick={() => handleClick('en')}>English</Button>
-                <Button onClick={() => handleClick('ru')}>Russian</Button>
+                <Button onClick={() => handleClick('en')}>{t('header.language.en')}</Button>
+                <Button onClick={() => handleClick('ru')}>{t('header.language.ru')}</Button>
               </ButtonGroup>
             </>
           ) : (
