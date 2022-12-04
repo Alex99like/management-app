@@ -34,11 +34,11 @@ function BoardPage() {
   const userId = useAppSelector((state) => state.auth.user.id);
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
   const { t } = useTranslation();
-  const [newData, setNewData] = useState<IColumn[]>([]);
+  const [newData, setNewData] = useState<IColumn[] | undefined>([]);
 
   const [loading, setLoading] = useState(false);
 
-  const { data, isLoading } = useGetColumnsQuery({ boardId });
+  const { data, isLoading, currentData } = useGetColumnsQuery({ boardId });
   const { data: boardData } = useGetBoardsQuery();
   const { activeModal, column, closeModal, callCreate } = useFormColumn();
 
@@ -51,7 +51,7 @@ function BoardPage() {
   const [deleteTask, { isLoading: isLoadingTaskDelete }] = useDeleteTaskMutation();
 
   const state = useRootState();
-  const dataSort = data && [...data];
+  const dataSort = newData && [...newData];
   const { setData } = useActions();
 
   useEffect(() => {
@@ -96,11 +96,9 @@ function BoardPage() {
   }, [data]);
 
   useEffect(() => {
-    if (data) {
-      setNewData([...data]);
-    }
+    setNewData(data ? [...data] : undefined);
+    // setData(data ? [...data] : undefined);
     console.log(newData);
-    console.log('DATA', data);
   }, [data]);
 
   const handleCreateColumn = (data: IColumnReq) => {
@@ -118,6 +116,19 @@ function BoardPage() {
     }
     if (type === 'column' && data) {
       const columnToChange = data.find((columnData) => columnData.id === draggableId);
+      if (newData && columnToChange) {
+        newData.sort((a, b) => a.order - b.order);
+        const arr = newData.filter((columnData) => columnData.id !== draggableId);
+        // arr.splice(columnToChange.order, 0, {
+        //   ...columnToChange,
+        //   order: destination.index + 1,
+        // });
+        arr.push({
+          ...columnToChange,
+          order: destination.index + 1,
+        });
+        setNewData(arr);
+      }
       columnToChange &&
         update({
           column: { order: destination.index + 1, title: columnToChange.title },
