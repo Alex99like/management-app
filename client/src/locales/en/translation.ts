@@ -142,6 +142,7 @@ const translationEn = {
     board: 'All board data',
     column: 'Column',
     account: 'Account',
+    task: 'Task',
     sure: 'Are you sure?',
     delete: ' will be deleted.',
     ok: 'OK',
