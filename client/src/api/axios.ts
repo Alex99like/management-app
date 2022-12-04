@@ -3,7 +3,7 @@ import { IUser } from '../types/user.type';
 import { getContentType } from '../utils/api.utils';
 
 //export const API_URL = `http://localhost:4200`;
-export const API_URL = 'https://managment-two.onrender.com';
+export const API_URL = 'https://managment-two.onrender.com/';
 
 export const axiosClassic = axios.create({
   baseURL: API_URL,

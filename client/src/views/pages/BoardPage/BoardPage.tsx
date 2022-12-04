@@ -16,7 +16,7 @@ import cn from 'classnames';
 import { FormColumn } from '../../components/FormColumn/FormColumn';
 import { useFormColumn } from '../../components/FormColumn/useFormColumn';
 import { useEffect, useState } from 'react';
-import { IColumnReq } from '../../../types/column.type';
+import { IColumn, IColumnReq } from '../../../types/column.type';
 import { toastr } from 'react-redux-toastr';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import {
@@ -34,10 +34,11 @@ function BoardPage() {
   const userId = useAppSelector((state) => state.auth.user.id);
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
   const { t } = useTranslation();
+  const [newData, setNewData] = useState<IColumn[] | undefined>([]);
 
   const [loading, setLoading] = useState(false);
 
-  const { data, isLoading } = useGetColumnsQuery({ boardId });
+  const { data, isLoading, isFetching } = useGetColumnsQuery({ boardId });
   const { data: boardData } = useGetBoardsQuery();
   const { activeModal, column, closeModal, callCreate } = useFormColumn();
 
@@ -50,7 +51,7 @@ function BoardPage() {
   const [deleteTask, { isLoading: isLoadingTaskDelete }] = useDeleteTaskMutation();
 
   const state = useRootState();
-  const dataSort = data && [...data];
+  const dataSort = newData && [...newData];
   const { setData } = useActions();
 
   useEffect(() => {
@@ -64,6 +65,12 @@ function BoardPage() {
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
+    if (isFetching) setLoading(true);
+    else setLoading(false);
+  }, [isFetching, data]);
+
+  useEffect(() => {
+    console.log('fetch');
     if (
       isLoadingCreate ||
       isLoadingUpdate ||
@@ -94,6 +101,10 @@ function BoardPage() {
     }
   }, [data]);
 
+  useEffect(() => {
+    setNewData(data ? [...data] : undefined);
+  }, [data]);
+
   const handleCreateColumn = (data: IColumnReq) => {
     create({ column: { title: data.title }, boardId });
   };
@@ -109,6 +120,22 @@ function BoardPage() {
     }
     if (type === 'column' && data) {
       const columnToChange = data.find((columnData) => columnData.id === draggableId);
+      if (newData && columnToChange) {
+        const arr = newData.filter((columnData) => columnData.id !== draggableId);
+
+        arr.sort((a, b) => a.order - b.order);
+        const filterData = arr.filter((el) => el.id !== draggableId);
+        filterData.splice(destination.index, 0, {
+          ...columnToChange,
+          order: destination.index + 1,
+        });
+
+        const sortData = filterData.map((el, i) => {
+          if (el.id !== draggableId) return { ...el, order: i + 1 };
+          else return el;
+        });
+        setNewData(sortData);
+      }
       columnToChange &&
         update({
           column: { order: destination.index + 1, title: columnToChange.title },

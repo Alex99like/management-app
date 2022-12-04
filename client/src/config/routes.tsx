@@ -32,6 +32,14 @@ export const publicRouter = createBrowserRouter([
         element: <EditPage />,
       },
       {
+        path: 'login',
+        element: <FormAuth path={'login'} />,
+      },
+      {
+        path: 'register',
+        element: <FormAuth path={'register'} />,
+      },
+      {
         path: '*',
         element: <NotFound />,
       },
