@@ -1,11 +1,11 @@
 import { Menu, MenuItem } from '@mui/material';
 import styles from './Header.module.scss';
 import down from '../../../assets/icons/down.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../utils/i18next';
 import { useActions } from '../../../hooks/useAction';
-import { useAppSelector, useRootState } from '../../../store/store';
+import { useAppSelector } from '../../../store/store';
 
 function SwitchLanguage() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -14,11 +14,6 @@ function SwitchLanguage() {
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
   const { changeLang } = useActions();
-  const state = useRootState();
-
-  useEffect(() => {
-    i18n.changeLanguage(state.lang);
-  }, [state.lang]);
 
   function handleOpen(event: React.MouseEvent<HTMLDivElement>) {
     setAnimate(true);
@@ -30,6 +25,7 @@ function SwitchLanguage() {
     setAnchorEl(null);
     if (typeof key === 'string') {
       changeLang(key);
+      i18n.changeLanguage(key);
     }
   }
 

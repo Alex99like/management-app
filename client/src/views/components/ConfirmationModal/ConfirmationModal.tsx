@@ -11,6 +11,7 @@ import { useActions } from '../../../hooks/useAction';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDeleteTaskMutation } from '../../../services/Task.service';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../../utils/i18next';
 
 function ConfirmationModal(props: {
   open: boolean;
@@ -22,7 +23,7 @@ function ConfirmationModal(props: {
   const { open, setOpen, title, id, columnsId } = props;
   const boardId = useAppSelector((state) => state.root.boardId);
   const handleClose = () => setOpen(false);
-  const { deleteUser, toggleRoutes, logout } = useActions();
+  const { deleteUser, toggleRoutes, changeLang } = useActions();
   const { user } = useAuth();
   const { t } = useTranslation();
 
@@ -44,17 +45,34 @@ function ConfirmationModal(props: {
 
   const handleDelete = () => {
     switch (title) {
-      case 'Column' && 'Колонка':
+      case 'Column':
         deleteColumn({ boardId, columnsId: id });
         break;
-      case 'All board data' && 'Вся доска':
+      case 'Колонка':
+        deleteColumn({ boardId, columnsId: id });
+        break;
+      case 'All board data':
         deleteBoard({ boardId: id });
         break;
-      case 'Account' && 'Учетная запись':
+      case 'Вся доска':
+        deleteBoard({ boardId: id });
+        break;
+      case 'Account':
+        changeLang('en');
+        i18n.changeLanguage('en');
         toggleRoutes(true);
         user && deleteUser({ id: user?.id });
         break;
-      case 'Task' && 'Задача':
+      case 'Учетная запись':
+        changeLang('en');
+        i18n.changeLanguage('en');
+        toggleRoutes(true);
+        user && deleteUser({ id: user?.id });
+        break;
+      case 'Task':
+        deleteTask({ boardId, columnsId: columnsId as string, taskId: id });
+        break;
+      case 'Задача':
         deleteTask({ boardId, columnsId: columnsId as string, taskId: id });
         break;
     }

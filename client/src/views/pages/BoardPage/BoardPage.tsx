@@ -98,7 +98,6 @@ function BoardPage() {
   useEffect(() => {
     setNewData(data ? [...data] : undefined);
     // setData(data ? [...data] : undefined);
-    console.log(newData);
   }, [data]);
 
   const handleCreateColumn = (data: IColumnReq) => {

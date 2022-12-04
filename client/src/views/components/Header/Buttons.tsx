@@ -6,10 +6,11 @@ import arrow from '../../../assets/icons/icon-arrow-right.svg';
 import { useAuth } from '../../../hooks/useAuth';
 import { useActions } from '../../../hooks/useAction';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../../utils/i18next';
 
 function Buttons() {
   const { user } = useAuth();
-  const { logout, toggleRoutes } = useActions();
+  const { logout, toggleRoutes, changeLang } = useActions();
   const { t } = useTranslation();
 
   return (
@@ -29,6 +30,8 @@ function Buttons() {
           <button
             className={buttonStyle.button}
             onClick={() => {
+              changeLang('en');
+              i18n.changeLanguage('en');
               toggleRoutes(true);
               logout();
             }}
