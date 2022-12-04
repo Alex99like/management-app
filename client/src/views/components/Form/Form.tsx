@@ -28,10 +28,11 @@ export const FormAuth = ({ path }: { path: 'login' | 'register' }) => {
   const [switcher, setSwitcher] = useState<'login' | 'register'>(path);
   const { switcherDown, switcherUp } = useSwitcher(switcher);
   const [active, setActive] = useState(false);
-  const { isLoading } = useAuth();
+  const { isLoading, user } = useAuth();
   const isLightTheme = useAppSelector((state) => state.root.isLightTheme);
 
   const navigate = useNavigate();
+  if (user) navigate('/');
 
   const onLogin = () => {
     navigate('/login');

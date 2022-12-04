@@ -38,7 +38,7 @@ function BoardPage() {
 
   const [loading, setLoading] = useState(false);
 
-  const { data, isLoading, currentData } = useGetColumnsQuery({ boardId });
+  const { data, isLoading, isFetching } = useGetColumnsQuery({ boardId });
   const { data: boardData } = useGetBoardsQuery();
   const { activeModal, column, closeModal, callCreate } = useFormColumn();
 
@@ -65,6 +65,12 @@ function BoardPage() {
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
+    if (isFetching) setLoading(true);
+    else setLoading(false);
+  }, [isFetching, data]);
+
+  useEffect(() => {
+    console.log('fetch');
     if (
       isLoadingCreate ||
       isLoadingUpdate ||
@@ -97,7 +103,6 @@ function BoardPage() {
 
   useEffect(() => {
     setNewData(data ? [...data] : undefined);
-    // setData(data ? [...data] : undefined);
   }, [data]);
 
   const handleCreateColumn = (data: IColumnReq) => {
@@ -116,17 +121,20 @@ function BoardPage() {
     if (type === 'column' && data) {
       const columnToChange = data.find((columnData) => columnData.id === draggableId);
       if (newData && columnToChange) {
-        newData.sort((a, b) => a.order - b.order);
         const arr = newData.filter((columnData) => columnData.id !== draggableId);
-        // arr.splice(columnToChange.order, 0, {
-        //   ...columnToChange,
-        //   order: destination.index + 1,
-        // });
-        arr.push({
+
+        arr.sort((a, b) => a.order - b.order);
+        const filterData = arr.filter((el) => el.id !== draggableId);
+        filterData.splice(destination.index, 0, {
           ...columnToChange,
           order: destination.index + 1,
         });
-        setNewData(arr);
+
+        const sortData = filterData.map((el, i) => {
+          if (el.id !== draggableId) return { ...el, order: i + 1 };
+          else return el;
+        });
+        setNewData(sortData);
       }
       columnToChange &&
         update({
