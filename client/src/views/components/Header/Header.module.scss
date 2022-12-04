@@ -3,7 +3,7 @@
 
 $tablet: 950px;
 
-%listItem {
+%list-item {
   padding: 5px;
   text-align: center;
   border-radius: 24px;
@@ -27,7 +27,55 @@ $tablet: 950px;
     background-color: transparent;
     color: $contrast-color;
 
-    @extend %listItem;
+    @extend %list-item;
+  }
+}
+
+.drawer {
+  display: none;
+
+  @media (max-width: $tablet) {
+    display: block;
+  }
+
+  .menuItem {
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+
+  .buttonGroup {
+    margin: 10px;
+
+    @include flex(row, center, center);
+
+    & > * {
+      text-transform: capitalize;
+      font-family: inherit;
+      font-weight: inherit;
+      font-size: inherit;
+      border-radius: 24px;
+
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  }
+
+  img {
+    width: 15px;
+    padding-top: 2px;
+  }
+
+  .buttons {
+    @extend %buttons;
+
+    margin: 10px auto;
+
+    .primary {
+      padding: 10px;
+      width: auto;
+    }
   }
 }
 
@@ -59,7 +107,7 @@ $tablet: 950px;
     }
 
     li {
-      @extend %listItem;
+      @extend %list-item;
 
       .down {
         width: 15px;
@@ -160,54 +208,6 @@ $tablet: 950px;
   height: 70px;
   box-shadow: 0 5px 10px -10px $contrast-color;
   background-color: $dark-bg-color;
-}
-
-.drawer {
-  display: none;
-
-  @media (max-width: $tablet) {
-    display: block;
-  }
-
-  .menuItem {
-    &:hover {
-      background-color: $hover-color;
-    }
-  }
-
-  .buttonGroup {
-    margin: 10px;
-
-    @include flex(row, center, center);
-
-    & > * {
-      text-transform: capitalize;
-      font-family: inherit;
-      font-weight: inherit;
-      font-size: inherit;
-      border-radius: 24px;
-
-      &:hover {
-        background-color: $hover-color;
-      }
-    }
-  }
-
-  img {
-    width: 15px;
-    padding-top: 2px;
-  }
-
-  .buttons {
-    @extend %buttons;
-
-    margin: 10px auto;
-
-    .primary {
-      padding: 10px;
-      width: auto;
-    }
-  }
 }
 
 .select {
