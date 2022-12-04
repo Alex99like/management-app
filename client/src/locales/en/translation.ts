@@ -1,5 +1,6 @@
 const translationEn = {
   header: {
+    welcome: 'Welcome',
     board: 'Create Board',
     profile: 'Edit Profile',
     language: {
