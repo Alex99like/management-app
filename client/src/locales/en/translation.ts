@@ -93,7 +93,6 @@ const translationEn = {
       formTask: {
         update: 'Update Task',
         create: 'Create New Task',
-        assigned: 'Assigned to: ',
       },
       update: 'UPDATE PROFILE',
     },

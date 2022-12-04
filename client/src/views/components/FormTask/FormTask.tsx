@@ -7,7 +7,6 @@ import cn from 'classnames';
 import { Button } from '../Form/Elements/Button/Button';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/loader.json';
-import { useAuth } from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
 export interface IFormTask {
@@ -37,7 +36,6 @@ export const FormTask = ({ activeModal, close, handleTask, task, loading }: IPro
     },
   });
 
-  const { user } = useAuth();
   const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IFormTask> = (data) => {
@@ -82,12 +80,6 @@ export const FormTask = ({ activeModal, close, handleTask, task, loading }: IPro
             active={!!task}
             placeholder={t('editPage.form.description.placeholder')}
           />
-          {task && (
-            <p className={styles.userName}>
-              {t('editPage.form.formTask.assigned')}
-              <span>{user?.name}</span>
-            </p>
-          )}
           <div className={styles.btnContainer}>
             <Button disabled={!isValid} className={cn(styles.btn, styles.create)}>
               {task ? t('editPage.form.button.update') : t('editPage.form.button.create')}

@@ -93,7 +93,6 @@ const translationRu = {
       formTask: {
         update: 'Обновить Задачу',
         create: 'Создать новую Задачу',
-        assigned: 'Принадлежит: ',
       },
       update: 'ОБНОВИТЬ ПРОФИЛЬ',
     },
