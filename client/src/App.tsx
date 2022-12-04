@@ -12,6 +12,7 @@ function App() {
 
   useEffect(() => {
     i18n.changeLanguage(state.lang);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import styles from './ErrorElement.module.scss';
 
 export const ErrorElement = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
   return (
