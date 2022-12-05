@@ -35,7 +35,8 @@ function BoardPage() {
   const { data: boardData } = useGetBoardsQuery();
   const { activeModal, column, closeModal, callCreate } = useFormColumn();
 
-  const [create, { isSuccess, data: dataItem }] = useCreateColumnMutation();
+  const [create, { isSuccess, data: dataItem, isLoading: isCreateLoading }] =
+    useCreateColumnMutation();
 
   const [update] = useUpdateColumnMutation();
   const [updateTask] = useUpdateTaskMutation();
@@ -51,7 +52,7 @@ function BoardPage() {
       );
       closeModal();
     }
-  }, [closeModal, dataItem, isSuccess, t]);
+  }, [dataItem, isSuccess]);
 
   useEffect(() => {
     if (data) {
