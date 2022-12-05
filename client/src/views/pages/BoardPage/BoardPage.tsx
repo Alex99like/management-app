@@ -5,7 +5,7 @@ import Column from '../../components/Column/Column';
 import styles from './BoardPage.module.scss';
 import { useCreateColumnMutation, useUpdateColumnMutation } from '../../../services/Column.service';
 import { useGetBoardByIdQuery, useGetBoardsQuery } from '../../../services/Board.service';
-import { useAppSelector, useRootState } from '../../../store/store';
+import { useAppSelector } from '../../../store/store';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/page-loader.json';
 import cn from 'classnames';
@@ -28,7 +28,9 @@ function BoardPage() {
   const { t } = useTranslation();
   const [newData, setNewData] = useState<TestColumns[] | undefined>([]);
 
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
+
+  const [createLoading, setCreateLoading] = useState(false);
 
   const { data, isLoading } = useGetBoardByIdQuery(boardId);
 
@@ -41,8 +43,11 @@ function BoardPage() {
   const [update] = useUpdateColumnMutation();
   const [updateTask] = useUpdateTaskMutation();
 
-  const state = useRootState();
   const { setData } = useActions();
+
+  useEffect(() => {
+    setCreateLoading(isCreateLoading);
+  }, [isCreateLoading, isSuccess]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -52,6 +57,7 @@ function BoardPage() {
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
@@ -211,6 +217,7 @@ function BoardPage() {
   return (
     <div className={`${styles.boardPage} ${isLightTheme ? styles.lightTheme : styles.darkTheme}`}>
       <div className={styles.wrapper}>
+        {}
         {isLoading ? (
           <Lottie
             className={cn(styles.loader, { [styles.active]: isLoading })}
@@ -227,7 +234,7 @@ function BoardPage() {
                 column={column}
                 activeModal={activeModal}
                 close={closeModal}
-                loading={loading}
+                loading={createLoading}
               />
             )}
             <div className={styles.topPanel}>
