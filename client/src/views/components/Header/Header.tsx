@@ -42,6 +42,7 @@ function Header() {
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
   useEffect(() => {

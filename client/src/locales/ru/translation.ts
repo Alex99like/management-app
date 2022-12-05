@@ -142,6 +142,7 @@ const translationRu = {
     board: 'Вся доска',
     column: 'Колонка',
     account: 'Учетная запись',
+    task: 'Задача',
     sure: 'Вы уверены?',
     delete: ' будет удалена',
     ok: 'ОК',

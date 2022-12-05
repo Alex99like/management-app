@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { Draggable } from 'react-beautiful-dnd';
 import { ITask, IUpdateTask } from '../../../types/tasks.type';
+import { useTranslation } from 'react-i18next';
 
 interface IPropsTask {
   task: ITask;
@@ -15,6 +16,7 @@ interface IPropsTask {
 
 function Task({ task, columnsId, index, callUpdate }: IPropsTask) {
   const [openModal, setOpenModal] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -53,7 +55,7 @@ function Task({ task, columnsId, index, callUpdate }: IPropsTask) {
         id={task.id}
         open={openModal}
         setOpen={setOpenModal}
-        title="Task"
+        title={t('confirmationModal.task')}
         columnsId={columnsId}
       />
     </>

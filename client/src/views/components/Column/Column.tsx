@@ -41,6 +41,7 @@ function Column(props: { title: string; id: string; index: number; order: number
     if (data) {
       setData(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function Column(props: { title: string; id: string; index: number; order: number
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
@@ -61,6 +63,7 @@ function Column(props: { title: string; id: string; index: number; order: number
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItemUpdate, isSuccessUpdate]);
 
   useEffect(() => {
