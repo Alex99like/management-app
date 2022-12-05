@@ -1,0 +1,133 @@
+@import "../../../style/variables";
+@import "../../../style/abstracts";
+
+.container {
+  position: fixed;
+
+  @include flex(row, flex-end, flex-start);
+
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  z-index: 100000;
+
+  .modal {
+    position: relative;
+    flex-direction: column;
+    right: 63px;
+    background-color: $secondary-bg-color;
+    display: flex;
+    padding: 15px 20px 20px;
+    border-radius: 20px;
+    width: 230px;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
+    animation: 0.4s modal normal;
+
+    @keyframes modal {
+      0% {
+        transform: scale(0.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .title {
+      font-weight: 600;
+      color: $contrast-color;
+      font-family: "Hind Vadodara", sans-serif;
+    }
+
+    .spanContainer {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      justify-content: center;
+
+      .spanOne,
+      .spanTwo,
+      .spanTree,
+      .spanFour,
+      .spanFive {
+        display: flex;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: $pale-red-color;
+      }
+
+      .spanOne {
+        animation: 0.5s linear 0.5s infinite alternate span-mig;
+
+        @keyframes span-mig {
+          0% {
+            box-shadow: none;
+          }
+
+          100% {
+            box-shadow: 0 0 8px $pale-red-color;
+          }
+        }
+      }
+
+      .spanTwo {
+        animation: 0.6s linear 0.6s infinite alternate span-mig;
+
+        @keyframes span-mig {
+          0% {
+            box-shadow: none;
+          }
+
+          100% {
+            box-shadow: 0 0 8px $pale-red-color;
+          }
+        }
+      }
+
+      .spanTree {
+        animation: 0.7s linear 0.7s infinite alternate span-mig;
+
+        @keyframes span-mig {
+          0% {
+            box-shadow: none;
+          }
+
+          100% {
+            box-shadow: 0 0 8px $pale-red-color;
+          }
+        }
+      }
+
+      .spanFour {
+        animation: 0.8s linear 0.8s infinite alternate span-mig;
+
+        @keyframes span-mig {
+          0% {
+            box-shadow: none;
+          }
+
+          100% {
+            box-shadow: 0 0 8px $pale-red-color;
+          }
+        }
+      }
+
+      .spanFive {
+        animation: 0.9s linear 0.9s infinite alternate span-mig;
+
+        @keyframes span-mig {
+          0% {
+            box-shadow: none;
+          }
+
+          100% {
+            box-shadow: 0 0 8px $pale-red-color;
+          }
+        }
+      }
+    }
+  }
+}
