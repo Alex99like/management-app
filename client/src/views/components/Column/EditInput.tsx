@@ -47,6 +47,7 @@ function EditInput(props: {
         `${t('toastr.column.update')} ${dataItemUpdate ? dataItemUpdate.title : ''}!`
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItemUpdate, isSuccessUpdate, setEdit]);
 
   return (

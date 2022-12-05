@@ -37,9 +37,9 @@
     border-radius: 30px;
     padding: 30px 10px;
     margin: calc(50vh - 82px) auto 0;
-    animation: animateModal 0.7s;
+    animation: animate-modal 0.7s;
 
-    @keyframes animateModal {
+    @keyframes animate-modal {
       0% {
         transform: translateY(-300px) scale(0.01);
       }
@@ -83,23 +83,23 @@
         &:nth-child(1) {
           background-color: $red-color;
           box-shadow: 0 10px 20px -4px $red-color;
-
-          &:hover {
-            box-shadow: 0 0 4px $red-color;
-            background-color: $secondary-bg-color;
-            text-shadow: 0 0 2px $red-color;
-          }
         }
 
         &:nth-child(2) {
           background-color: $contrast-color;
           box-shadow: 0 10px 20px -4px $contrast-color;
+        }
 
-          &:hover {
-            box-shadow: 0 0 4px $contrast-color;
-            background-color: $secondary-bg-color;
-            text-shadow: 0 0 2px $contrast-color;
-          }
+        &:nth-child(1):hover {
+          box-shadow: 0 0 4px $red-color;
+          background-color: $secondary-bg-color;
+          text-shadow: 0 0 2px $red-color;
+        }
+
+        &:nth-child(2):hover {
+          box-shadow: 0 0 4px $contrast-color;
+          background-color: $secondary-bg-color;
+          text-shadow: 0 0 2px $contrast-color;
         }
       }
     }

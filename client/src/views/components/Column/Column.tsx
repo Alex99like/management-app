@@ -37,6 +37,7 @@ function Column(props: {
     useUpdateTaskMutation();
 
   const { data } = props;
+
   useEffect(() => {
     if (isSuccess) {
       toastr.success(
@@ -45,6 +46,7 @@ function Column(props: {
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
@@ -55,6 +57,7 @@ function Column(props: {
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItemUpdate, isSuccessUpdate]);
 
   useEffect(() => {
