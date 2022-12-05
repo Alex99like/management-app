@@ -52,6 +52,7 @@ function MainPage() {
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
@@ -62,6 +63,7 @@ function MainPage() {
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItemUpdate, isSuccessUpdate]);
 
   const handleCreateBoard = (data: IBoardReq) => {

@@ -62,6 +62,7 @@ function BoardPage() {
       );
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
@@ -98,6 +99,7 @@ function BoardPage() {
     if (data) {
       setData(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {

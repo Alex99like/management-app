@@ -48,14 +48,6 @@
       width: 24px;
     }
 
-    .deleteImg {
-      width: 20px;
-
-      &:hover {
-        background-color: #e7f2fe49;
-      }
-    }
-
     .image,
     .deleteImg {
       box-sizing: content-box;
@@ -63,6 +55,14 @@
       padding: 3px;
       transition: all 0.5s;
       filter: saturate(100%) invert(47%) sepia(14%) saturate(2873%) hue-rotate(168deg) brightness(87%);
+    }
+
+    .deleteImg {
+      width: 20px;
+
+      &:hover {
+        background-color: #e7f2fe49;
+      }
     }
   }
 

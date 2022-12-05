@@ -46,7 +46,7 @@
     gap: 15px;
     border-radius: 30px;
     outline: none;
-    animation: animateModal;
+    animation: animate-modal;
     transform: scale(1.2);
     animation-duration: 0.7s;
 
@@ -54,7 +54,7 @@
       padding: 20px 15px 15px;
     }
 
-    @keyframes animateModal {
+    @keyframes animate-modal {
       0% {
         transform: translateY(-300px) scale(0.01);
       }

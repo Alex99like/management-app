@@ -41,6 +41,7 @@ function ConfirmationModal(props: {
       toastr.success(t('toastr.success'), `${title} ${t('toastr.delete')}!`);
       handleClose();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccessDelete, isSuccessColumnDelete, isSuccessTaskDelete]);
 
   const handleDelete = () => {
