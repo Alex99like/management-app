@@ -6,7 +6,7 @@ export const tasksApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getTasks: builder.query<ITasks, { boardId: string; columnsId: string }>({
       query: ({ boardId, columnsId }) => `boards/${boardId}/columns/${columnsId}`,
-      providesTags: () => [{ type: 'Tasks' }],
+      providesTags: () => [{ type: 'Boards' }],
     }),
     createTask: builder.mutation<ITask, { task: ITaskReq; boardId: string; columnsId: string }>({
       query: ({ boardId, columnsId, task }) => ({
