@@ -17,6 +17,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { useActions } from '../../../hooks/useAction';
 import EditInput from './EditInput';
 import { useTranslation } from 'react-i18next';
+import { ITasks } from '../../../types/tasks.type';
 
 function Column(props: { title: string; id: string; index: number; order: number }) {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -28,6 +29,8 @@ function Column(props: { title: string; id: string; index: number; order: number
   const { data } = useGetTasksQuery({ boardId, columnsId: props.id });
   const { t } = useTranslation();
 
+  const [columnTasks, setColumnTasks] = useState<ITasks | undefined>(undefined);
+
   const [create, { isSuccess, data: dataItem, isLoading: isLoadingCreate }] =
     useCreateTaskMutation();
 
@@ -35,12 +38,17 @@ function Column(props: { title: string; id: string; index: number; order: number
     useUpdateTaskMutation();
 
   const { setData } = useActions();
-  const dataTasksSort = data && [...data.tasks];
+  // const dataTasksSort = columnTasks && [...columnTasks.tasks];
+  const dataTasksSort = columnTasks && [...columnTasks.tasks];
 
   useEffect(() => {
     if (data) {
       setData(data);
     }
+  }, [data]);
+
+  useEffect(() => {
+    setColumnTasks(data ? { ...data } : undefined);
   }, [data]);
 
   useEffect(() => {

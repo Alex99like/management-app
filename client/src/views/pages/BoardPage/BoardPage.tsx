@@ -38,7 +38,7 @@ function BoardPage() {
 
   const [loading, setLoading] = useState(false);
 
-  const { data, isLoading, isFetching } = useGetColumnsQuery({ boardId });
+  const { data, isLoading } = useGetColumnsQuery({ boardId });
   const { data: boardData } = useGetBoardsQuery();
   const { activeModal, column, closeModal, callCreate } = useFormColumn();
 
@@ -65,12 +65,11 @@ function BoardPage() {
   }, [dataItem, isSuccess]);
 
   useEffect(() => {
-    if (isFetching) setLoading(true);
+    if (isLoading) setLoading(true);
     else setLoading(false);
-  }, [isFetching, data]);
+  }, [isLoading, data]);
 
   useEffect(() => {
-    console.log('fetch');
     if (
       isLoadingCreate ||
       isLoadingUpdate ||
@@ -118,6 +117,7 @@ function BoardPage() {
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
+
     if (type === 'column' && data) {
       const columnToChange = data.find((columnData) => columnData.id === draggableId);
       if (newData && columnToChange) {
@@ -150,13 +150,12 @@ function BoardPage() {
 
     if (start === finish && start) {
       const column = state.initialData.columns[start.id as keyof typeof state.initialData.columns];
-      if (column) {
+      if (column && newData) {
         const newTaskOrder: Record<string, string>[] = Array.from(
           column.order as Record<string, string>[]
         );
         newTaskOrder.sort((a, b) => +a.order - +b.order);
         const actualTask = newTaskOrder[source.index];
-
         updateTask({
           taskId: actualTask.id,
           task: {
@@ -168,7 +167,6 @@ function BoardPage() {
             userId,
           },
         });
-
         return;
       }
     } else {
@@ -276,7 +274,7 @@ function BoardPage() {
                   )}
                 </Droppable>
                 <div>
-                  <AddButton title={t('addButton.column')} callCreate={callCreate} />
+                  <AddButton title="column" callCreate={callCreate} />
                 </div>
               </DragDropContext>
             </div>
@@ -286,5 +284,4 @@ function BoardPage() {
     </div>
   );
 }
-
 export default BoardPage;
