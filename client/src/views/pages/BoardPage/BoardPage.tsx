@@ -5,7 +5,7 @@ import Column from '../../components/Column/Column';
 import styles from './BoardPage.module.scss';
 import { useCreateColumnMutation, useUpdateColumnMutation } from '../../../services/Column.service';
 import { useGetBoardByIdQuery, useGetBoardsQuery } from '../../../services/Board.service';
-import { useAppSelector, useRootState } from '../../../store/store';
+import { useAppSelector } from '../../../store/store';
 import Lottie from 'lottie-react';
 import Loader from '../../../assets/animation/page-loader.json';
 import cn from 'classnames';
@@ -20,6 +20,7 @@ import LoaderPlane from '../../../assets/animation/paperplane.json';
 import { useActions } from '../../../hooks/useAction';
 import { useTranslation } from 'react-i18next';
 import { TestColumns } from '../../../types/allTypes';
+import { ModalChange } from '../../components/ModalChange/ModalChange';
 
 function BoardPage() {
   const boardId = useAppSelector((state) => state.root.boardId);
@@ -28,20 +29,38 @@ function BoardPage() {
   const { t } = useTranslation();
   const [newData, setNewData] = useState<TestColumns[] | undefined>([]);
 
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
+
+  const [createLoading, setCreateLoading] = useState(false);
 
   const { data, isLoading } = useGetBoardByIdQuery(boardId);
 
   const { data: boardData } = useGetBoardsQuery();
   const { activeModal, column, closeModal, callCreate } = useFormColumn();
 
-  const [create, { isSuccess, data: dataItem }] = useCreateColumnMutation();
+  const [create, { isSuccess, data: dataItem, isLoading: isCreateLoading }] =
+    useCreateColumnMutation();
 
-  const [update] = useUpdateColumnMutation();
-  const [updateTask] = useUpdateTaskMutation();
+  const [update, { isLoading: isLoadingColumn, isSuccess: isSuccessColumn }] =
+    useUpdateColumnMutation();
+  const [updateTask, { isLoading: isLoadingTask, isSuccess: isSuccessTask }] =
+    useUpdateTaskMutation();
 
-  const state = useRootState();
+  const [dragLoading, setDragLoading] = useState(false);
+
+  useEffect(() => {
+    setDragLoading(isLoadingColumn);
+  }, [isLoadingColumn, isSuccessColumn]);
+
+  useEffect(() => {
+    setDragLoading(isLoadingTask);
+  }, [isLoadingTask, isSuccessTask]);
+
   const { setData } = useActions();
+
+  useEffect(() => {
+    setCreateLoading(isCreateLoading);
+  }, [isCreateLoading, isSuccess]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -51,7 +70,8 @@ function BoardPage() {
       );
       closeModal();
     }
-  }, [closeModal, dataItem, isSuccess, t]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataItem, isSuccess]);
 
   useEffect(() => {
     if (data) {
@@ -210,6 +230,7 @@ function BoardPage() {
   return (
     <div className={`${styles.boardPage} ${isLightTheme ? styles.lightTheme : styles.darkTheme}`}>
       <div className={styles.wrapper}>
+        {dragLoading && <ModalChange />}
         {isLoading ? (
           <Lottie
             className={cn(styles.loader, { [styles.active]: isLoading })}
@@ -226,7 +247,7 @@ function BoardPage() {
                 column={column}
                 activeModal={activeModal}
                 close={closeModal}
-                loading={loading}
+                loading={createLoading}
               />
             )}
             <div className={styles.topPanel}>
