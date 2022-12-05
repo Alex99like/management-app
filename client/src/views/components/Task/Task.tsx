@@ -15,7 +15,6 @@ interface IPropsTask {
 
 function Task({ task, columnsId, index, callUpdate }: IPropsTask) {
   const [openModal, setOpenModal] = useState(false);
-
   return (
     <>
       <Draggable draggableId={task.id} index={index}>
